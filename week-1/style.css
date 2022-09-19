@@ -62,3 +62,13 @@ body {
     text-align: right;
   }
 }
+
+.welcome-block {
+  align-items: center;
+  background-color: #DDEEF8;
+  display: flex;
+  font-size: 200%;
+  font-weight: bold;
+  height: 300px;
+  justify-content: center;
+}
