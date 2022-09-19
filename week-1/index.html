@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewpoint" content="width=device-width">
+    <link rel="icon" href="icon/favicon-16x16.png">
+    <link rel="stylesheet" href="style.css">
+    <title>RWD Practice</title>
+  </head>
+  <body>
+    <div class="nav">
+      <div class="bar">
+        <div class="title">My Website</div>
+        <div class="icon" onclick="handleNavIconClick()"></div>
+      </div>
+      <div id="nav-links">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  function handleNavIconClick() {
+    const element = document.getElementById("nav-links");
+    if (element.style.display !== "flex") {
+      element.style.display = "flex";
+    } else {
+      element.style.display = "";
+    }
+  }
+</script>

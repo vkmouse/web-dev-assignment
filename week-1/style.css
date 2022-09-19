@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5em;
+}
+
+.nav .bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav .bar .title {
+  font-weight: bold;
+}
+
+.nav .bar .icon {
+  background-image: url('icon/hamberger.svg');
+  background-position: center;
+  display: none;
+  height: 32px;
+  resize: none;
+  width: 32px;
+}
+
+.nav .bar .icon:hover {
+  background-color: #DDDDDD;
+}
+
+.nav #nav-links {
+  display: flex;
+  flex-direction: row;
+}
+
+.nav li {
+  display: inline;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+@media screen and (max-width: 600px) {
+  .nav {
+    display: block;
+  }
+
+  .nav .bar .icon {
+    display: block;
+  }
+
+  .nav #nav-links {
+    display: none;
+    flex-direction: column;
+  }
+  
+  .nav li {
+    margin-left: 0;
+    margin-right: 0.5em;
+    text-align: right;
+  }
+}
