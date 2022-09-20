@@ -76,3 +76,33 @@
 - 需求: 一個網格系統需要 ```display: grid``` 和 ```grid-template-columns```
 - 範例: 設定為一列四格可以設為 ```grid-template-columns: repeat(4, 1fr)```，當需要不同數量為二時可以修改為 ```repeat(2, 1fr)```
 - 間距: 透過 ```column-gap: 1em``` 和 ```row-gap: 1em``` 可以設定上下左右的間距都是 1em，並且**間距設定不包含邊緣**，若有需求要用 ```margin``` 或 ```padding```
+
+    <div>
+      <img src="https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/grid_system1.png" width="400px"/>
+      <div>圖 6、網格系統</div>
+    </div>
+    
+## 長寬比的區塊 (aspect ratio)
+
+- 用途: 將某一區塊設定長寬比，常用於限定影像長寬比
+- 需求: 需要有外層 ```container``` 和內層 ```media```
+  - 外層設定寬為 1 (width: 100%)，長為 0.5625 (padding-top: 56.25%)，則為 16:9
+  - 內層設定為```position: absolute```，**該屬性會往上層找層級最接近的** ```position:relative```，並以它作為絕對座標
+- 範例: 16:9 如下，4:3 則設定為 3/4 = 0.75，3:2 則設定為 2/3 = 0.6667
+
+```
+    .container {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    }
+
+    .media {
+      position: absolute;
+      top: 0;
+    }
+```
+
+參考資料: 
+- [New aspect-ratio CSS property supported in Chromium, Safari Technology Preview, and Firefox Nightly](https://web.dev/aspect-ratio/)
+- [CSS relative? absolute? 傻傻分不清楚](https://ithelp.ithome.com.tw/articles/10212202)
