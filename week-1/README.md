@@ -90,7 +90,7 @@
   - 內層設定為```position: absolute```，**該屬性會往上層找層級最接近的** ```position:relative```，並以它作為絕對座標
 - 範例: 16:9 如下，4:3 則設定為 3/4 = 0.75，3:2 則設定為 2/3 = 0.6667
 
-```
+    ```
     .container {
       position: relative;
       width: 100%;
@@ -101,8 +101,30 @@
       position: absolute;
       top: 0;
     }
-```
+    ```
 
 參考資料: 
 - [New aspect-ratio CSS property supported in Chromium, Safari Technology Preview, and Firefox Nightly](https://web.dev/aspect-ratio/)
 - [CSS relative? absolute? 傻傻分不清楚](https://ithelp.ithome.com.tw/articles/10212202)
+
+## 中心裁剪 (center cropped)
+
+- 用途: 將影像中心裁剪到符合長寬需求
+
+    ```
+    .center-cropped {
+      object-fit: cover;
+      object-position: center;
+    }
+    ```
+
+- 範例: 
+
+    ```
+    <div style="width: 250px; height: 250px">
+      <img style="width: 100%; height: 100%" src="...">
+    </div>
+    <div style="width: 250px; height: 250px">
+      <img style="width: 100%; height: 100%; object-fit: cover; object-position: center;" src="...">
+    </div>
+    ```
