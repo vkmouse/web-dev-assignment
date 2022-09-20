@@ -69,4 +69,10 @@
       element.style.display = "";
     }
     ```
-    
+
+## 網格系統的應用
+
+- 用途: 網格系統在 RWD 的應用上，可以透過修改一列要呈現的數量，來縮小橫幅所需要的版面
+- 需求: 一個網格系統需要 ```display: grid``` 和 ```grid-template-columns```
+- 範例: 設定為一列四格可以設為 ```grid-template-columns: repeat(4, 1fr)```，當需要不同數量為二時可以修改為 ```repeat(2, 1fr)```
+- 間距: 透過 ```column-gap: 1em``` 和 ```row-gap: 1em``` 可以設定上下左右的間距都是 1em，並且**間距設定不包含邊緣**，若有需求要用 ```margin``` 或 ```padding```
