@@ -9,11 +9,11 @@
   </head>
   <body>
     <div class="nav">
-      <div class="bar">
-        <div class="title">My Website</div>
-        <div class="icon" onclick="handleNavIconClick()"></div>
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="font-weight-bold">My Website</div>
+        <div class="nav-icon" onclick="handleNavIconClick()"></div>
       </div>
-      <div id="nav-links">
+      <div class="nav-links" id="mylinks">
         <li>Item 1</li>
         <li>Item 2</li>
         <li>Item 3</li>
@@ -170,7 +170,7 @@
 
 <script>
   function handleNavIconClick() {
-    const element = document.getElementById("nav-links");
+    const element = document.getElementById("mylinks");
     if (element.style.display !== "flex") {
       element.style.display = "flex";
     } else {
