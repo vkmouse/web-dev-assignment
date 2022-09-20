@@ -120,6 +120,17 @@
 
 - 範例: 
 
+    <div>
+      <img src="https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/center_cropped1.png" width="250px"/>
+      <div>圖 7、縮放影像</div>
+    </div>
+    
+    <div>
+      <img src="https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/center_cropped2.png" width="250px"/>
+      <div>圖 8、執行中心裁剪</div>
+    </div>
+
+
     ```
     <div style="width: 250px; height: 250px">
       <img style="width: 100%; height: 100%" src="...">
@@ -128,3 +139,22 @@
       <img style="width: 100%; height: 100%; object-fit: cover; object-position: center;" src="...">
     </div>
     ```
+
+參考資料: 
+- [CSS - Center Crop Image]([https://ithelp.ithome.com.tw/articles/10212202](https://www.andrewnoske.com/wiki/CSS_-_Center_Crop_Image))
+
+## 彈性成長係數 (flex-grow)
+
+- 用途: 在 flex 容器中**剩餘空間**的相對比例，可用於水平 ```flex-direction: colume``` 或垂直 ```flex-direction: row``` 的剩餘空間
+- 需求: ```flex-grow: 1```，數字代表權重
+- 範例: 尚未加上 flow-grow 前，因為同一列高度不一樣，有些區塊下方仍未填滿，在區塊下方的元素加上 ```flow-grow: 1```，則將剩餘空間都給該元素
+
+    <div>
+      <img src="https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/flow_grow1.png" width="600px"/>
+      <div>圖 9、尚未加上 flow-grow</div>
+    </div>
+    
+    <div>
+      <img src="https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/flow_grow2.png" width="600px"/>
+      <div>圖 10、加上 flow-grow</div>
+    </div>
