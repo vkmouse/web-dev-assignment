@@ -8,6 +8,10 @@ body {
   align-items: center;
 }
 
+.align-items-flex-end {
+  align-items: flex-end;
+}
+
 .bg-primary {
   background-color: #2C3E50;
 }
@@ -65,14 +69,31 @@ body {
   margin-left: 0.25em;
 }
 
+.position-absolute {
+  position: absolute;
+}
+
+.position-relative {
+  position: relative;
+}
+
 .py-4 {
   padding-top: 1em;
   padding-bottom: 1em;
 }
 
+.opacity-75 {
+  opacity: 0.75;
+}
+
 .ratio-3x2 {
   position: relative;
   padding-top: 66.67%;
+}
+
+.ratio-1x1 {
+  position: relative;
+  padding-top: 100%;
 }
 
 .ratio-element {
@@ -97,6 +118,10 @@ body {
 
 .z-index-2 {
   z-index: 2;
+}
+
+.z-index-3 {
+  z-index: 3;
 }
 
 /* content and content__element */
