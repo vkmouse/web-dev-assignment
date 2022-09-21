@@ -1,3 +1,4 @@
 # Web Development Assignment
 
-- [Week 1 RWD](https://vkmouse.github.io/web-dev-assignment/week-1/)
+- Week 1 RWD ([latest](https://vkmouse.github.io/web-dev-assignment/week-1/), [v1](https://vkmouse.github.io/web-dev-assignment/week-1/v1))
+ 
