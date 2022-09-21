@@ -76,7 +76,9 @@
     </div>
     ```
 
-圖片!!!
+    <div>
+      <img src="https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/nav4.png" width="400px"/>
+    </div>
 
 2. 將**所有導覽路徑**水平排列，作為一般使用者的**導覽列**
 
@@ -93,9 +95,11 @@
       list-style: none;
     }
     ```
-
-圖!!!
-
+    
+    <div>
+      <img src="https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/nav5.png" width="400px"/>
+    </div>
+    
 3. 設定**導覽路徑**邊寬，讓路徑間不要太擁擠
 
     ```
@@ -105,9 +109,12 @@
       padding-right: 0.5em;
     }
     ```
-圖!!!
+    
+    <div>
+      <img src="https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/nav6.png" width="400px"/>
+    </div>
 
-4. 設定**導覽列切換器**，在一般使用者下隱藏
+4. 設定**導覽列切換器**，在一般使用者下隱藏，**完成一般使用者導覽列 (如圖 1)**
 
     ```
     .navbar__toggler {
@@ -115,10 +122,12 @@
       display: none;
     }
     ```
+    
+    <div>
+      <img src="https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/nav1.png" width="400px"/>
+    </div>
 
-圖!!!
-
-5. 設定移動裝置使用者屬性
+5. 設定移動裝置使用者屬性，**完成移動裝置導覽列 (如圖 2)**
 
     - 顯示**導覽列切換器**
     - 隱藏**所有導覽路徑**，並調整為一個**導覽路徑**一列
@@ -144,9 +153,12 @@
       }
     }
     ```
-圖!!!
+    
+    <div>
+      <img src="https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/nav2.png" width="400px"/>
+    </div>
 
-6. 當**導覽列切換器**被點擊，切換 ```display: flex``` 或預設值 (```display: none```)
+6. 當**導覽列切換器**被點擊，切換 ```display: flex``` 或預設值 (```display: none```)，**完成移動裝置導覽列 (如圖 3)**
 
     - 傳進來的 element 是 navbar__toggler
     - 父節點是 navbar，在 navbar 底下搜尋子節點 navbar__nav
@@ -162,43 +174,10 @@
       }
     }
     ```
-圖!!!
-
-### 導覽列實作概念
-
-1. 使用一個外層區塊 ```nav```，包含兩個內層區塊 ```nav-head``` 和 ```nav-links```
-
-    ```
-    <div class="nav">
-      <div class="nav-head"></div>
-      <div class="nav-links"></div>
-    </div>
-    ```
-
-2. 將 ```nav``` 屬性設為 ```display: flex```，在一行裡面呈現 ```nav-head``` 和 ```nav-links```
-3. 在 ```nav-head``` 加入 icon，並且改為 ```display: none```，用以呈現圖 1
 
     <div>
-      <img src="https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/nav4.png" width="400px"/>
-      <div>圖 4、單行導覽列資訊</div>
+      <img src="https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/nav3.png" width="400px"/>
     </div>
-
-4. 給移動裝置時，改為多行導覽列，將 ```nav``` 的屬性改為 ```display: block```
-5. 將 ```nav-links``` 改為 ```display: none```，icon 改為 ```display: block```，用以呈現圖 2
-6. 當 icon 被點擊時，用 javascript 將 ```nav-links``` 改為 ```display: none```，用以呈現圖 3
-
-    <div>
-      <img src="https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/nav5.png" width="400px"/>
-      <div>圖 5、多行導覽列資訊</div>
-    </div>
-    
-    ```
-    if (element.style.display !== "flex") {
-      element.style.display = "flex";
-    } else {
-      element.style.display = "";
-    }
-    ```
 
 ## CSS 命名規則之一 BEM
 
