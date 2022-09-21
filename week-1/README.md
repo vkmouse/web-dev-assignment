@@ -3,10 +3,13 @@
 本專案用於學習響應式網頁設計 (Responsive Web Design, RWD)，以下紀錄開發過程中，比較重要的技術細節。
 
 - 如何實作導覽列
+- CSS 命名規則之一 BEM
 - 網格系統的應用
 - 長寬比的區塊 (aspect ratio)
 - 中心裁剪 (center cropped)
 - 彈性成長係數 (flex-grow)
+- 不透明度 (opacity)
+- 圖層概念 (z-index)
 
 ## 如何實作導覽列
 
@@ -69,6 +72,46 @@
       element.style.display = "";
     }
     ```
+
+## CSS 命名規則之一 BEM
+
+Block Element Modifier (BEM) 是一種為了讓 CSS 類別更好維護的**命名方式**
+
+1. Block 區塊 ```.block {}```
+2. Element 元素 ```.block__element```
+3. Modifier 修飾器 ```.block__element--modifier```
+
+### Block 區塊
+
+主要負責描述大範圍功能，例如 ```header```、```container``` 或 ```navbar```
+
+### Element 元素
+
+區塊的小部分，區塊可以不包含元素，但元素一定要包含在區塊，用於表達目的，中間用**雙底線**連結
+
+例如 ```list__item``` 或 ```navbar__toggler```
+
+### Modifier 修飾器
+
+區塊或元素的狀態，同一個區塊或元素可能有多種狀態，使用修飾器表達，中間用**雙中線**連結
+
+例如 ```nav__item--active```、```star--active``` 或 ```star--inactive```
+
+### BEM 觀念
+
+1. 當有重複使用的選擇器時，需要拉出來成為新的選擇器做調用，相當於 has-a 的功用
+2. 利用**區塊**和**元素**，表達選擇器的階層關係，由於 CSS 沒有作用域，所以利用 BEM 避免命名重複
+3. 利用**修飾器**表達不同狀態
+4. 當區塊裡的元素，又有向下階層時，不希望一直下底線連結，只需要元素底線元素或區塊底線元素
+
+    - 例如: ```menu__list__item__link``` 可以寫成 ```menu__link```，代表 link 不一定要在 list 或 item 之下
+    
+5. 使用抽象畫命名，例如顏色可以 ```text-blue``` 改為 ```text-primary```，```aside``` 和 ```content``` 可以改為 ```col-3```和 ```col-9```
+
+### BEM 參考資料
+
+- [竹白記事本-BEM，CSS 設計模式](https://chupainotebook.blogspot.com/2019/05/bemcss.html)
+- [鐵人賽 5 - CSS 的命名技巧](https://www.casper.tw/css/2016/12/05/css-naming/)
 
 ## 網格系統的應用
 
@@ -158,3 +201,13 @@
       <img src="https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/flow_grow2.png" width="600px"/>
       <div>圖 10、加上 flow-grow</div>
     </div>
+
+## 不透明度 (opacity)
+
+- 用途: 將目標設定為半透明，可以進行半透明疊圖
+- 需求: ```opacity: 25```，設定不透明度 25
+
+## 圖層概念 (z-index)
+
+- 用途: 將不同圖層，透過數字進行重疊，**數字越大越圖層前面**
+- 需求: ```z-index: 1```，設定為圖層 1，只要其他 z-index 大於該數字且重疊，較大者會在上面
