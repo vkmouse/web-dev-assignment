@@ -20,6 +20,10 @@ body {
   background-color: #CCDDEC;
 }
 
+.bg-white {
+  background-color: #FFFFFF;
+}
+
 .center-cropped {
   object-fit: cover;
   object-position: center;
