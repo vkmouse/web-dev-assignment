@@ -9,10 +9,10 @@
   </head>
   <body>
     <div class="navbar">
-      <div class="navbar__toggler" onclick='handleNavbarTogglerClick("nav1")'>
+      <div class="navbar__toggler" onclick='handleNavbarTogglerClick(this)'>
         <img src="icon/hamberger.svg">
       </div>
-      <div class="navbar__nav" id="nav1">
+      <div class="navbar__nav">
         <li class="nav__item">Item 1</li>
         <li class="nav__item">Item 2</li>
         <li class="nav__item">Item 3</li>
@@ -22,10 +22,10 @@
     <div>&nbsp</div>
     <div class="navbar justify-content-between">
       <div>My Website</div>
-      <div class="navbar__toggler" onclick='handleNavbarTogglerClick("nav2")'>
+      <div class="navbar__toggler" onclick='handleNavbarTogglerClick(this)'>
         <img src="icon/hamberger.svg">
       </div>
-      <div class="navbar__nav" id="nav2">
+      <div class="navbar__nav">
         <li class="nav__item">Item 1</li>
         <li class="nav__item">Item 2</li>
         <li class="nav__item">Item 3</li>
@@ -36,12 +36,13 @@
 </html>
 
 <script>
-  function handleNavbarTogglerClick(id) {
-    const element = document.getElementById(id);
-    if (element.style.display !== "") {
-      element.style.display = "";
-    } else {
+  function handleNavbarTogglerClick(element) {
+    const parent = element.parentElement;
+    element = parent.querySelector('.navbar__nav');
+    if (element.style.display !== "flex") {
       element.style.display = "flex";
+    } else {
+      element.style.display = "";
     }
   }
 </script>

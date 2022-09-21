@@ -11,10 +11,10 @@
   <body>
     <div class="navbar justify-content-between p-2">
       <div class="font-weight-bold">My Website</div>
-      <div class="navbar__toggler" onclick='handleNavbarTogglerClick("nav")'>
+      <div class="navbar__toggler" onclick='handleNavbarTogglerClick(this)'>
         <img src="icon/hamberger.svg">
       </div>
-      <div class="navbar__nav" id="nav">
+      <div class="navbar__nav">
         <a class="nav__item nav__link" href="navbar.html">Navbar</a>
         <li class="nav__item">Item 2</li>
         <li class="nav__item">Item 3</li>
@@ -194,8 +194,9 @@
 </html>
 
 <script>
-  function handleNavbarTogglerClick(id) {
-    const element = document.getElementById(id);
+  function handleNavbarTogglerClick(element) {
+    const parent = element.parentElement;
+    element = parent.querySelector('.navbar__nav');
     if (element.style.display !== "flex") {
       element.style.display = "flex";
     } else {
