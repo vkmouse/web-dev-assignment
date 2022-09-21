@@ -192,9 +192,9 @@ body {
 }
 
 .star--active {
-  background-image: url("icon/active_star.svg");
+  background-image: url("../icon/active_star.svg");
 }
 
 .star--inactive {
-  background-image: url("icon/inactive_star.svg");
+  background-image: url("../icon/inactive_star.svg");
 }
