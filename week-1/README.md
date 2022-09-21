@@ -13,6 +13,20 @@
 
 ## 如何實作導覽列
 
+導覽列的 CSS 選擇器如下，階層以及名稱如下
+
+1. navbar: **導覽列**
+2. navbar__toggler: **導覽列切換器**
+3. navbar__nav: **所有導覽路徑**
+4. nav__item: **導覽路徑**
+    
+    ```
+    navbar
+     ├─ navbar__toggler
+     └─ navbar__nav
+         └─ nav__item
+    ```
+
 ### 導覽列基本資訊
 
 1. 給一般使用者
@@ -36,6 +50,119 @@
       <div>圖 3、向下展開所有 Menu items 且顯示選單 icon</div>
     </div>
     
+### 導覽列實作
+
+1. 先寫 HTML 架構如下
+
+    - navbar 為最外層 ```div```
+    - navbar__toggler 做為顯示或隱藏選單的 div
+    - navbar__toggler 裡面包含一個 img，使用 hamberger 作為 icon
+    - navbar__toggler 在被點擊的時候，呼叫函式 handleNavbarTogglerClick，並傳入 element
+    - navbar__nav **所有導覽路徑**的外層 div，包含四個**導覽路徑** Item 1 ~ Item 4
+    - nav__item **導覽路徑**的名稱顯示或外層，通常會在裡面包含 ```<a>``` 作為連結
+
+
+    ```
+    <div class="navbar">
+      <div class="navbar__toggler" onclick='handleNavbarTogglerClick(this)'>
+        <img src="icon/hamberger.svg">
+      </div>
+      <div class="navbar__nav">
+        <li class="nav__item">Item 1</li>
+        <li class="nav__item">Item 2</li>
+        <li class="nav__item">Item 3</li>
+        <li class="nav__item">Item 4</li>
+      </div>
+    </div>
+    ```
+
+圖片!!!
+
+2. 將**所有導覽路徑**水平排列，作為一般使用者的**導覽列**
+
+    ```
+    .navbar {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .navbar__nav {
+      display: flex;
+      flex-direction: row;
+      list-style: none;
+    }
+    ```
+
+圖!!!
+
+3. 設定**導覽路徑**邊寬，讓路徑間不要太擁擠
+
+    ```
+    .nav__item {
+      cursor: pointer;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+    }
+    ```
+圖!!!
+
+4. 設定**導覽列切換器**，在一般使用者下隱藏
+
+    ```
+    .navbar__toggler {
+      cursor: pointer;
+      display: none;
+    }
+    ```
+
+圖!!!
+
+5. 設定移動裝置使用者屬性
+
+    - 顯示**導覽列切換器**
+    - 隱藏**所有導覽路徑**，並調整為一個**導覽路徑**一列
+    - 設定**導覽路徑**屬性
+
+    ```
+    @media screen and (max-width: 600px) {
+      .navbar__toggler {
+        display: block;
+      }
+
+      .navbar__nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .nav__item {
+        padding-top: 0.25em;
+        padding-bottom: 0.25em;
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+    ```
+圖!!!
+
+6. 當**導覽列切換器**被點擊，切換 ```display: flex``` 或預設值 (```display: none```)
+
+    - 傳進來的 element 是 navbar__toggler
+    - 父節點是 navbar，在 navbar 底下搜尋子節點 navbar__nav
+
+    ```
+    function handleNavbarTogglerClick(element) {
+      const parent = element.parentElement;
+      element = parent.querySelector('.navbar__nav');
+      if (element.style.display !== "flex") {
+        element.style.display = "flex";
+      } else {
+        element.style.display = "";
+      }
+    }
+    ```
+圖!!!
 
 ### 導覽列實作概念
 
