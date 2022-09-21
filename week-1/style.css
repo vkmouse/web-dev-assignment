@@ -83,7 +83,7 @@ body {
   width: 100%;
 }
 
-/* content container and element */
+/* content and content__element */
 .content {
   margin-top: 2em;
   margin-bottom: 2em;
@@ -101,7 +101,7 @@ body {
   }
 }
 
-/* grid-container and content */
+/* grid and grid--col */
 .grid {
   column-gap: 1%;
   display: grid;
