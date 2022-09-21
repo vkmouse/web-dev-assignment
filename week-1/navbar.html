@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewpoint" content="width=device-width">
+    <link rel="icon" href="icon/favicon-16x16.png">
+    <link rel="stylesheet" href="navbar.css">
+    <title>RWD Practice-Navbar</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="navbar__toggler" onclick='handleNavbarTogglerClick("nav1")'>
+        <img src="icon/hamberger.svg">
+      </div>
+      <div class="navbar__nav" id="nav1">
+        <li class="nav__item">Item 1</li>
+        <li class="nav__item">Item 2</li>
+        <li class="nav__item">Item 3</li>
+        <li class="nav__item">Item 4</li>
+      </div>
+    </div>
+    <div>&nbsp</div>
+    <div class="navbar justify-content-between">
+      <div>My Website</div>
+      <div class="navbar__toggler" onclick='handleNavbarTogglerClick("nav2")'>
+        <img src="icon/hamberger.svg">
+      </div>
+      <div class="navbar__nav" id="nav2">
+        <li class="nav__item">Item 1</li>
+        <li class="nav__item">Item 2</li>
+        <li class="nav__item">Item 3</li>
+        <li class="nav__item">Item 4</li>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  function handleNavbarTogglerClick(id) {
+    const element = document.getElementById(id);
+    if (element.style.display !== "") {
+      element.style.display = "";
+    } else {
+      element.style.display = "flex";
+    }
+  }
+</script>
