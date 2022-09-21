@@ -40,16 +40,13 @@ body {
   padding-right: 0.5em;
 }
 
-.nav__item:first-child {
-  padding-left: 0;
-}
-
-.nav__item:last-child {
-  padding-right: 0;
-}
-
 .nav__item:hover {
   background-color: var(--color-secondary);
+}
+
+.nav__link {
+  color: #eeeeee;
+  text-decoration: none;
 }
 
 @media screen and (max-width: 600px) {
@@ -64,6 +61,8 @@ body {
   }
 
   .nav__item {
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
     padding-left: 0;
     padding-right: 0;
   }

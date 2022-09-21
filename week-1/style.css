@@ -3,60 +3,6 @@ body {
   font-size: 125%;
 }
 
-.nav {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5em;
-  background-color: #2c3e50;
-  color: white;
-}
-
-.nav-icon {
-  background-image: url('icon/hamberger.svg');
-  background-position: center;
-  display: none;
-  height: 32px;
-  resize: none;
-  width: 32px;
-}
-
-.nav-icon:hover {
-  background-color: #95a5a6;
-}
-
-.nav-links {
-  display: flex;
-  flex-direction: row;
-}
-
-.nav li {
-  display: inline;
-  margin-left: 0.5em;
-  margin-right: 0.5em;
-}
-
-@media screen and (max-width: 600px) {
-  .nav {
-    display: block;
-  }
-
-  .nav-icon {
-    display: block;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: column;
-  }
-  
-  .nav li {
-    margin-left: 0;
-    margin-right: 0.5em;
-    text-align: right;
-  }
-}
-
 .welcome-block {
   align-items: center;
   background-color: #DDEEF8;
@@ -113,16 +59,16 @@ body {
   justify-content: center;
 }
 
+.p-2 {
+  padding: 0.5em;
+}
+
 .ml-1 {
   margin-left: 0.25em;
 }
 
-.pb-1 {
+.py-4 {
   padding-bottom: 1em;
-}
-
-.pt-1 {
-  padding-top: 1em;
 }
 
 .ratio-3x2 {

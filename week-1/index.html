@@ -5,19 +5,20 @@
     <meta name="viewpoint" content="width=device-width">
     <link rel="icon" href="icon/favicon-16x16.png">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="navbar.css">
     <title>RWD Practice</title>
   </head>
   <body>
-    <div class="nav">
-      <div class="d-flex align-items-center justify-content-between">
-        <div class="font-weight-bold">My Website</div>
-        <div class="nav-icon" onclick="handleNavIconClick()"></div>
+    <div class="navbar justify-content-between p-2">
+      <div class="font-weight-bold">My Website</div>
+      <div class="navbar__toggler" onclick='handleNavbarTogglerClick("nav")'>
+        <img src="icon/hamberger.svg">
       </div>
-      <div class="nav-links" id="mylinks">
-        <li>Item 1</li>
-        <li>Item 2</li>
-        <li>Item 3</li>
-        <li>Item 4</li>
+      <div class="navbar__nav" id="nav">
+        <a class="nav__item nav__link" href="navbar.html">Navbar</a>
+        <li class="nav__item">Item 2</li>
+        <li class="nav__item">Item 3</li>
+        <li class="nav__item">Item 4</li>
       </div>
     </div>
     <div class="welcome-block">
@@ -67,7 +68,7 @@
                 alt="臺北市立圖書館北投分館"
               >
             </div>
-            <div class="d-flex align-items-center justify-content-center pt-1 pb-1 bg-secondary text-center flex-grow-1">
+            <div class="d-flex align-items-center justify-content-center py-4 bg-secondary text-center flex-grow-1">
               臺北市立圖書館北投分館 (1024x683)
             </div>
           </div>
@@ -80,7 +81,7 @@
                 alt="華山1914文化創意產業園區"
               >
             </div>
-            <div class="d-flex align-items-center justify-content-center pt-1 pb-1 bg-secondary text-center flex-grow-1">
+            <div class="d-flex align-items-center justify-content-center py-4 bg-secondary text-center flex-grow-1">
               華山1914文化創意產業園區 (1024x683)
             </div>
           </div>
@@ -93,7 +94,7 @@
                 alt="五指山系 劍潭山親山步道"
               >
             </div>
-            <div class="d-flex align-items-center justify-content-center pt-1 pb-1 bg-secondary text-center flex-grow-1">
+            <div class="d-flex align-items-center justify-content-center py-4 bg-secondary text-center flex-grow-1">
               五指山系 劍潭山親山步道(512x768)
             </div>
           </div>
@@ -106,7 +107,7 @@
                 alt="華岡博物館"
               >
             </div>
-            <div class="d-flex align-items-center justify-content-center pt-1 pb-1 bg-secondary text-center flex-grow-1">
+            <div class="d-flex align-items-center justify-content-center py-4 bg-secondary text-center flex-grow-1">
               華岡博物館(512x768)
             </div>
           </div>
@@ -119,7 +120,7 @@
                 alt="西門紅樓"
               >
             </div>
-            <div class="d-flex align-items-center justify-content-center pt-1 pb-1 bg-secondary text-center flex-grow-1">
+            <div class="d-flex align-items-center justify-content-center py-4 bg-secondary text-center flex-grow-1">
               西門紅樓 (1024x683)
             </div>
           </div>
@@ -132,7 +133,7 @@
                 alt="6號彩虹"
               >
             </div>
-            <div class="d-flex align-items-center justify-content-center pt-1 pb-1 bg-secondary text-center flex-grow-1">
+            <div class="d-flex align-items-center justify-content-center py-4 bg-secondary text-center flex-grow-1">
               6號彩虹(512x768)
             </div>
           </div>
@@ -145,7 +146,7 @@
                 alt="國立臺灣博物館 古生物館"
               >
             </div>
-            <div class="d-flex align-items-center justify-content-center pt-1 pb-1 bg-secondary text-center flex-grow-1">
+            <div class="d-flex align-items-center justify-content-center py-4 bg-secondary text-center flex-grow-1">
               國立臺灣博物館 古生物館 (1024x683)
             </div>
           </div>
@@ -158,7 +159,7 @@
                 alt="國立臺灣藝術教育館"
               >
             </div>
-            <div class="d-flex align-items-center justify-content-center pt-1 pb-1 bg-secondary text-center flex-grow-1">
+            <div class="d-flex align-items-center justify-content-center py-4 bg-secondary text-center flex-grow-1">
               國立臺灣藝術教育館 (1024x683)
             </div>
           </div>
@@ -169,8 +170,8 @@
 </html>
 
 <script>
-  function handleNavIconClick() {
-    const element = document.getElementById("mylinks");
+  function handleNavbarTogglerClick(id) {
+    const element = document.getElementById(id);
     if (element.style.display !== "flex") {
       element.style.display = "flex";
     } else {
