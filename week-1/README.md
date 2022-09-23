@@ -334,33 +334,6 @@ Block Element Modifier (BEM) 是一種為了讓 CSS 類別更好維護的**命�
 
 ### BEM
 
-Block Element Modifier (BEM) 是一種為了讓 CSS 類別更好維護的**命名方式**
-
-1. Block 區塊 ```.block {}```
-
-    主要負責描述大範圍功能，例如 ```header``` 或 ```container```
-
-2. Element 元素 ```.block__element {}```
-
-    區塊的小部分，區塊可以不包含元素，但元素一定要包含在區塊，用於表達目的，中間用**雙底線**連結
-    例如 ```list__item``` 或 ```navbar__toggler```
-
-3. Modifier 修飾器 ```.block__element--modifier {}```
-
-    區塊或元素的狀態，同一個區塊或元素可能有多種狀態，使用修飾器表達，中間用**雙中線**連結
-    例如 ```nav__item--active```、```star--active``` 或 ```star--inactive```
-
-### KKBOX 的導覽列分解
-
-
-### 重要的命名觀念
-
-1. 抽象化命名，例如: ```left``` 就只能放在左邊，改為 ```aside``` 就可以放在左右
-2. 避免針對性命名，例如: 作業的歡迎橫幅 ```welcome```，可以改為 ```banner``` 內容就不一定是歡迎
-3. 狀態命名，例如: 導航欄連結在當前頁面狀態 ```menu-item``` 加上 ```is-active```，其他頁面則只有 ```menu-item```
-
-### BEM
-
   Block Element Modifier (BEM) 是一種為了讓 CSS 類別更好維護的**命名方式**
 
 1. Block 區塊 ```.block {}```
