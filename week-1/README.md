@@ -10,6 +10,7 @@
 - 彈性成長係數 (flex-grow)
 - 不透明度 (opacity)
 - 圖層概念 (z-index)
+- 從 KKBOX 到 CSS，選擇器命名規則
 
 ## 如何實作導覽列
 
@@ -333,7 +334,7 @@ Block Element Modifier (BEM) 是一種為了讓 CSS 類別更好維護的**命�
 
 ### BEM
 
-Block Element Modifier (BEM) 是一種為了讓 CSS 類別更好維護的**命名方式**
+  Block Element Modifier (BEM) 是一種為了讓 CSS 類別更好維護的**命名方式**
 
 1. Block 區塊 ```.block {}```
 
@@ -349,7 +350,7 @@ Block Element Modifier (BEM) 是一種為了讓 CSS 類別更好維護的**命�
     區塊或元素的狀態，同一個區塊或元素可能有多種狀態，使用修飾器表達，中間用**雙中線**連結
     例如 ```nav__item--active```、```star--active``` 或 ```star--inactive```
 
-### KKBOX 的導覽列
+### KKBOX 的導覽列分解
 
 1. KKBOX 導覽列分為兩個選擇器，並在寬度 1024 切換
 
@@ -360,32 +361,55 @@ Block Element Modifier (BEM) 是一種為了讓 CSS 類別更好維護的**命�
 
     ```
     pm-header
-     ├─ pm-desktop-header
-     └─ pm-mobile-header
+    ├─ pm-mobile-header
+    └─ pm-desktop-header
     ```
+    |     |
+    | :-: |
+    | ![pm-header](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-header.png) | 
+    | 圖1 pm-header |
+    | ![pm-desktop-header](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-desktop-header.png) | 
+    | 圖2 pm-desktop-header |
+    | ![pm-mobile-header](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-mobile-header.png) | 
+    | 圖3 pm-mobile-header |
 
 2. 桌面版本裡面的 pm-container 有兩個區塊，位於旁邊的 pm-header-aside，和位於另一端的 pm-header-menu
 
     ```
     pm-header
-     ├─ pm-desktop-header
-     └─ pm-mobile-header
-        └─ pm-container*
-            ├─ pm-header-aside*
-            └─ pm-header-menu*
+    ├─ pm-mobile-header
+    └─ pm-desktop-header
+       └─ pm-container*
+          ├─ pm-header-aside*
+          └─ pm-header-menu*
     ```
+
+    |     |
+    | :-: |
+    | ![pm-container](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-container.png) | 
+    | 圖4 pm-container|
+    | ![pm-header-aside](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-header-aside.png) | 
+    | 圖5 pm-header-aside|
+    | ![pm-header-menu](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-header-menu.png) | 
+    | 圖6 pm-header-menu |
 
 3. 在旁邊的 pm-header-aside 裡面只有一個 pm-logo
 
     ```
     pm-header
-     ├─ pm-desktop-header
-     └─ pm-mobile-header
-        └─ pm-container-menu
-            ├─ pm-header-aside
-            |    └─ pm-logo*
-            └─ pm-header-menu
+    ├─ pm-mobile-header
+    └─ pm-desktop-header
+       └─ pm-container-menu
+          ├─ pm-header-aside
+          |  └─ pm-logo*
+          └─ pm-header-menu
     ```
+
+    |     |
+    | :-: |
+    | ![pm-logo](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-logo.png) | 
+    | 圖7 pm-logo |
+    
     
 4. 而 pm-header-menu 包含的東西就比要多，有 pm-drop-down、pm-search-button 和普通的 a
 
@@ -395,15 +419,86 @@ Block Element Modifier (BEM) 是一種為了讓 CSS 類別更好維護的**命�
 
     ```
     pm-header
-     ├─ pm-desktop-header
-     └─ pm-mobile-header
-        └─ pm-container-menu
-            ├─ pm-header-aside
-            |    └─ pm-logo*
-            └─ pm-header-menu
-                ├─ pm-drop-down*
-                ├─ pm-search-button
-                └─ a*
+    ├─ pm-mobile-header
+    └─ pm-desktop-header
+       └─ pm-container-menu
+          ├─ pm-header-aside
+          |  └─ pm-logo
+          └─ pm-header-menu
+             ├─ pm-drop-down*
+             ├─ pm-search-button*
+             └─ a*
     ```
     
+    |     |
+    | :-: |
+    | ![pm-drop-down](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-drop-down.png) | 
+    | 圖8 pm-drop-down |
+    | ![pm-search-button](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-search-button.png) | 
+    | 圖9 pm-search-button |
+    | ![pm-normal](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-normal.png) ![pm-download](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-download.png) | 
+    | 圖10 普通的 a |
+
+    
 5. 利用狀態顯示顏色，像是搜尋按鈕和下載都是藍色，使用選擇器 pm-highlight
+
+    |     |
+    | :-: |
+    | ![pm-search-button](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-search-button.png) | 
+    | 圖11 帶有 pm-highlight 的 pm-search-button |
+    | ![pm-download](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-download.png) | 
+    | 圖12 帶有 pm-highlight 的 a |
+
+6. 接下來介紹 pm-mobile-header，裡面都是圖片 pm-menu-icon、pm-search-icon、pm-logo
+其中 pm-logo 和 pm-search-icon (被包含在 pm-search-button 底下) desktop 共用選擇器
+
+    ```
+    pm-header
+    ├─ pm-mobile-header
+    |  ├─ pm-menu-icon*
+    |  ├─ pm-search-icon*
+    |  └─ pm-logo*
+    └─ pm-desktop-header
+       └─ pm-container-menu
+          ├─ pm-header-aside
+          |    └─ pm-logo
+          └─ pm-header-menu
+             ├─ pm-drop-down
+             ├─ pm-search-button
+             └─ a
+    ```
+
+    |     |
+    | :-: |
+    | ![pm-menu-icon](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-menu-icon.png) | 
+    | 圖13 pm-menu-icon |
+    | ![pm-search-icon](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-search-icon.png) | 
+    | 圖14 pm-search-icon |
+    | ![pm-logo-m](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-logo-m.png) | 
+    | 圖15 pm-logo |
+
+7. 最後，當 pm-menu-icon 和 pm-search-icon 被點擊都會展開左或右側的菜單，所以他們都有狀態 pm-active，
+這個狀態將背景圖片都改為叉叉，複寫原本的選單或放大鏡
+
+    |     |
+    | :-: |
+    | ![pm-menu-icon-active](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-menu-icon-active.png) | 
+    | 圖16 帶有 pm-active 的 pm-menu-icon |
+    | ![pm-search-icon-active](https://raw.githubusercontent.com/vkmouse/web-dev-assignment/gh-pages/img/week-1/pm-search-icon-active.png) | 
+    | 圖17 帶有 pm-active 的 pm-search-icon |
+
+### KKBOX 的導覽列總結
+
+用 BEM 角度看 KKBOX 的導覽列，從中看到 Block 中都是可被單一重複使用，Element 需要依賴在特定 Block 之下，Modifier 則可以直接附加在 Block 或 Element
+
+- Block: pm-header、pm-menu-icon、pm-search-icon、pm-logo、pm-drop-down、pm-search-button
+- Element
+    - pm-header 的 element: pm-mobile-header、pm-desktop-header
+    - pm-desktop-header 的 element: pm-header-aside、pm-header-menu
+- Modifier: pm-highlight、pm-active
+
+### 參考資料
+
+- [KKBOX](https://www.kkbox.com/tw/tc/)
+- [竹白記事本-BEM，CSS 設計模式](https://chupainotebook.blogspot.com/2019/05/bemcss.html)
+- [鐵人賽 5 - CSS 的命名技巧](https://www.casper.tw/css/2016/12/05/css-naming/)
