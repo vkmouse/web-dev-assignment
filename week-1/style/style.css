@@ -225,8 +225,21 @@ body {
   margin-left: 0.25em;
 }
 
+.jumper {
+  animation: jump;
+  animation-duration:  0.2s;
+  animation-delay: calc(var(--index) * 0.2s);
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+}
+
+@keyframes jump {
+  from { padding-bottom: 100px; padding-top: 0px; }
+  to { padding-bottom: 0px; padding-top: 0px; }
+}
+
 @keyframes spin {
-  100% { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
 }
 
 @keyframes fade-out {
