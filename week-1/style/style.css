@@ -185,10 +185,12 @@ body {
 }
 
 .main-product__img {
-  height: 100%;
-  width: 100%;
   animation: zoom-in 1.0s, fade-out 2.0s;
   animation-iteration-count: 1;
+  border-top-left-radius: 5%;
+  border-top-right-radius: 5%;
+  height: 100%;
+  width: 100%;
 }
 
 
