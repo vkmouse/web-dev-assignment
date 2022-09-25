@@ -187,6 +187,8 @@ body {
 .main-product__img {
   height: 100%;
   width: 100%;
+  animation: zoom-in 1.0s, fade-out 2.0s;
+  animation-iteration-count: 1;
 }
 
 .sub-product {
@@ -195,10 +197,29 @@ body {
 
 .sub-product__img {
   width: 80px;
+  animation: spin 1.5s, fade-out 2.0s;
+  animation-iteration-count: 1;
 }
 
 .sub-product__title {
   align-items: center;
   display: flex;
   margin-left: 0.25em;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fade-out {
+  0% { opacity: 0.0; }
+  25% { opacity: 0.25; }
+  50% { opacity: 0.5; }
+  75% { opacity: 0.75; }
+  100% { opacity: 1.0; }
+}
+
+@keyframes zoom-in {
+  0% { transform: scale(0.0); }
+  100% { transform: scale(1.0); }
 }
