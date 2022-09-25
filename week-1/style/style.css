@@ -158,7 +158,7 @@ body {
 
 .main-product__title {
   align-items: center;
-  cursor:default;
+  cursor: default;
   text-align: center;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -189,6 +189,26 @@ body {
   width: 100%;
   animation: zoom-in 1.0s, fade-out 2.0s;
   animation-iteration-count: 1;
+}
+
+
+.main-product__tooltip {
+  align-items: center;
+  align-self: center;
+  background-color: white;
+  color: black;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: absolute;
+  text-align: center;
+  visibility: hidden;
+  width: 100%;
+  z-index: 4;
+}
+
+.main-product__title-container:hover .main-product__tooltip {
+  visibility: visible;
 }
 
 .sub-product {
