@@ -11,10 +11,12 @@ body {
 
 .navbar {
   align-items: center;
+  background-color: var(--color-primary);
   color: #eeeeee;
   display: flex;
   flex-wrap: wrap;
-  background-color: var(--color-primary);
+  padding-right: 0.5em;
+  padding-left: 0.5em;
 }
 
 .navbar__toggler {
@@ -36,8 +38,7 @@ body {
 
 .nav__item {
   cursor: pointer;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+  padding: 0.5em;
 }
 
 .nav__item:hover {
