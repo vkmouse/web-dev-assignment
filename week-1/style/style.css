@@ -158,9 +158,12 @@ body {
 
 .main-product__title {
   align-items: center;
-  align-self: center;
-  display: flex;
+  cursor:default;
   text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 80%;
+  white-space: nowrap;
   z-index: 3;
 }
 
