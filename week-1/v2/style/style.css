@@ -126,7 +126,7 @@ body {
 
 /* star */
 .star {
-  background-image: url("../icon/inactive_star.svg");
+  background-image: url("../../icon/inactive_star.svg");
   background-size: contain;
   cursor: pointer;
   width: 40px;
@@ -134,7 +134,7 @@ body {
 }
 
 .star--active {
-  background-image: url("../icon/active_star.svg");
+  background-image: url("../../icon/active_star.svg");
 }
 
 /* product */
