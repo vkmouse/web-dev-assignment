@@ -3,6 +3,7 @@ def calculate(min, max, step):
     for i in range(min, max + 1, step):
         result += i
     print(result)
+    return result
 
 def avg(data):
     sum = 0
@@ -11,12 +12,15 @@ def avg(data):
         if not employee["manager"]:
             sum += employee["salary"]
             count += 1
-    print(sum / count)
+    result = sum / count
+    print(result)
+    return result
 
 def func(a):
     result = a
     def func1(b, c):
         print(result + (b * c))
+        return result + (b * c)
     return func1
 
 def maxProduct(nums):
@@ -25,6 +29,7 @@ def maxProduct(nums):
         for num2 in nums[index + 1:]:
             maxResult = max(maxResult, num1 * num2)
     print(maxResult)
+    return maxResult
 
 def twoSum(nums, target):
     indexByNum = dict()
@@ -45,6 +50,7 @@ def maxZeros(nums):
             currentZeros = 0
     result = max(result, currentZeros)
     print(result)
+    return result
 
 def printSeparator():
     print("---------------------------------------------------\n")
