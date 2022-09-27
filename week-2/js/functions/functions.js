@@ -16,26 +16,30 @@ export function avg(data) {
       count += 1
     }
   }
-  console.log(sum / count)
+  const result = sum / count
+  console.log(result)
+  return result
 }
 
 export function func(a) {
-  let result = a
   function func1(b, c) {
-    console.log(result + (b * c))
+    const result = a + (b * c)
+    console.log(result)
+    return result
   }
   return func1
 }
 
 export function maxProduct(nums) {
   const n = nums.length
-  let maxResult = nums[0] * nums[1]
+  let result = nums[0] * nums[1]
   for (let i = 0; i < n; i++) {
     for (let j = i + 1; j < n; j++) {
-      maxResult = Math.max(maxResult, nums[i] * nums[j])
+      result = Math.max(result, nums[i] * nums[j])
     }
   }
-  console.log(maxResult)
+  console.log(result)
+  return result
 }
 
 export function twoSum(nums, target) {
@@ -63,6 +67,7 @@ export function maxZeros(nums) {
   }
   result = Math.max(result, currentZeros)
   console.log(result)
+  return result
 }
 
 export function printSeparator() {
