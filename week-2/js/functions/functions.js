@@ -4,6 +4,7 @@ export function calculate(min, max, step) {
     result += i
   }
   console.log(result)
+  return result
 }
 
 export function avg(data) {
