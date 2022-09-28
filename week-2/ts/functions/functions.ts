@@ -32,9 +32,10 @@ export function avg(data: Employees): number {
 }
 
 export function func(a: number) {
-  let result = a
-  function func1(b: number, c: number) {
-    console.log(result + (b * c))
+  function func1(b: number, c: number): number {
+    const result = a + (b * c)
+    console.log(result)
+    return result
   }
   return func1
 }
