@@ -41,8 +41,7 @@ dist/**/*
 yarn.lock
 
 # js in ts
-ts/*.js
-ts/*/*.js
+
 
 # python 
 # Byte-compiled / optimized / DLL files
