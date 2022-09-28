@@ -1,7 +1,11 @@
+### How to install enviroment
+
+```npm install```
+
 ### How to run
 
 ```npx ts-node ./main.ts```
 
-or
+### How to run unit test
 
-```npm start```
+```npm run test```
