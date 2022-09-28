@@ -4,16 +4,17 @@ import (
 	"fmt"
 )
 
-func Calculate(min int, max int, step int) {
+func Calculate(min int, max int, step int) int {
 	var result int = 0
 	var i int
 	for i = min; i < max+1; i += step {
 		result += i
 	}
 	fmt.Println(result)
+	return result
 }
 
-func Avg(employees Employees) {
+func Avg(employees Employees) int {
 	var sum int = 0
 	var count int = 0
 	for _, employee := range employees.Employees {
@@ -22,16 +23,20 @@ func Avg(employees Employees) {
 			count += 1
 		}
 	}
-	fmt.Println(sum / count)
+	var result int = sum / count
+	fmt.Println(result)
+	return result
 }
 
-func Func(a int) func(b int, c int) {
-	return func(b int, c int) {
-		fmt.Println(a + b*c)
+func Func(a int) func(b int, c int) int {
+	return func(b int, c int) int {
+		var result int = a + b*c
+		fmt.Println(result)
+		return result
 	}
 }
 
-func MaxProduct(nums []int) {
+func MaxProduct(nums []int) int {
 	var result int = nums[0] * nums[1]
 	for index, num1 := range nums {
 		for _, num2 := range nums[index+1:] {
@@ -39,6 +44,7 @@ func MaxProduct(nums []int) {
 		}
 	}
 	fmt.Println(result)
+	return result
 }
 
 func TwoSum(nums []int, target int) []int {
@@ -54,7 +60,7 @@ func TwoSum(nums []int, target int) []int {
 	return []int{}
 }
 
-func MaxZeros(nums []int) {
+func MaxZeros(nums []int) int {
 	var result int = 0
 	var current int = 0
 	for _, num := range nums {
@@ -67,6 +73,7 @@ func MaxZeros(nums []int) {
 	}
 	result = max(result, current)
 	fmt.Println(result)
+	return result
 }
 
 func PrintSeperator() {
