@@ -1,9 +1,10 @@
-export function calculate(min: number, max: number, step: number) {
+export function calculate(min: number, max: number, step: number): number {
   let result = 0
   for (let i = min; i < max + 1; i += step) {
     result += i
   }
   console.log(result)
+  return result
 }
 
 interface Employee {
@@ -16,7 +17,7 @@ interface Employees {
   employees: Employee[]
 }
 
-export function avg(data: Employees) {
+export function avg(data: Employees): number {
   let sum = 0
   let count = 0
   for (const employee of data["employees"]) {
@@ -25,7 +26,9 @@ export function avg(data: Employees) {
       count += 1
     }
   }
+  const result = sum / count
   console.log(sum / count)
+  return sum / count
 }
 
 export function func(a: number) {
@@ -36,7 +39,7 @@ export function func(a: number) {
   return func1
 }
 
-export function maxProduct(nums) {
+export function maxProduct(nums: number[]): number {
   const n = nums.length
   let maxResult = nums[0] * nums[1]
   for (let i = 0; i < n; i++) {
@@ -45,16 +48,17 @@ export function maxProduct(nums) {
     }
   }
   console.log(maxResult)
+  return maxResult
 }
 
 export function twoSum(nums: number[], target: number): number[] | undefined {
-  let indexByNum = {}
+  let indexByNum = new Map();
   for (let i = 0; i < nums.length; i++) {
     const num = nums[i]
-    if (target - num in indexByNum) {
-      return [indexByNum[target - num], i]
+    if (indexByNum.has(target - num)) {
+      return [indexByNum.get(target - num), i]
     } else {
-      indexByNum[num] = i
+      indexByNum.set(num, i)
     }
   }
 }
@@ -72,6 +76,7 @@ export function maxZeros(nums: number[]) {
   }
   result = Math.max(result, currentZeros)
   console.log(result)
+  return result
 }
 
 export function printSeparator() {
