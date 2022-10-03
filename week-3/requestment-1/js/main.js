@@ -16,7 +16,7 @@ const results = await getResults()
 const rows = results
   .filter(result => checkPostDateAfterSpecificYear(result['xpostDate'], minYear))
   .map(result => convertResultToRow(result))
-  .filter(result => !checkRegionInAcceptableRegions(result, acceptableRegions))
+  .filter(row => checkRegionInAcceptableRegions(row[1], acceptableRegions))
 
 let content = ''
 for (const row of rows) {
