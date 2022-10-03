@@ -35,6 +35,4 @@ def convertResultToRow(result):
     latitude = result['latitude']
     files = parseFileToFiles(result['file'])
     imgUrls = list(filter(lambda file: checkImgUrl(file), files))
-    if len(imgUrls) == 0:
-        print(result)
     return [title, region, longitude, latitude, imgUrls[0]]
