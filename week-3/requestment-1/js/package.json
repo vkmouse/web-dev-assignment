@@ -1,0 +1,13 @@
+{
+  "type": "module",
+  "devDependencies": {
+    "jest": "^29.1.2",
+    "node-fetch": "^3.2.10"
+  },
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll"
+  },
+  "jest": {
+    "transform": {}
+  }
+}
