@@ -35,9 +35,9 @@ export function validatePrefix(title: string): number {
     const substr = title.slice(0, 4)
     if (substr === '[好雷]') {
       return 0
-    } else if (substr == '[普雷]') {
+    } else if (substr === '[普雷]') {
       return 1
-    } else if (substr == '[負雷]') {
+    } else if (substr === '[負雷]') {
       return 2
     } else {
       return -1
