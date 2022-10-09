@@ -27,14 +27,6 @@ Python virtual enviroment is recommended
    ```sh
    git clone https://github.com/vkmouse/web-dev-assignment.git
    ```
-2. Change the directory to `web-dev-assignment\week-2\py`
-   ```sh
-   cd web-dev-assignment\week-2\py
-   ```
-3. Install the requirement packages
-   ```sh
-   pip install -r requirements.txt
-   ```
 
 ## Usage
 
