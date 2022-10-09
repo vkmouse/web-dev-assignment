@@ -1,4 +1,4 @@
-## Python implementation 
+## Python Implementation 
 
 1. [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
