@@ -1,5 +1,3 @@
-from flask import render_template
-
 def checkLogin(account, password):
     if (account == 'test' and password == 'test'):
         return True
