@@ -1,11 +1,50 @@
-### How to install enviroment
+## Typescript Implementation 
 
-```npm install```
+1. [Getting Started](#getting-started)
+    - [Installation](#installation)
+2. [Usage](#usage)
+    - [Run the program](#run-the-program)
+    - [Run unit tests](#run-unit-tests)
 
-### How to run
+## Getting Started
 
-```npx ts-node ./main.ts```
+### Prerequisites
 
-### How to run unit test
+### Installation
 
-```npm run test```
+1. Clone the repository
+   ```sh
+   git clone https://github.com/vkmouse/web-dev-assignment.git
+   ```
+2. Change the directory to `web-dev-assignment\week-3\requestment-2\ts`
+   ```sh
+   cd web-dev-assignment\week-3\requestment-2\ts
+   ```
+3. Install the packages
+   ```sh
+   npm install
+   ```
+
+## Usage
+
+### Run the program
+
+1. Change the directory to `web-dev-assignment\week-3\requestment-2\ts`
+   ```sh
+   cd web-dev-assignment\week-3\requestment-2\ts
+   ```
+2. Run the program
+   ```sh
+   npx ts-node ./main.ts
+   ```
+
+### Run unit tests
+
+1. Change the directory to `web-dev-assignment\week-3\requestment-2\ts`
+   ```sh
+   cd web-dev-assignment\week-3\requestment-2\ts
+   ```
+2. Run unit tests
+   ```sh
+   npm run test
+   ```
