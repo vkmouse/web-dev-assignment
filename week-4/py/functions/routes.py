@@ -36,3 +36,13 @@ def configureRoutes(app: Flask):
     def signout():
         session['isLogin'] = False
         return redirect('/')
+
+    @app.route('/square', methods=['POST'])
+    def squareRedirects():
+        num = request.form['num']
+        return redirect(f'/square/{num}')
+
+    @app.route('/square/<int:num>')
+    def square(num):
+        result = str(num ** 2)
+        return render_template('square.html', num=num, result=result)
