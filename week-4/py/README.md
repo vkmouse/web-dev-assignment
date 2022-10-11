@@ -27,7 +27,7 @@ Python virtual enviroment is recommended
    ```
 3. Set PYTHONPATH enviroment variable
    ```sh
-   SET PYTHONPATH = %CD%
+   SET PYTHONPATH=%CD%
    ```
 
 ### Installation
