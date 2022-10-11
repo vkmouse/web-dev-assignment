@@ -9,9 +9,9 @@
 
 ## Live Demo
 
-Url: http://app-8fb42d84-34af-49d8-b2e2-1e4de787345b.cleverapps.io/
-Email: qon76995@xcoxc.com
-Cloud Platform: Clever Cloud
+Url: http://app-8fb42d84-34af-49d8-b2e2-1e4de787345b.cleverapps.io/  
+Email: qon76995@xcoxc.com  
+Cloud Platform: Clever Cloud  
 
 ## Getting Started
 
