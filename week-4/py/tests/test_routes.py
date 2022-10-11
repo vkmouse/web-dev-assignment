@@ -38,30 +38,6 @@ def setSession(client: FlaskClient, property: str, value: any):
     with client.session_transaction() as session:
         session[property] = value
 
-def testRedirectsHomeToMemberIfLogin(client: FlaskClient):
-    setSession(client, 'isLogin', True)
-    response = client.get(
-        path='/', 
-        follow_redirects=True
-    )
-    assertRedirects(response, '/member')
-
-def testHome(client: FlaskClient):
-    response = client.get('/')
-    assertContains(response, '歡迎光臨，請輸入帳號密碼')
-
-def testMemberIfLogin(client: FlaskClient):
-    setSession(client, 'isLogin', True)
-    response = client.get('/member')
-    assertContains(response, '歡迎光臨，這是會員頁')
-
-def testRedirctsMemberToHomeIfNotLogin(client: FlaskClient):
-    response = client.get(
-        path='/member', 
-        follow_redirects=True
-    )
-    assertRedirects(response, '/')
-
 def testError(client: FlaskClient):
     messages = [
         '請輸入帳號、密碼', 
@@ -73,6 +49,30 @@ def testError(client: FlaskClient):
             query_string={ 'message': message }
         )
         assertContains(response, message)
+
+def testHome(client: FlaskClient):
+    response = client.get('/')
+    assertContains(response, '歡迎光臨，請輸入帳號密碼')
+
+def testMemberIfLogin(client: FlaskClient):
+    setSession(client, 'isLogin', True)
+    response = client.get('/member')
+    assertContains(response, '歡迎光臨，這是會員頁')
+
+def testRedirectsHomeToMemberIfLogin(client: FlaskClient):
+    setSession(client, 'isLogin', True)
+    response = client.get(
+        path='/', 
+        follow_redirects=True
+    )
+    assertRedirects(response, '/member')
+
+def testRedirectsMemberToHomeIfNotLogin(client: FlaskClient):
+    response = client.get(
+        path='/member', 
+        follow_redirects=True
+    )
+    assertRedirects(response, '/')
 
 def testSigninSuccess(client: FlaskClient):
     response = client.post(
@@ -118,3 +118,18 @@ def testSignout(client: FlaskClient):
         )
         assert session['isLogin'] == False
     assertRedirects(response, '/')
+
+def testSquareRedirects(client: FlaskClient):
+    response = client.post(
+        path='/square',
+        data={ 'num': '4' },
+        follow_redirects=True
+    )
+    assertRedirects(response, '/square/4')
+    assertContains(response, '16')
+
+def testSquare(client: FlaskClient):
+    response = client.get(
+        path='/square/4'
+    )
+    assertContains(response, '16')
