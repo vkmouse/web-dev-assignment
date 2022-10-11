@@ -4,7 +4,7 @@ import functions
 app = Flask(
     import_name=__name__,
     static_folder='public',
-    static_url_path='/'
+    static_url_path='/public'
 )
 app.config['SECRET_KEY'] = 'test'
 functions.configureRoutes(app)
