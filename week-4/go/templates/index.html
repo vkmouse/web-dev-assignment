@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/public/icon/favicon-16x16.png">
+  <link rel="stylesheet" href="/public/style/style.css">
+  <title>Flask Practice</title>
+</head>
+<body>
+  <header class="banner">
+    歡迎光臨，請輸入帳號密碼
+  </header>
+  <main>
+    <form action="/signin" method="post">
+      <div class="title m-1">登入系統</div>
+      <div class="input-group">
+        <span class="input-group__label">帳號</span>
+        <input name="account">
+      </div>
+      <div class="input-group">
+        <span class="input-group__label">密碼</span>
+        <input name="password" type="password">
+      </div>
+      <button class="m-1">登入</button>
+    </form>
+    <hr />
+    <form action="/square" method="post">
+      <div class="title m-1">計算正整數的平方</div>
+      <div class="input-group">
+        <span class="input-group__label">數字</span>
+        <input name="num" required pattern="^(0|[1-9][0-9]*)$">
+      </div>
+      <button class="m-1">計算</button>
+    </form>
+  </main>
+</body>
+</html>
