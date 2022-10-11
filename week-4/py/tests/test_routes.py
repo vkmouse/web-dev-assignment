@@ -119,15 +119,6 @@ def testSignout(client: FlaskClient):
         assert session['isLogin'] == False
     assertRedirects(response, '/')
 
-def testSquareRedirects(client: FlaskClient):
-    response = client.post(
-        path='/square',
-        data={ 'num': '4' },
-        follow_redirects=True
-    )
-    assertRedirects(response, '/square/4')
-    assertContains(response, '16')
-
 def testSquare(client: FlaskClient):
     response = client.get(
         path='/square/4'
