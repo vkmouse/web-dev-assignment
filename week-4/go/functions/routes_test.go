@@ -155,15 +155,6 @@ func TestSigninForPasswordMismatchError(t *testing.T) {
 	assertStatusOK(t, w)
 }
 
-func TestSquareRedirects(t *testing.T) {
-	data := url.Values{"num": {"4"}}
-	router := setupRouter()
-	w, req := post(router, "/square", data, true)
-	assertPath(t, req, "/square/4")
-	assertContains(t, w, "16")
-	assertStatusOK(t, w)
-}
-
 func TestSquare(t *testing.T) {
 	router := setupRouter()
 	w, req := get(router, "/square/4", nil, true)

@@ -22,7 +22,6 @@ func SetupRouter(templateFolder string, publicFolder string) *gin.Engine {
 	router.GET("/signout", signout)
 	router.GET("/square/:num", square)
 	router.POST("/signin", signin)
-	router.POST("/square", squareRedirects)
 
 	return router
 }
@@ -84,12 +83,6 @@ func signout(ctx *gin.Context) {
 	session.Save()
 
 	location := url.URL{Path: "/"}
-	ctx.Redirect(http.StatusFound, location.RequestURI())
-}
-
-func squareRedirects(ctx *gin.Context) {
-	num := ctx.PostForm("num")
-	location := url.URL{Path: "/square/" + num}
 	ctx.Redirect(http.StatusFound, location.RequestURI())
 }
 

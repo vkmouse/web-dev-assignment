@@ -25,14 +25,24 @@
       <button class="m-1">登入</button>
     </form>
     <hr />
-    <form action="/square" method="post">
-      <div class="title m-1">計算正整數的平方</div>
-      <div class="input-group">
-        <span class="input-group__label">數字</span>
-        <input name="num" required pattern="^(0|[1-9][0-9]*)$">
-      </div>
-      <button class="m-1">計算</button>
-    </form>
+    <div class="title m-1">計算正整數的平方</div>
+    <div class="input-group">
+      <span class="input-group__label">數字</span>
+      <input id="num">
+    </div>
+    <button class="m-1" onclick="handleSquareRedirect()">
+      計算
+    </button>
   </main>
 </body>
 </html>
+<script>
+  function handleSquareRedirect() {
+    const num = document.getElementById('num').value;
+    const regex = new RegExp('^(0|[1-9][0-9]*)$');
+    const isMatch = regex.test(num);
+    if (isMatch) {
+      window.location.href = `/square/${num}`;
+    }
+  }
+</script>
