@@ -132,8 +132,7 @@ def testSignout(client: FlaskClient):
         key='isLogin')
     response = client.get(
         path=response.headers['Location'],
-        follow_redirects=True,
-        headers={'Cookie':response.headers['Set-Cookie']}
+        follow_redirects=True
     )
     assert response.request.path == '/'
 
