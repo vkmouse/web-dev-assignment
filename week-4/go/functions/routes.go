@@ -31,14 +31,18 @@ func createSession(router *gin.Engine) {
 	router.Use(sessions.Sessions("isLogin", store))
 }
 
+func checkLogin(ctx *gin.Context) bool {
+	session := sessions.Default(ctx)
+	return session.Get("isLogin") == true
+}
+
 func errorPage(ctx *gin.Context) {
 	message, _ := ctx.GetQuery("message")
 	ctx.HTML(http.StatusOK, "error.html", gin.H{"message": message})
 }
 
 func homePage(ctx *gin.Context) {
-	session := sessions.Default(ctx)
-	if session.Get("isLogin") == true {
+	if checkLogin(ctx) {
 		location := url.URL{Path: "/member"}
 		ctx.Redirect(http.StatusFound, location.RequestURI())
 	} else {
@@ -47,8 +51,7 @@ func homePage(ctx *gin.Context) {
 }
 
 func memberPage(ctx *gin.Context) {
-	session := sessions.Default(ctx)
-	if session.Get("isLogin") == true {
+	if checkLogin(ctx) {
 		ctx.HTML(http.StatusOK, "member.html", gin.H{})
 	} else {
 		location := url.URL{Path: "/"}
@@ -59,12 +62,10 @@ func memberPage(ctx *gin.Context) {
 func signin(ctx *gin.Context) {
 	account := ctx.PostForm("account")
 	password := ctx.PostForm("password")
-	session := sessions.Default(ctx)
-	session.Set("isLogin", CheckLogin(account, password))
-	session.Save()
+	SetSeesion(ctx, "isLogin", CheckLogin(account, password))
 
 	var location url.URL
-	if session.Get("isLogin") == true {
+	if checkLogin(ctx) {
 		location = url.URL{Path: "/member"}
 	} else {
 		message := GetErrorMessage(account, password)
@@ -78,10 +79,7 @@ func signin(ctx *gin.Context) {
 }
 
 func signout(ctx *gin.Context) {
-	session := sessions.Default(ctx)
-	session.Set("isLogin", false)
-	session.Save()
-
+	SetSeesion(ctx, "isLogin", false)
 	location := url.URL{Path: "/"}
 	ctx.Redirect(http.StatusFound, location.RequestURI())
 }
