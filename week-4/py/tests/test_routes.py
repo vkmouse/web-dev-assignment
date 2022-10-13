@@ -1,5 +1,5 @@
 import pytest
-from flask import Flask, session
+from flask import Flask
 from flask.testing import FlaskClient
 from functions import *
 from werkzeug.test import TestResponse
@@ -42,12 +42,10 @@ def assertContains(response: TestResponse, text: str):
     assert response.status_code == 200
 
 def setSession(client: FlaskClient, property: str, value: any):
-    with client.session_transaction() as session:
-        session[property] = value
     client.set_cookie(
         server_name='/',
-        key='isLogin',
-        value='true')
+        key=property,
+        value=str(value).lower())
 
 def testError(client: FlaskClient):
     messages = [
@@ -124,13 +122,20 @@ def testSigninForPasswordMismatchError(client: FlaskClient):
 def testSignout(client: FlaskClient):
     setSession(client, 'isLogin', True)
     assert cookieContains(client, 'isLogin', 'true')
-    with client:
-        response = client.get(
-            path='/signout',
-            follow_redirects=True
-        )
-        assert response.history[0].headers['Set-Cookie'].find('isLogin=;') != -1
-    assertRedirects(response, '/')
+    response = client.get(
+        path='/signout',
+        follow_redirects=False,
+    )
+    assert response.headers['Set-Cookie'].find('isLogin=;') != -1
+    client.delete_cookie(
+        server_name='/',
+        key='isLogin')
+    response = client.get(
+        path=response.headers['Location'],
+        follow_redirects=True,
+        headers={'Cookie':response.headers['Set-Cookie']}
+    )
+    assert response.request.path == '/'
 
 def testSquare(client: FlaskClient):
     response = client.get(

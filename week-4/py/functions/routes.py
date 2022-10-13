@@ -1,6 +1,6 @@
 import functions
 import time
-from flask import Flask, request, session, redirect, render_template, make_response
+from flask import Flask, request, redirect, render_template, make_response
 from flask.wrappers import Response
 
 def configureRoutes(app: Flask):
@@ -44,17 +44,14 @@ def configureRoutes(app: Flask):
         return render_template('square.html', num=num, result=result)
 
     def checkLogin():
-        return session.get('isLogin') and request.cookies.get('isLogin')
+        return request.cookies.get('isLogin') == 'true'
 
     def setLogin(args) -> Response:
-        session['isLogin'] = True
         resp = make_response(args)
         resp.set_cookie('isLogin', value='true', expires=time.time()+60)
         return resp
 
     def resetLogin(args) -> Response:
-        if session.get('isLogin'):
-            session.pop('isLogin')
         resp = make_response(args)
         resp.delete_cookie('isLogin')
         return resp

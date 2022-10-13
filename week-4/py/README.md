@@ -66,5 +66,5 @@ Python virtual enviroment is recommended
    ```
 2. Run unit tests
    ```sh
-   pytest
+   pytest -s
    ```
