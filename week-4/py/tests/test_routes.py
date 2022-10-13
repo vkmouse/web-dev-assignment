@@ -24,6 +24,13 @@ def client(app):
 def runner(app):
     return app.test_cli_runner()
 
+def cookieContains(client: FlaskClient, name: str, value: str) -> bool:
+    for i in client.cookie_jar:
+        if i.name == name and i.value == value:
+            return True
+    else:
+        return False
+
 def assertRedirects(response: TestResponse, path: str):
     assert len(response.history) == 1
     assert response.history[0].status_code == 302
@@ -37,6 +44,10 @@ def assertContains(response: TestResponse, text: str):
 def setSession(client: FlaskClient, property: str, value: any):
     with client.session_transaction() as session:
         session[property] = value
+    client.set_cookie(
+        server_name='/',
+        key='isLogin',
+        value='true')
 
 def testError(client: FlaskClient):
     messages = [
@@ -56,7 +67,8 @@ def testHome(client: FlaskClient):
 
 def testMemberIfLogin(client: FlaskClient):
     setSession(client, 'isLogin', True)
-    response = client.get('/member')
+    response = client.get('/member', follow_redirects=True)
+    print(response.get_data().decode('utf-8'))
     assertContains(response, '歡迎光臨，這是會員頁')
 
 def testRedirectsHomeToMemberIfLogin(client: FlaskClient):
@@ -111,12 +123,13 @@ def testSigninForPasswordMismatchError(client: FlaskClient):
 
 def testSignout(client: FlaskClient):
     setSession(client, 'isLogin', True)
+    assert cookieContains(client, 'isLogin', 'true')
     with client:
         response = client.get(
             path='/signout',
             follow_redirects=True
         )
-        assert session['isLogin'] == False
+        assert response.history[0].headers['Set-Cookie'].find('isLogin=;') != -1
     assertRedirects(response, '/')
 
 def testSquare(client: FlaskClient):
