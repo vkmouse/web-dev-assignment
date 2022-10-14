@@ -50,6 +50,7 @@ def configureRoutes(app: Flask):
     def checkLogin():
         ciphertext = request.cookies.get('isLogin')
         if ciphertext != None:
+            ciphertext = str.encode(ciphertext, encoding='utf-8')
             plaintext = bytes.decode(f.decrypt(ciphertext), encoding='utf-8')
             return plaintext == 'true'
         return False
