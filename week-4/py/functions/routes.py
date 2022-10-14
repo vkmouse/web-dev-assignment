@@ -2,6 +2,10 @@ import functions
 import time
 from flask import Flask, request, redirect, render_template, make_response
 from flask.wrappers import Response
+from cryptography.fernet import Fernet
+
+key = Fernet.generate_key()
+f = Fernet(key)
 
 def configureRoutes(app: Flask):
     @app.route('/')
@@ -44,14 +48,22 @@ def configureRoutes(app: Flask):
         return render_template('square.html', num=num, result=result)
 
     def checkLogin():
-        return request.cookies.get('isLogin') == 'true'
+        ciphertext = request.cookies.get('isLogin')
+        if ciphertext != None:
+            plaintext = bytes.decode(f.decrypt(ciphertext), encoding='utf-8')
+            return plaintext == 'true'
+        return False
 
-    def setLogin(args) -> Response:
-        resp = make_response(args)
-        resp.set_cookie('isLogin', value='true', expires=time.time()+60)
-        return resp
+def setLogin(args) -> Response:
+    resp = make_response(args)
+    ciphertext = generateCiphertext()
+    resp.set_cookie('isLogin', value=ciphertext, expires=time.time()+60)
+    return resp
 
-    def resetLogin(args) -> Response:
-        resp = make_response(args)
-        resp.delete_cookie('isLogin')
-        return resp
+def resetLogin(args) -> Response:
+    resp = make_response(args)
+    resp.delete_cookie('isLogin')
+    return resp
+
+def generateCiphertext():
+    return f.encrypt(b'true').decode("utf-8")

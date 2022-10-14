@@ -3,6 +3,7 @@ from flask import Flask
 from flask.testing import FlaskClient
 from functions import *
 from werkzeug.test import TestResponse
+from functions.routes import generateCiphertext
 
 @pytest.fixture()
 def app():
@@ -41,11 +42,12 @@ def assertContains(response: TestResponse, text: str):
     assert text in response.get_data().decode('utf-8')
     assert response.status_code == 200
 
-def setSession(client: FlaskClient, property: str, value: any):
+def setLogin(client: FlaskClient):
+    ciphertext = generateCiphertext()
     client.set_cookie(
         server_name='/',
-        key=property,
-        value=str(value).lower())
+        key='isLogin',
+        value=ciphertext)
 
 def testError(client: FlaskClient):
     messages = [
@@ -64,13 +66,13 @@ def testHome(client: FlaskClient):
     assertContains(response, '歡迎光臨，請輸入帳號密碼')
 
 def testMemberIfLogin(client: FlaskClient):
-    setSession(client, 'isLogin', True)
+    setLogin(client)
     response = client.get('/member', follow_redirects=True)
     print(response.get_data().decode('utf-8'))
     assertContains(response, '歡迎光臨，這是會員頁')
 
 def testRedirectsHomeToMemberIfLogin(client: FlaskClient):
-    setSession(client, 'isLogin', True)
+    setLogin(client)
     response = client.get(
         path='/', 
         follow_redirects=True
@@ -120,8 +122,7 @@ def testSigninForPasswordMismatchError(client: FlaskClient):
     assertContains(response, '帳號、或密碼輸入錯誤')
 
 def testSignout(client: FlaskClient):
-    setSession(client, 'isLogin', True)
-    assert cookieContains(client, 'isLogin', 'true')
+    setLogin(client)
     response = client.get(
         path='/signout',
         follow_redirects=False,
