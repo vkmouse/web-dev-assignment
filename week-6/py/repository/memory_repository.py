@@ -17,8 +17,8 @@ class MemoryMemberRepository(MemberRepository):
     def usernameExists(self, __username: str) -> bool:
         return len(list(filter(lambda i: i['username'] == __username, self.__db))) > 0
 
-    def getName(self, __username: str) -> str:
-        temp = list(filter(lambda i: i['username'] == __username, self.__db))
+    def getName(self, __username: str, __password: str) -> str:
+        temp = list(filter(lambda i: i['username'] == __username and i['password'] == __password, self.__db))
         if len(temp) > 0:
             return temp[0]['name']
         return ''

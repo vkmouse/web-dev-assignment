@@ -1,4 +1,3 @@
-import functions
 from flask import Flask, request, session, redirect, render_template
 from repository import UnitOfWork
 
@@ -26,12 +25,14 @@ def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
     def signin():
         account = request.form.get('account')
         password = request.form.get('password')
-        session['isLogin'] = functions.checkLogin(account, password)
-        if session.get('isLogin'):
+        success = unitOfWork.memberRepository.getName(account, password) != ''        
+        if success:
+            session['isLogin'] = True
             return redirect('/member')
+        elif account == '' or password == '':
+            return redirect(f'/error?message=請輸入帳號、密碼')
         else:
-            message = functions.getErrorMessage(account, password)
-            return redirect(f'/error?message={message}')
+            return redirect(f'/error?message=帳號、或密碼輸入錯誤')
 
     @app.route('/signout')
     def signout():
