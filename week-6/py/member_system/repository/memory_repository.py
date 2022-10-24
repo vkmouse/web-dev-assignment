@@ -1,4 +1,4 @@
-from repository.repository import MemberRepository, UnitOfWork
+from member_system.repository.repository import MemberRepository, UnitOfWork
 
 class MemoryMemberRepository(MemberRepository):
     def __init__(self):

@@ -1,13 +1,13 @@
 import pytest
 from flask import Flask, session
 from flask.testing import FlaskClient
-from functions import *
 from werkzeug.test import TestResponse
-from repository import MemoryUnitOfWork
+from member_system.repository import MemoryUnitOfWork
+from member_system.routes import configureRoutes
 
 @pytest.fixture()
 def app():
-    app = Flask(__name__, template_folder='../templates')
+    app = Flask(__name__, template_folder='../../templates')
     app.test_client()
 
     unitOfWork = MemoryUnitOfWork()

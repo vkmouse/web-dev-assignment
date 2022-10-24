@@ -1,6 +1,5 @@
 from flask import Flask
-import functions
-from repository import MemoryUnitOfWork
+from member_system import MemoryUnitOfWork, configureRoutes
 
 app = Flask(
     import_name=__name__,
@@ -11,7 +10,7 @@ app.config['SECRET_KEY'] = 'test'
 
 unitOfWork = MemoryUnitOfWork()
 
-functions.configureRoutes(app, unitOfWork)
+configureRoutes(app, unitOfWork)
 
 if __name__ == '__main__':
 	app.run(port=3000, debug=True)

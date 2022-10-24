@@ -1,4 +1,4 @@
-from repository import UnitOfWork, MemoryUnitOfWork
+from member_system.repository import UnitOfWork, MemoryUnitOfWork
 
 def repositoryTest(unitOfWork: UnitOfWork):
     assert unitOfWork.memberRepository.usernameExists('test') == False
