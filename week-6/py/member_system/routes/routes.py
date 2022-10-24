@@ -49,7 +49,7 @@ def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
         name = request.form.get('name')
         username = request.form.get('username')
         password = request.form.get('password')
-        success = unitOfWork.memberRepository.addUser(name, username, password)
+        success = unitOfWork.memberRepository.addMember(name, username, password)
         if success:
             return redirect('/')
         else:

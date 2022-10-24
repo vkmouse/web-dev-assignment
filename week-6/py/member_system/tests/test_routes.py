@@ -11,7 +11,7 @@ def app():
     app.test_client()
 
     unitOfWork = MemoryUnitOfWork()
-    unitOfWork.memberRepository.addUser('test', 'test', 'test')
+    unitOfWork.memberRepository.addMember('test', 'test', 'test')
 
     configureRoutes(app, unitOfWork)
     app.config.update({
