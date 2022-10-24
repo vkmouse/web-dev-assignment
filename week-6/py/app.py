@@ -1,5 +1,5 @@
 from flask import Flask
-from member_system import MemoryUnitOfWork, configureRoutes
+from member_system import MemoryUnitOfWork, MySQLUnitOfWork, configureRoutes
 
 app = Flask(
     import_name=__name__,
@@ -8,7 +8,14 @@ app = Flask(
 )
 app.config['SECRET_KEY'] = 'test'
 
-unitOfWork = MemoryUnitOfWork()
+# unitOfWork = MemoryUnitOfWork()
+unitOfWork = MySQLUnitOfWork({
+  'user': 'root',
+  'password': '12345678',
+  'host': '192.168.56.102',
+  'database': 'website',
+  'raise_on_warnings': True
+})
 
 configureRoutes(app, unitOfWork)
 
