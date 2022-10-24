@@ -1,0 +1,1 @@
+from member_system.core.types import Member
