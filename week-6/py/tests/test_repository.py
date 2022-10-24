@@ -1,13 +1,13 @@
-from repository import MemberRepository, MemoryMemberRepository
+from repository import UnitOfWork, MemoryUnitOfWork
 
-def repositoryTest(repo: MemberRepository):
-    assert repo.usernameExists('test') == False
-    assert repo.getName('test') == ''
-    assert repo.addUser('Tester', 'test', 'test') == True
-    assert repo.usernameExists('test') == True
-    assert repo.getName('test') == 'Tester'
-    assert repo.addUser('Tester', 'test', 'test') == False
+def repositoryTest(unitOfWork: UnitOfWork):
+    assert unitOfWork.memberRepository.usernameExists('test') == False
+    assert unitOfWork.memberRepository.getName('test') == ''
+    assert unitOfWork.memberRepository.addUser('Tester', 'test', 'test') == True
+    assert unitOfWork.memberRepository.usernameExists('test') == True
+    assert unitOfWork.memberRepository.getName('test') == 'Tester'
+    assert unitOfWork.memberRepository.addUser('Tester', 'test', 'test') == False
 
 def testMemoryMemberRepository():
-    repo = MemoryMemberRepository()
-    repositoryTest(repo)
+    unitOfWork = MemoryUnitOfWork()
+    repositoryTest(unitOfWork)

@@ -1,4 +1,5 @@
-from repository.repository import MemberRepository
+from repository.repository import MemberRepository, UnitOfWork
+
 class MemoryMemberRepository(MemberRepository):
     def __init__(self):
         self.__db = []
@@ -6,7 +7,7 @@ class MemoryMemberRepository(MemberRepository):
     def addUser(self, __name: str, __username: str, __password: str) -> bool:
         if self.usernameExists(__username):
             return False
-        self.__db.append({ 
+        self.__db.append({
             'name': __name,
             'username': __username,
             'password': __password,
@@ -21,3 +22,7 @@ class MemoryMemberRepository(MemberRepository):
         if len(temp) > 0:
             return temp[0]['name']
         return ''
+
+class MemoryUnitOfWork(UnitOfWork):
+    def _createMemberRepository(self) -> MemberRepository:
+        return MemoryMemberRepository()

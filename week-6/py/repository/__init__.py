@@ -1,2 +1,2 @@
-from repository.memory_repository import MemoryMemberRepository
-from repository.repository import MemberRepository
+from repository.memory_repository import MemoryUnitOfWork
+from repository.repository import UnitOfWork

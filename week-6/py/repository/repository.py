@@ -7,3 +7,14 @@ class MemberRepository:
 
     def getName(self, __username: str) -> str:
         return NotImplemented
+
+class UnitOfWork:
+    def __init__(self):
+        self.__memberRepository = self._createMemberRepository()
+
+    @property
+    def memberRepository(self):
+        return self.__memberRepository
+
+    def _createMemberRepository(self) -> MemberRepository:
+        return NotImplemented
