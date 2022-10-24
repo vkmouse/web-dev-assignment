@@ -115,7 +115,7 @@ def testSigninForPasswordMismatchError(client: FlaskClient):
     assertContains(response, '帳號、或密碼輸入錯誤')
 
 def testSignout(client: FlaskClient):
-    setSession(client, 'username', 'test111')
+    setSession(client, 'username', 'test')
     with client:
         response = client.get(
             path='/signout',
