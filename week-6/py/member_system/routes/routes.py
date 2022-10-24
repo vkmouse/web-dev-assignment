@@ -4,17 +4,16 @@ from member_system.repository import UnitOfWork
 def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
     @app.route('/')
     def index():
-        username = session.get('username')
-        if username:
+        if session.get('name'):
             return redirect('/member')
         else:
             return render_template('index.html')
 
     @app.route('/member')
     def member():
-        username = session.get('username')
-        if username:
-            return render_template('member.html')
+        name = session.get('name')
+        if name:
+            return render_template('member.html', name=name)
         else:
             return redirect('/')
 
