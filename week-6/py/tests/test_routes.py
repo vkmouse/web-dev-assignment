@@ -3,12 +3,17 @@ from flask import Flask, session
 from flask.testing import FlaskClient
 from functions import *
 from werkzeug.test import TestResponse
+from repository import MemoryUnitOfWork
 
 @pytest.fixture()
 def app():
     app = Flask(__name__, template_folder='../templates')
     app.test_client()
-    configureRoutes(app)
+
+    unitOfWork = MemoryUnitOfWork()
+    unitOfWork.memberRepository.addUser('test', 'test', 'test')
+
+    configureRoutes(app, unitOfWork)
     app.config.update({
         'TESTING': True,
         'SECRET_KEY': 'test'
@@ -118,3 +123,28 @@ def testSignout(client: FlaskClient):
         )
         assert session['isLogin'] == False
     assertRedirects(response, '/')
+
+def testSignupSuccess(client: FlaskClient):
+    response = client.post(
+        path='/signup',
+        data={ 
+            'name': 'signup',
+            'username': 'signup',
+            'password': 'signup'
+        },
+        follow_redirects=True
+    )
+    assertRedirects(response, '/')
+
+def testSignupForUsernameExistsError(client: FlaskClient):
+    response = client.post(
+        path='/signup',
+        data={ 
+            'name': 'test',
+            'username': 'test',
+            'password': 'test'
+        },
+        follow_redirects=True
+    )
+    assertRedirects(response, '/error')
+    assertContains(response, '帳號已經被註冊')
