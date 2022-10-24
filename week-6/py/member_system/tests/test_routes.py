@@ -39,9 +39,11 @@ def assertContains(response: TestResponse, text: str):
     assert text in response.get_data().decode('utf-8')
     assert response.status_code == 200
 
-def setSession(client: FlaskClient, property: str, value: any):
+def setSession(client: FlaskClient):
     with client.session_transaction() as session:
-        session[property] = value
+        session['id'] = 1
+        session['name'] = 'test'
+        session['username'] = 'test'
 
 def testError(client: FlaskClient):
     messages = [
@@ -60,12 +62,12 @@ def testHome(client: FlaskClient):
     assertContains(response, '歡迎光臨，請輸入帳號密碼')
 
 def testMemberIfLogin(client: FlaskClient):
-    setSession(client, 'username', 'test')
+    setSession(client)
     response = client.get('/member')
     assertContains(response, '歡迎光臨，這是會員頁')
 
 def testRedirectsHomeToMemberIfLogin(client: FlaskClient):
-    setSession(client, 'username', 'test')
+    setSession(client)
     response = client.get(
         path='/', 
         follow_redirects=True
@@ -115,12 +117,14 @@ def testSigninForPasswordMismatchError(client: FlaskClient):
     assertContains(response, '帳號、或密碼輸入錯誤')
 
 def testSignout(client: FlaskClient):
-    setSession(client, 'username', 'test')
+    setSession(client)
     with client:
         response = client.get(
             path='/signout',
             follow_redirects=True
         )
+        assert session.get('id', None) == None
+        assert session.get('name', None) == None
         assert session.get('username', None) == None
     assertRedirects(response, '/')
 

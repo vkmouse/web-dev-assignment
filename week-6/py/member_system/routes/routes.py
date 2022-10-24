@@ -40,6 +40,8 @@ def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
 
     @app.route('/signout')
     def signout():
+        session.pop('id', None)
+        session.pop('name', None)
         session.pop('username', None)
         return redirect('/')
 
