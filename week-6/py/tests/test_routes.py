@@ -60,12 +60,12 @@ def testHome(client: FlaskClient):
     assertContains(response, '歡迎光臨，請輸入帳號密碼')
 
 def testMemberIfLogin(client: FlaskClient):
-    setSession(client, 'isLogin', True)
+    setSession(client, 'username', 'test')
     response = client.get('/member')
     assertContains(response, '歡迎光臨，這是會員頁')
 
 def testRedirectsHomeToMemberIfLogin(client: FlaskClient):
-    setSession(client, 'isLogin', True)
+    setSession(client, 'username', 'test')
     response = client.get(
         path='/', 
         follow_redirects=True
@@ -115,13 +115,13 @@ def testSigninForPasswordMismatchError(client: FlaskClient):
     assertContains(response, '帳號、或密碼輸入錯誤')
 
 def testSignout(client: FlaskClient):
-    setSession(client, 'isLogin', True)
+    setSession(client, 'username', 'test111')
     with client:
         response = client.get(
             path='/signout',
             follow_redirects=True
         )
-        assert session['isLogin'] == False
+        assert session.get('username', None) == None
     assertRedirects(response, '/')
 
 def testSignupSuccess(client: FlaskClient):

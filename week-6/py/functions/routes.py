@@ -4,14 +4,14 @@ from repository import UnitOfWork
 def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
     @app.route('/')
     def index():
-        if (session.get('isLogin')):
+        if checkUsernameFromSession():
             return redirect('/member')
         else:
             return render_template('index.html')
 
     @app.route('/member')
     def member():
-        if (session.get('isLogin')):
+        if checkUsernameFromSession():
             return render_template('member.html')
         else:
             return redirect('/')
@@ -25,18 +25,18 @@ def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
     def signin():
         username = request.form.get('username')
         password = request.form.get('password')
-        success = unitOfWork.memberRepository.getName(username, password) != ''        
+        success = unitOfWork.memberRepository.memberExists(username, password)
         if success:
-            session['isLogin'] = True
+            session['username'] = username
             return redirect('/member')
         elif username == '' or password == '':
-            return redirect(f'/error?message=請輸入帳號、密碼')
+            return redirect('/error?message=請輸入帳號、密碼')
         else:
-            return redirect(f'/error?message=帳號、或密碼輸入錯誤')
+            return redirect('/error?message=帳號、或密碼輸入錯誤')
 
     @app.route('/signout')
     def signout():
-        session['isLogin'] = False
+        session.pop('username', None)
         return redirect('/')
 
     @app.route('/signup', methods=['POST'])
@@ -49,3 +49,7 @@ def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
             return redirect('/')
         else:
             return redirect('/error?message=帳號已經被註冊')
+
+    def checkUsernameFromSession():
+        username = session.get('username')
+        return username and unitOfWork.memberRepository.usernameExists(username)

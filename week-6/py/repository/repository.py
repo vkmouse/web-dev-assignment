@@ -5,7 +5,7 @@ class MemberRepository:
     def usernameExists(self, __username: str) -> bool:
         return NotImplemented
 
-    def getName(self, __username: str, __password: str) -> str:
+    def memberExists(self, __username: str, __password: str) -> str:
         return NotImplemented
 
 class UnitOfWork:
