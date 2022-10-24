@@ -23,13 +23,13 @@ def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
 
     @app.route('/signin', methods=['POST'])
     def signin():
-        account = request.form.get('account')
+        username = request.form.get('username')
         password = request.form.get('password')
-        success = unitOfWork.memberRepository.getName(account, password) != ''        
+        success = unitOfWork.memberRepository.getName(username, password) != ''        
         if success:
             session['isLogin'] = True
             return redirect('/member')
-        elif account == '' or password == '':
+        elif username == '' or password == '':
             return redirect(f'/error?message=請輸入帳號、密碼')
         else:
             return redirect(f'/error?message=帳號、或密碼輸入錯誤')

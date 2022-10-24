@@ -83,18 +83,18 @@ def testSigninSuccess(client: FlaskClient):
     response = client.post(
         path='/signin',
         data={ 
-            'account': 'test',
+            'username': 'test',
             'password': 'test'
         },
         follow_redirects=True
     )
     assertRedirects(response, '/member')
 
-def testSigninWithoutAccountOrPassword(client: FlaskClient):
+def testSigninWithoutUsernameOrPassword(client: FlaskClient):
     response = client.post(
         path='/signin',
         data={ 
-            'account': '',
+            'username': '',
             'password': ''
         },
         follow_redirects=True
@@ -106,7 +106,7 @@ def testSigninForPasswordMismatchError(client: FlaskClient):
     response = client.post(
         path='/signin',
         data={ 
-            'account': '123',
+            'username': '123',
             'password': '123'
         },
         follow_redirects=True
