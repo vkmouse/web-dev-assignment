@@ -34,10 +34,10 @@ class MemoryMessageRepository(MessageRepository):
         self.__id: int = 0
 
     def addMessage(self, __memberId: int, __content: str) -> None:
-        return NotImplemented
+        self.__db.append(Message(self.__nextId, __content, __memberId))
     
     def getMessages(self) -> List[Message]:
-        return NotImplemented
+        return self.__db
         
     @property
     def __nextId(self):
