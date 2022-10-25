@@ -23,9 +23,9 @@ class Member:
 
 class Message:
     def __init__(self, __id: int, __content: str, __memberId: int):
-        self.id = __id
-        self.content = __content
-        self.memberId = __memberId
+        self.__id = __id
+        self.__content = __content
+        self.__memberId = __memberId
 
     @property
     def id(self):

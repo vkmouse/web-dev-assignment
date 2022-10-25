@@ -13,11 +13,16 @@ def messageRepositoryTest(unitOfWork: UnitOfWork):
     unitOfWork.messageRepository.addMessage(1, '123')
     unitOfWork.messageRepository.addMessage(2, '456')
     unitOfWork.messageRepository.addMessage(1, '789')
-    assert unitOfWork.messageRepository.getMessages() == [
-        { Message(1, '123', 1) },
-        { Message(2, '456', 2) },
-        { Message(3, '789', 1) },
-    ]
+    messages = unitOfWork.messageRepository.getMessages()
+    assert messages[0].id is 1
+    assert messages[1].id is 2
+    assert messages[2].id is 3
+    assert messages[0].content is '123'
+    assert messages[1].content is '456'
+    assert messages[2].content is '789'
+    assert messages[0].memberId is 1
+    assert messages[1].memberId is 2
+    assert messages[2].memberId is 1
 
 def testMemoryMemberRepository():
     unitOfWork = MemoryUnitOfWork()
