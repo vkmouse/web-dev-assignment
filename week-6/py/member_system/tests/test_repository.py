@@ -1,4 +1,4 @@
-from member_system.core.types import Message
+import pytest
 from member_system.repository import UnitOfWork, MemoryUnitOfWork, MySQLUnitOfWork
 
 def repositoryTest(unitOfWork: UnitOfWork):
@@ -25,14 +25,17 @@ def testMemoryMemberRepository():
     unitOfWork = MemoryUnitOfWork()
     repositoryTest(unitOfWork)
 
+config = {
+    'user': 'root',
+    'password': '12345678',
+    'host': '192.168.56.102',
+    'database': 'website',
+    'raise_on_warnings': True,
+    'connection_timeout': 1
+}
+@pytest.mark.skipif(not MySQLUnitOfWork.isAvailable(config), reason="database is not avaibable")
 def testMySQLMemberRepository():
-    unitOfWork = MySQLUnitOfWork({
-        'user': 'root',
-        'password': '12345678',
-        'host': '192.168.56.102',
-        'database': 'website',
-        'raise_on_warnings': True
-    }, debug=True)
+    unitOfWork = MySQLUnitOfWork(config, debug=True)
     repositoryTest(unitOfWork)
 
 def testMemoryMessageRepository():

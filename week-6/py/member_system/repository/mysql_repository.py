@@ -108,3 +108,11 @@ class MySQLUnitOfWork(UnitOfWork):
 
     def _createMemberRepository(self) -> MemberRepository:
         return MySQLMemberRepository(self.__cnx, self.__debug)
+
+    @staticmethod
+    def isAvailable(config) -> bool:
+        try:
+            mysql.connector.connect(**config)
+            return True
+        except:
+            return False
