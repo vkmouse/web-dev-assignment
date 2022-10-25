@@ -20,3 +20,21 @@ class Member:
     @property
     def password(self):
         return self.__password
+
+class Message:
+    def __init__(self, __id: int, __content: str, __memberId: int):
+        self.id = __id
+        self.content = __content
+        self.memberId = __memberId
+
+    @property
+    def id(self):
+        return self.__id
+
+    @property
+    def content(self):
+        return self.__content
+
+    @property
+    def memberId(self):
+        return self.__memberId

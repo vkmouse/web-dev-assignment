@@ -1,1 +1,1 @@
-from member_system.core.types import Member
+from member_system.core.types import Member, Message

@@ -1,6 +1,6 @@
 from typing import List
-from member_system.core import Member
-from member_system.repository.repository import MemberRepository, UnitOfWork
+from member_system.core import Member, Message
+from member_system.repository.repository import MemberRepository, MessageRepository, UnitOfWork
 
 class MemoryMemberRepository(MemberRepository):
     def __init__(self):
@@ -27,6 +27,26 @@ class MemoryMemberRepository(MemberRepository):
         self.__id += 1
         return self.__id
 
+class MemoryMessageRepository(MessageRepository):
+    def __init__(self, unitOfWork: UnitOfWork):
+        self.unitOfWork = unitOfWork
+        self.__db: List[Message] = []
+        self.__id: int = 0
+
+    def addMessage(self, __memberId: int, __content: str) -> None:
+        return NotImplemented
+    
+    def getMessages(self) -> List[Message]:
+        return NotImplemented
+        
+    @property
+    def __nextId(self):
+        self.__id += 1
+        return self.__id
+
 class MemoryUnitOfWork(UnitOfWork):
     def _createMemberRepository(self) -> MemberRepository:
         return MemoryMemberRepository()
+    
+    def _createMessageRepository(self) -> MessageRepository:
+        return MemoryMessageRepository(self)
