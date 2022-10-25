@@ -22,31 +22,33 @@ class MemoryMemberRepository(MemberRepository):
         else:
             return None
 
+    def getMemberById(self, __id: int) -> Member | None:
+        members = list(filter(lambda i: i.id == __id, self.__db))
+        if len(members) > 0:
+            return members[0]
+        else:
+            return None
+
     @property
     def __nextId(self):
         self.__id += 1
         return self.__id
 
 class MemoryMessageRepository(MessageRepository):
-    def __init__(self, unitOfWork: UnitOfWork):
-        self.unitOfWork = unitOfWork
+    def __init__(self, memberRepository: MemoryMemberRepository):
+        self.memberRepository = memberRepository
         self.__db: List[Message] = []
-        self.__id: int = 0
 
     def addMessage(self, __memberId: int, __content: str) -> None:
-        self.__db.append(Message(self.__nextId, __content, __memberId))
+        member = self.memberRepository.getMemberById(__memberId)
+        self.__db.append(Message(member.name, __content))
     
     def getMessages(self) -> List[Message]:
         return self.__db
         
-    @property
-    def __nextId(self):
-        self.__id += 1
-        return self.__id
-
 class MemoryUnitOfWork(UnitOfWork):
     def _createMemberRepository(self) -> MemberRepository:
         return MemoryMemberRepository()
     
     def _createMessageRepository(self) -> MessageRepository:
-        return MemoryMessageRepository(self)
+        return MemoryMessageRepository(self.memberRepository)

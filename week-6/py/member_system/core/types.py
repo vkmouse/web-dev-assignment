@@ -22,19 +22,14 @@ class Member:
         return self.__password
 
 class Message:
-    def __init__(self, __id: int, __content: str, __memberId: int):
-        self.__id = __id
+    def __init__(self, __name: str, __content: str):
+        self.__name = __name
         self.__content = __content
-        self.__memberId = __memberId
 
     @property
-    def id(self):
-        return self.__id
+    def name(self):
+        return self.__name
 
     @property
     def content(self):
         return self.__content
-
-    @property
-    def memberId(self):
-        return self.__memberId
