@@ -14,7 +14,7 @@ def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
     def member():
         name = session.get('name')
         messages = unitOfWork.messageRepository.getMessages()
-        messages = map(lambda m: f'{m.memberId}: {m.content}', messages)
+        messages = map(lambda m: f'{m.name}: {m.content}', messages)
         if name:
             return render_template('member.html', name=name, messages=messages)
         else:
