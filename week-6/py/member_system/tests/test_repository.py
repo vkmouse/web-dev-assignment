@@ -15,12 +15,12 @@ def messageRepositoryTest(unitOfWork: UnitOfWork):
     unitOfWork.messageRepository.addMessage(2, '456')
     unitOfWork.messageRepository.addMessage(1, '789')
     messages = unitOfWork.messageRepository.getMessages()
-    assert messages[0].name is 'name1'
-    assert messages[1].name is 'name2'
-    assert messages[2].name is 'name1'
-    assert messages[0].content is '123'
-    assert messages[1].content is '456'
-    assert messages[2].content is '789'
+    assert messages[0].name == 'name1'
+    assert messages[1].name == 'name2'
+    assert messages[2].name == 'name1'
+    assert messages[0].content == '123'
+    assert messages[1].content == '456'
+    assert messages[2].content == '789'
 
 def testMemoryMemberRepository():
     unitOfWork = MemoryUnitOfWork()
@@ -33,4 +33,9 @@ def testMySQLMemberRepository():
 
 def testMemoryMessageRepository():
     unitOfWork = MemoryUnitOfWork()
+    messageRepositoryTest(unitOfWork)
+
+@pytest.mark.skipif(not MySQLUnitOfWork.isAvailable('config.json'), reason="database is not avaibable")
+def testMySQLMessageRepository():
+    unitOfWork = MySQLUnitOfWork('config.json', debug=True)
     messageRepositoryTest(unitOfWork)
