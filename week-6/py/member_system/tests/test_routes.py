@@ -153,3 +153,15 @@ def testSignupForUsernameExistsError(client: FlaskClient):
     )
     assertRedirects(response, '/error')
     assertContains(response, '帳號已經被註冊')
+
+def testMessage(client: FlaskClient):
+    setSession(client)
+    response = client.post(
+        path='/message',
+        data={ 
+            'content': '123456',
+        },
+        follow_redirects=True
+    )
+    assertRedirects(response, '/member')
+    assertContains(response, 'test: 123456')
