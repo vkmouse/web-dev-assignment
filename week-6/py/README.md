@@ -9,8 +9,8 @@ Table of Contents
 
 ## Live Demo
 
-Url: 
-Email: 
+Url: https://ggi82489.pythonanywhere.com/  
+Email: ggi82489@xcoxc.com  
 
 ## Getting Started
 
