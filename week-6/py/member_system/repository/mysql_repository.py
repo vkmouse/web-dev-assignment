@@ -1,3 +1,4 @@
+import json
 import mysql.connector
 from mysql.connector.connection import MySQLConnection
 from member_system.core import Member
@@ -101,18 +102,24 @@ class MySQLMemberRepository(MemberRepository):
         return 'DROP TABLE {};'.format(self.__tableName)
 
 class MySQLUnitOfWork(UnitOfWork):
-    def __init__(self, config, debug=False):
+    def __init__(self, configPath: str, debug=False):
         self.__debug = debug
-        self.__cnx = mysql.connector.connect(**config)
+        self.__cnx = self.loadConfigAndConnect(configPath)
         UnitOfWork.__init__(self)
 
     def _createMemberRepository(self) -> MemberRepository:
         return MySQLMemberRepository(self.__cnx, self.__debug)
 
     @staticmethod
-    def isAvailable(config) -> bool:
+    def isAvailable(configPath: str) -> bool:
         try:
-            mysql.connector.connect(**config)
+            MySQLUnitOfWork.loadConfigAndConnect(configPath)
             return True
         except:
             return False
+
+    @staticmethod
+    def loadConfigAndConnect(configPath: str):
+        with open(configPath) as file:
+            config = json.load(file)
+            return mysql.connector.connect(**config)

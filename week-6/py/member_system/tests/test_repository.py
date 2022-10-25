@@ -1,3 +1,4 @@
+import json
 import pytest
 from member_system.repository import UnitOfWork, MemoryUnitOfWork, MySQLUnitOfWork
 
@@ -25,17 +26,9 @@ def testMemoryMemberRepository():
     unitOfWork = MemoryUnitOfWork()
     repositoryTest(unitOfWork)
 
-config = {
-    'user': 'root',
-    'password': '12345678',
-    'host': '192.168.56.102',
-    'database': 'website',
-    'raise_on_warnings': True,
-    'connection_timeout': 1
-}
-@pytest.mark.skipif(not MySQLUnitOfWork.isAvailable(config), reason="database is not avaibable")
+@pytest.mark.skipif(not MySQLUnitOfWork.isAvailable('config.json'), reason="database is not avaibable")
 def testMySQLMemberRepository():
-    unitOfWork = MySQLUnitOfWork(config, debug=True)
+    unitOfWork = MySQLUnitOfWork('config.json', debug=True)
     repositoryTest(unitOfWork)
 
 def testMemoryMessageRepository():

@@ -229,3 +229,5 @@ cython_debug/
 go.work
 
 venv/
+
+config.json
