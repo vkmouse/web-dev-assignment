@@ -12,9 +12,26 @@
     歡迎光臨，這是會員頁
   </header>
   <main>
-    <div class="m-1">很高興見到您，{{name}}</div>
-    <div class="m-1">
-      <a href="/signout">登出系統</a>
+    <div class="center-container">
+      <div class="m-1">很高興見到您，{{name}}</div>
+      <div class="m-1">
+        <a href="/signout">登出系統</a>
+      </div>
+    </div>
+    <hr />
+    <div class="center-container" method="post">
+      <div class="m-1">來試試看留言吧</div>
+      <form class="center-container">
+        <div class="input-group">
+          <span class="input-group__label">內容</span>
+          <input name="content">
+        </div>
+        <button class="m-1">送出</button>
+      </form>
+    </div>
+    <hr />
+    <div class="center-container">
+      {{messages}}
     </div>
   </main>
 </body>
