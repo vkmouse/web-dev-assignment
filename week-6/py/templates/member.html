@@ -19,9 +19,9 @@
       </div>
     </div>
     <hr />
-    <div class="center-container" method="post">
+    <div class="center-container">
       <div class="m-1">來試試看留言吧</div>
-      <form class="center-container">
+      <form class="center-container"  action="/message" method="post">
         <div class="input-group">
           <span class="input-group__label">內容</span>
           <input name="content">
@@ -31,7 +31,9 @@
     </div>
     <hr />
     <div class="center-container">
-      {{messages}}
+      {% for message in messages %}
+        <span>{{ message }}</span>
+      {% endfor %}
     </div>
   </main>
 </body>
