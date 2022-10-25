@@ -1,3 +1,3 @@
 from member_system.repository.memory_repository import MemoryUnitOfWork
-from member_system.repository.mysql_repository import MySQLUnitOfWork
+from member_system.repository.mysql_repository_impl import MySQLUnitOfWork
 from member_system.repository.repository import UnitOfWork
