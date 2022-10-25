@@ -77,10 +77,28 @@ class MySQLMessageRepository(MySQLRepository, MessageRepository):
         MySQLRepository.__init__(self, cnx, debug)
 
     def addMessage(self, __memberId: int, __content: str) -> None:
-        pass
+        query = (
+            'INSERT INTO {} (member_id, content) '
+            'VALUES (%s, %s)'
+        ).format(self.tableName)
+        data = (__memberId, __content,)
+        with self.cnx.cursor() as cursor:
+            cursor.execute(query, data)
+        self.cnx.commit()
 
     def getMessages(self) -> List[Message]:
-        pass
+        query = (
+            'SELECT name, content '
+            'FROM {message} '
+            'INNER JOIN {member} '
+            '  ON {message}.member_id = {member}.id '
+            'ORDER BY {message}.id'
+            
+        ).format(message=self.tableName, member=self.memberTableName)
+        with self.cnx.cursor() as cursor:
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            return list(map(lambda row: Message(row[0], row[1]), rows))
 
     @property
     def tableName(self) -> str:

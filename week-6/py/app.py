@@ -1,3 +1,4 @@
+import json
 from flask import Flask
 from member_system import MemoryUnitOfWork, MySQLUnitOfWork, configureRoutes
 
@@ -9,13 +10,7 @@ app = Flask(
 app.config['SECRET_KEY'] = 'test'
 
 # unitOfWork = MemoryUnitOfWork()
-unitOfWork = MySQLUnitOfWork({
-  'user': 'root',
-  'password': '12345678',
-  'host': '192.168.56.102',
-  'database': 'website',
-  'raise_on_warnings': True
-})
+unitOfWork = MySQLUnitOfWork('config.json')
 
 configureRoutes(app, unitOfWork)
 
