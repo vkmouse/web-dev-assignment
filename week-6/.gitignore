@@ -231,3 +231,5 @@ go.work
 venv/
 
 config.json
+
+Project.exe
