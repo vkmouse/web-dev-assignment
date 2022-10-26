@@ -11,10 +11,11 @@ class MySQLMemberRepository(MySQLRepository, MemberRepository):
             'VALUES (%s, %s, %s)'
         ).format(self.tableName)
         data = (__name, __username, __password,)
-        with self.cnx.cursor() as cursor:
-            cursor.execute(query, data)
-        self.cnx.commit()
-        return True
+        with self.cnxpool.get_connection() as cnx:
+            with cnx.cursor() as cursor:
+                cursor.execute(query, data)
+            cnx.commit()
+            return True
 
     def getMember(self, __username: str, __password: str) -> Member | None:
         query = (
@@ -25,14 +26,15 @@ class MySQLMemberRepository(MySQLRepository, MemberRepository):
         ).format(self.tableName)
         data = (__username, __password,)
         row = None
-        with self.cnx.cursor() as cursor:
-            cursor.execute(query, data)
-            row = cursor.fetchone()
-        if row == None:
-            return None
-        else:
-            (id, name,) = row
-            return Member(id, name, __username, __password)
+        with self.cnxpool.get_connection() as cnx:
+            with cnx.cursor() as cursor:
+                cursor.execute(query, data)
+                row = cursor.fetchone()
+            if row == None:
+                return None
+            else:
+                (id, name,) = row
+                return Member(id, name, __username, __password)
 
     def __usernameExists(self, __username: str) -> bool:
         query = (
@@ -41,10 +43,11 @@ class MySQLMemberRepository(MySQLRepository, MemberRepository):
             'WHERE username=%s'
         ).format(self.tableName)
         data = (__username,)
-        with self.cnx.cursor() as cursor:
-            cursor.execute(query, data)
-            (count,) = cursor.fetchone()
-            return count > 0
+        with self.cnxpool.get_connection() as cnx:
+            with cnx.cursor() as cursor:
+                cursor.execute(query, data)
+                (count,) = cursor.fetchone()
+                return count > 0
 
     @property
     def tableName(self) -> str:

@@ -1,26 +1,29 @@
-from mysql.connector.connection import MySQLConnection
+from mysql.connector.pooling import MySQLConnectionPool
 
 class MySQLRepository:
-    def __init__(self, cnx: MySQLConnection, debug: bool):
+    def __init__(self, cnxpool: MySQLConnectionPool, debug: bool):
         self.debug = debug
-        self.cnx = cnx
+        self.cnxpool = cnxpool
         self.createTable()
 
     def createTable(self):
-        with self.cnx.cursor() as cursor:
-            if not self.tableExists():
-                cursor.execute(self.createTableStatement)
+        with self.cnxpool.get_connection() as cnx:
+            with cnx.cursor() as cursor:
+                if not self.tableExists():
+                    cursor.execute(self.createTableStatement)
 
     def dropTableIfExists(self):
         if self.tableExists():
-            with self.cnx.cursor() as cursor:
-                cursor.execute(self.dropTableStatement)
+            with self.cnxpool.get_connection() as cnx:
+                with cnx.cursor() as cursor:
+                    cursor.execute(self.dropTableStatement)
 
     def tableExists(self) -> bool:
-        with self.cnx.cursor() as cursor:
-            cursor.execute('SHOW TABLES;')
-            isExists = (self.tableName,) in cursor.fetchall()
-            return isExists
+        with self.cnxpool.get_connection() as cnx:
+            with cnx.cursor() as cursor:
+                cursor.execute('SHOW TABLES;')
+                isExists = (self.tableName,) in cursor.fetchall()
+                return isExists
 
     @property
     def tableName(self) -> str:
