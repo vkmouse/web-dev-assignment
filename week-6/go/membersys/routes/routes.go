@@ -31,6 +31,7 @@ func (r *Router) Setup(templateFolder string, publicFolder string, unitOfWork *U
 	r.Engine.GET("/signout", r.signout)
 	r.Engine.POST("/signin", r.signin)
 	r.Engine.POST("/signup", r.signup)
+	r.Engine.POST("/message", r.message)
 }
 
 func (r *Router) errorPage(ctx *gin.Context) {
@@ -53,7 +54,12 @@ func (r *Router) memberPage(ctx *gin.Context) {
 	if name == nil {
 		ctx.Redirect(http.StatusFound, "/")
 	} else {
-		ctx.HTML(http.StatusOK, "member.html", gin.H{"name": name})
+		raw := r.unitOfWork.MessageRepository.GetMessages()
+		messages := []string{}
+		for _, msg := range raw {
+			messages = append(messages, msg.Name+": "+msg.Content)
+		}
+		ctx.HTML(http.StatusOK, "member.html", gin.H{"name": name, "messages": messages})
 	}
 }
 
@@ -104,4 +110,12 @@ func (r *Router) signup(ctx *gin.Context) {
 	} else {
 		ctx.Redirect(http.StatusFound, "/error?message=帳號已經被註冊")
 	}
+}
+
+func (r *Router) message(ctx *gin.Context) {
+	session := sessions.Default(ctx)
+	memberId := session.Get("id").(int)
+	content := ctx.PostForm("content")
+	r.unitOfWork.MessageRepository.AddMessage(memberId, content)
+	ctx.Redirect(http.StatusFound, "/member")
 }

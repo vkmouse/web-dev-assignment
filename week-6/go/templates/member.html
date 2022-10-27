@@ -30,6 +30,11 @@
       </form>
     </div>
     <hr />
+    <div class="center-container">
+      {{range .messages}}
+        <span>{{.}}</span>
+      {{end}}
+    </div>
   </main>
 </body>
 </html>
