@@ -6,3 +6,8 @@ type Member struct {
 	Username string
 	Password string
 }
+
+type Message struct {
+	Name    string
+	Content string
+}
