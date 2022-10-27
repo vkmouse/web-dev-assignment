@@ -51,7 +51,5 @@ Cloud Platform: Clever Cloud
    ```
 2. Run unit tests
    ```sh
-   go test -v -cover=true .\functions\
+   go test -v -cover=true ./membersys/...
    ```
-
-
