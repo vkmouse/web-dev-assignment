@@ -135,7 +135,7 @@ func TestRedirectsMemberToHomeIfNotLogin(t *testing.T) {
 }
 
 func TestSigninSuccess(t *testing.T) {
-	data := url.Values{"account": {"test"}, "password": {"test"}}
+	data := url.Values{"username": {"test"}, "password": {"test"}}
 	router := setupRouter()
 	w, req := post(router, "/signin", data, true)
 	assertPath(t, req, "/member")
@@ -144,7 +144,7 @@ func TestSigninSuccess(t *testing.T) {
 }
 
 func TestSigninWithoutAccountOrPassword(t *testing.T) {
-	data := url.Values{"account": {""}, "password": {""}}
+	data := url.Values{"username": {""}, "password": {""}}
 	router := setupRouter()
 	w, req := post(router, "/signin", data, true)
 	assertPath(t, req, "/error")
@@ -153,7 +153,7 @@ func TestSigninWithoutAccountOrPassword(t *testing.T) {
 }
 
 func TestSigninForPasswordMismatchError(t *testing.T) {
-	data := url.Values{"account": {"123"}, "password": {"123"}}
+	data := url.Values{"username": {"123"}, "password": {"123"}}
 	router := setupRouter()
 	w, req := post(router, "/signin", data, true)
 	assertPath(t, req, "/error")

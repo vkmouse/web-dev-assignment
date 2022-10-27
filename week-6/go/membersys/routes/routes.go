@@ -65,15 +65,15 @@ func (r *Router) memberPage(ctx *gin.Context) {
 }
 
 func (r *Router) signin(ctx *gin.Context) {
-	account := ctx.PostForm("account")
+	username := ctx.PostForm("username")
 	password := ctx.PostForm("password")
-	SetSeesion(ctx, "isLogin", CheckLogin(account, password))
+	SetSeesion(ctx, "isLogin", CheckLogin(username, password))
 
 	var location url.URL
 	if checkLogin(ctx) {
 		location = url.URL{Path: "/member"}
 	} else {
-		message := GetErrorMessage(account, password)
+		message := GetErrorMessage(username, password)
 		data := url.Values{"message": {message}}
 		location = url.URL{
 			Path:     "/error",
