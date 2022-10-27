@@ -1,4 +1,4 @@
-package functions
+package routes
 
 import (
 	"net/http"
@@ -12,7 +12,7 @@ import (
 )
 
 func setupRouter() *gin.Engine {
-	return SetupRouter("../templates", "../public")
+	return SetupRouter("../../templates", "../../public")
 }
 
 func assertPath(t *testing.T, req *http.Request, expected string) {
@@ -152,13 +152,5 @@ func TestSigninForPasswordMismatchError(t *testing.T) {
 	w, req := post(router, "/signin", data, true)
 	assertPath(t, req, "/error")
 	assertContains(t, w, "帳號、或密碼輸入錯誤")
-	assertStatusOK(t, w)
-}
-
-func TestSquare(t *testing.T) {
-	router := setupRouter()
-	w, req := get(router, "/square/4", nil, true)
-	assertPath(t, req, "/square/4")
-	assertContains(t, w, "16")
 	assertStatusOK(t, w)
 }

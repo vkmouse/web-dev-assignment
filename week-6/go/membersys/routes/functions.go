@@ -1,4 +1,4 @@
-package functions
+package routes
 
 func CheckLogin(account string, password string) bool {
 	if account == "test" && password == "test" {

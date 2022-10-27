@@ -1,9 +1,8 @@
-package functions
+package routes
 
 import (
 	"net/http"
 	"net/url"
-	"strconv"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
@@ -20,7 +19,6 @@ func SetupRouter(templateFolder string, publicFolder string) *gin.Engine {
 	router.GET("/error", errorPage)
 	router.GET("/member", memberPage)
 	router.GET("/signout", signout)
-	router.GET("/square/:num", square)
 	router.POST("/signin", signin)
 
 	return router
@@ -82,12 +80,6 @@ func signout(ctx *gin.Context) {
 	SetSeesion(ctx, "isLogin", false)
 	location := url.URL{Path: "/"}
 	ctx.Redirect(http.StatusFound, location.RequestURI())
-}
-
-func square(ctx *gin.Context) {
-	num, _ := strconv.Atoi(ctx.Param("num"))
-	result := num * num
-	ctx.HTML(http.StatusOK, "square.html", gin.H{"num": num, "result": result})
 }
 
 func SetSeesion(ctx *gin.Context, key interface{}, val interface{}) {

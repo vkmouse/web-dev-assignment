@@ -1,10 +1,10 @@
 package main
 
 import (
-	"Project/functions"
+	. "Project/membersys/routes"
 )
 
 func main() {
-	router := functions.SetupRouter("templates", "public")
+	router := SetupRouter("templates", "public")
 	router.Run(":8080")
 }
