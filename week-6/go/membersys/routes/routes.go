@@ -49,10 +49,11 @@ func (r *Router) homePage(ctx *gin.Context) {
 
 func (r *Router) memberPage(ctx *gin.Context) {
 	session := sessions.Default(ctx)
-	if session.Get("name") == nil {
+	name := session.Get("name")
+	if name == nil {
 		ctx.Redirect(http.StatusFound, "/")
 	} else {
-		ctx.HTML(http.StatusOK, "member.html", gin.H{})
+		ctx.HTML(http.StatusOK, "member.html", gin.H{"name": name})
 	}
 }
 

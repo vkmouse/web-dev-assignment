@@ -145,6 +145,7 @@ func TestSigninSuccess(t *testing.T) {
 	w, req := post(router, "/signin", data, true)
 	assertPath(t, req, "/member")
 	assertContains(t, w, "歡迎光臨，這是會員頁")
+	assertContains(t, w, "很高興見到您，test")
 	assertStatusOK(t, w)
 }
 

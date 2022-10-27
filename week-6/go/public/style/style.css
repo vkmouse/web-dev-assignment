@@ -22,19 +22,19 @@ main {
   justify-content: center;
 }
 
-form {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 form .title {
   text-align: center;
 }
 
 button {
   font-size: 20px;
+}
+
+.center-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .input-group {
