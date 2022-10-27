@@ -1,6 +1,8 @@
 package routes
 
 import (
+	. "Project/membersys/repository"
+
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -13,7 +15,8 @@ import (
 
 func setupRouter() *gin.Engine {
 	router := Router{}
-	router.Setup("../../templates", "../../public")
+	unitOfWork := NewMemoryUnitOfWork()
+	router.Setup("../../templates", "../../public", &unitOfWork.UnitOfWork)
 	return router.Engine
 }
 

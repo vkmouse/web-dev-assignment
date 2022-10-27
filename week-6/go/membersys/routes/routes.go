@@ -1,6 +1,8 @@
 package routes
 
 import (
+	. "Project/membersys/core"
+
 	"net/http"
 	"net/url"
 
@@ -10,11 +12,13 @@ import (
 )
 
 type Router struct {
-	Engine *gin.Engine
+	Engine     *gin.Engine
+	unitOfWork *UnitOfWork
 }
 
-func (r *Router) Setup(templateFolder string, publicFolder string) {
+func (r *Router) Setup(templateFolder string, publicFolder string, unitOfWork *UnitOfWork) {
 	r.Engine = gin.Default()
+	r.unitOfWork = unitOfWork
 
 	createSession(r.Engine)
 	r.Engine.LoadHTMLGlob(templateFolder + "/*")
@@ -24,6 +28,7 @@ func (r *Router) Setup(templateFolder string, publicFolder string) {
 	r.Engine.GET("/member", r.memberPage)
 	r.Engine.GET("/signout", r.signout)
 	r.Engine.POST("/signin", r.signin)
+	r.Engine.POST("/signup", r.signup)
 }
 
 func createSession(router *gin.Engine) {
@@ -82,6 +87,18 @@ func (r *Router) signout(ctx *gin.Context) {
 	SetSeesion(ctx, "isLogin", false)
 	location := url.URL{Path: "/"}
 	ctx.Redirect(http.StatusFound, location.RequestURI())
+}
+
+func (r *Router) signup(ctx *gin.Context) {
+	name := ctx.PostForm("name")
+	username := ctx.PostForm("username")
+	password := ctx.PostForm("password")
+	success := r.unitOfWork.MemberRepository.AddMember(name, username, password)
+	if success {
+		ctx.Redirect(http.StatusFound, "/")
+	} else {
+		ctx.Redirect(http.StatusFound, "/error?message=帳號已經被註冊")
+	}
 }
 
 func SetSeesion(ctx *gin.Context, key interface{}, val interface{}) {
