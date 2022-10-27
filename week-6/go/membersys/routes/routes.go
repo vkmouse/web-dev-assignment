@@ -9,19 +9,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRouter(templateFolder string, publicFolder string) *gin.Engine {
-	router := gin.Default()
+type Router struct {
+	Engine *gin.Engine
+}
 
-	createSession(router)
-	router.LoadHTMLGlob(templateFolder + "/*")
-	router.Static("/public", publicFolder)
-	router.GET("/", homePage)
-	router.GET("/error", errorPage)
-	router.GET("/member", memberPage)
-	router.GET("/signout", signout)
-	router.POST("/signin", signin)
+func (r *Router) Setup(templateFolder string, publicFolder string) {
+	r.Engine = gin.Default()
 
-	return router
+	createSession(r.Engine)
+	r.Engine.LoadHTMLGlob(templateFolder + "/*")
+	r.Engine.Static("/public", publicFolder)
+	r.Engine.GET("/", r.homePage)
+	r.Engine.GET("/error", r.errorPage)
+	r.Engine.GET("/member", r.memberPage)
+	r.Engine.GET("/signout", r.signout)
+	r.Engine.POST("/signin", r.signin)
 }
 
 func createSession(router *gin.Engine) {
@@ -34,12 +36,12 @@ func checkLogin(ctx *gin.Context) bool {
 	return session.Get("isLogin") == true
 }
 
-func errorPage(ctx *gin.Context) {
+func (r *Router) errorPage(ctx *gin.Context) {
 	message, _ := ctx.GetQuery("message")
 	ctx.HTML(http.StatusOK, "error.html", gin.H{"message": message})
 }
 
-func homePage(ctx *gin.Context) {
+func (r *Router) homePage(ctx *gin.Context) {
 	if checkLogin(ctx) {
 		location := url.URL{Path: "/member"}
 		ctx.Redirect(http.StatusFound, location.RequestURI())
@@ -48,7 +50,7 @@ func homePage(ctx *gin.Context) {
 	}
 }
 
-func memberPage(ctx *gin.Context) {
+func (r *Router) memberPage(ctx *gin.Context) {
 	if checkLogin(ctx) {
 		ctx.HTML(http.StatusOK, "member.html", gin.H{})
 	} else {
@@ -57,7 +59,7 @@ func memberPage(ctx *gin.Context) {
 	}
 }
 
-func signin(ctx *gin.Context) {
+func (r *Router) signin(ctx *gin.Context) {
 	account := ctx.PostForm("account")
 	password := ctx.PostForm("password")
 	SetSeesion(ctx, "isLogin", CheckLogin(account, password))
@@ -76,7 +78,7 @@ func signin(ctx *gin.Context) {
 	ctx.Redirect(http.StatusFound, location.RequestURI())
 }
 
-func signout(ctx *gin.Context) {
+func (r *Router) signout(ctx *gin.Context) {
 	SetSeesion(ctx, "isLogin", false)
 	location := url.URL{Path: "/"}
 	ctx.Redirect(http.StatusFound, location.RequestURI())

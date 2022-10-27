@@ -12,7 +12,9 @@ import (
 )
 
 func setupRouter() *gin.Engine {
-	return SetupRouter("../../templates", "../../public")
+	router := Router{}
+	router.Setup("../../templates", "../../public")
+	return router.Engine
 }
 
 func assertPath(t *testing.T, req *http.Request, expected string) {

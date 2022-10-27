@@ -5,6 +5,7 @@ import (
 )
 
 func main() {
-	router := SetupRouter("templates", "public")
-	router.Run(":8080")
+	router := Router{}
+	router.Setup("templates", "public")
+	router.Engine.Run(":8080")
 }
