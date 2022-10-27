@@ -8,14 +8,14 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func memberRepositoryTest(t *testing.T, r MemberRepository) {
-	assert.Equal(t, GetMember(r, "test", "test"), Member{Id: -1})
-	assert.Equal(t, AddMember(r, "Tester", "test", "test"), true)
-	assert.Equal(t, GetMember(r, "test", "test"), Member{Id: 1, Name: "Tester", Username: "test", Password: "test"})
-	assert.Equal(t, AddMember(r, "Tester", "test", "test"), false)
+func memberRepositoryTest(t *testing.T, u *UnitOfWork) {
+	assert.Equal(t, u.MemberRepository.GetMember("test", "test"), Member{Id: -1})
+	assert.Equal(t, u.MemberRepository.AddMember("Tester", "test", "test"), true)
+	assert.Equal(t, u.MemberRepository.GetMember("test", "test"), Member{Id: 1, Name: "Tester", Username: "test", Password: "test"})
+	assert.Equal(t, u.MemberRepository.AddMember("Tester", "test", "test"), false)
 }
 
 func TestMemoryMemberRepository(t *testing.T) {
-	repo := MemoryMemberRepository{}
-	memberRepositoryTest(t, &repo)
+	u := NewMemoryUnitOfWork()
+	messageRepositoryTest(t, &u.UnitOfWork)
 }
