@@ -17,10 +17,12 @@ type Router struct {
 }
 
 func (r *Router) Setup(templateFolder string, publicFolder string, unitOfWork *UnitOfWork) {
-	r.Engine = gin.Default()
 	r.unitOfWork = unitOfWork
 
-	createSession(r.Engine)
+	r.Engine = gin.Default()
+	store := cookie.NewStore([]byte("secret"))
+	r.Engine.Use(sessions.Sessions("session", store))
+
 	r.Engine.LoadHTMLGlob(templateFolder + "/*")
 	r.Engine.Static("/public", publicFolder)
 	r.Engine.GET("/", r.homePage)
@@ -31,62 +33,64 @@ func (r *Router) Setup(templateFolder string, publicFolder string, unitOfWork *U
 	r.Engine.POST("/signup", r.signup)
 }
 
-func createSession(router *gin.Engine) {
-	store := cookie.NewStore([]byte("secret"))
-	router.Use(sessions.Sessions("isLogin", store))
-}
-
-func checkLogin(ctx *gin.Context) bool {
-	session := sessions.Default(ctx)
-	return session.Get("isLogin") == true
-}
-
 func (r *Router) errorPage(ctx *gin.Context) {
 	message, _ := ctx.GetQuery("message")
 	ctx.HTML(http.StatusOK, "error.html", gin.H{"message": message})
 }
 
 func (r *Router) homePage(ctx *gin.Context) {
-	if checkLogin(ctx) {
-		location := url.URL{Path: "/member"}
-		ctx.Redirect(http.StatusFound, location.RequestURI())
-	} else {
+	session := sessions.Default(ctx)
+	if session.Get("name") == nil {
 		ctx.HTML(http.StatusOK, "index.html", gin.H{})
+	} else {
+		ctx.Redirect(http.StatusFound, "/member")
 	}
 }
 
 func (r *Router) memberPage(ctx *gin.Context) {
-	if checkLogin(ctx) {
-		ctx.HTML(http.StatusOK, "member.html", gin.H{})
+	session := sessions.Default(ctx)
+	if session.Get("name") == nil {
+		ctx.Redirect(http.StatusFound, "/")
 	} else {
-		location := url.URL{Path: "/"}
-		ctx.Redirect(http.StatusFound, location.RequestURI())
+		ctx.HTML(http.StatusOK, "member.html", gin.H{})
 	}
 }
 
 func (r *Router) signin(ctx *gin.Context) {
 	username := ctx.PostForm("username")
 	password := ctx.PostForm("password")
-	SetSeesion(ctx, "isLogin", CheckLogin(username, password))
-
+	member := r.unitOfWork.MemberRepository.GetMember(username, password)
+	success := member.Id != -1
 	var location url.URL
-	if checkLogin(ctx) {
+	if success {
+		session := sessions.Default(ctx)
+		session.Set("id", member.Id)
+		session.Set("name", member.Name)
+		session.Set("username", member.Username)
+		session.Save()
 		location = url.URL{Path: "/member"}
+	} else if username == "" || password == "" {
+		data := url.Values{"message": {"請輸入帳號、密碼"}}
+		location = url.URL{
+			Path:     "/error",
+			RawQuery: data.Encode(),
+		}
 	} else {
-		message := GetErrorMessage(username, password)
-		data := url.Values{"message": {message}}
+		data := url.Values{"message": {"帳號、或密碼輸入錯誤"}}
 		location = url.URL{
 			Path:     "/error",
 			RawQuery: data.Encode(),
 		}
 	}
+
 	ctx.Redirect(http.StatusFound, location.RequestURI())
 }
 
 func (r *Router) signout(ctx *gin.Context) {
-	SetSeesion(ctx, "isLogin", false)
-	location := url.URL{Path: "/"}
-	ctx.Redirect(http.StatusFound, location.RequestURI())
+	session := sessions.Default(ctx)
+	session.Clear()
+	session.Save()
+	ctx.Redirect(http.StatusFound, "/")
 }
 
 func (r *Router) signup(ctx *gin.Context) {
@@ -99,15 +103,4 @@ func (r *Router) signup(ctx *gin.Context) {
 	} else {
 		ctx.Redirect(http.StatusFound, "/error?message=帳號已經被註冊")
 	}
-}
-
-func SetSeesion(ctx *gin.Context, key interface{}, val interface{}) {
-	session := sessions.Default(ctx)
-	session.Set(key, val)
-	session.Save()
-}
-
-func Redirect(ctx *gin.Context, code int, location string) {
-	url := url.URL{Path: location}
-	ctx.Redirect(code, url.RequestURI())
 }

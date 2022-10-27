@@ -9,6 +9,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 )
@@ -103,8 +104,10 @@ func TestHome(t *testing.T) {
 func TestMemberIfLogin(t *testing.T) {
 	router := setupRouter()
 	router.GET("/mockapi", func(ctx *gin.Context) {
-		SetSeesion(ctx, "isLogin", true)
-		Redirect(ctx, http.StatusFound, "/member")
+		session := sessions.Default(ctx)
+		session.Set("name", "test")
+		session.Save()
+		ctx.Redirect(http.StatusFound, "/member")
 	})
 
 	w, req := get(router, "/mockapi", nil, true)
@@ -116,8 +119,10 @@ func TestMemberIfLogin(t *testing.T) {
 func TestRedirectsHomeToMemberIfLogin(t *testing.T) {
 	router := setupRouter()
 	router.GET("/mockapi", func(ctx *gin.Context) {
-		SetSeesion(ctx, "isLogin", true)
-		Redirect(ctx, http.StatusFound, "/")
+		session := sessions.Default(ctx)
+		session.Set("name", "test")
+		session.Save()
+		ctx.Redirect(http.StatusFound, "/member")
 	})
 
 	w, req := get(router, "/mockapi", nil, true)
