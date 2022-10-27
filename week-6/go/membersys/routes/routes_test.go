@@ -17,6 +17,7 @@ func setupRouter() *gin.Engine {
 	router := Router{}
 	unitOfWork := NewMemoryUnitOfWork()
 	router.Setup("../../templates", "../../public", &unitOfWork.UnitOfWork)
+	router.unitOfWork.MemberRepository.AddMember("test", "test", "test")
 	return router.Engine
 }
 
@@ -157,5 +158,22 @@ func TestSigninForPasswordMismatchError(t *testing.T) {
 	w, req := post(router, "/signin", data, true)
 	assertPath(t, req, "/error")
 	assertContains(t, w, "帳號、或密碼輸入錯誤")
+	assertStatusOK(t, w)
+}
+
+func TestSignupSuccess(t *testing.T) {
+	data := url.Values{"name": {"signup"}, "username": {"signup"}, "password": {"signup"}}
+	router := setupRouter()
+	w, req := post(router, "/signup", data, true)
+	assertPath(t, req, "/")
+	assertStatusOK(t, w)
+}
+
+func TestSignupForUsernameExistsError(t *testing.T) {
+	data := url.Values{"name": {"test"}, "username": {"test"}, "password": {"test"}}
+	router := setupRouter()
+	w, req := post(router, "/signup", data, true)
+	assertPath(t, req, "/error")
+	assertContains(t, w, "帳號已經被註冊")
 	assertStatusOK(t, w)
 }
