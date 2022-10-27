@@ -1,17 +1,17 @@
-package repository
+package core
 
 type UnitOfWork struct {
 	MemberRepository  MemberRepository
 	MessageRepository MessageRepository
 }
 
-func (unitOfWork *UnitOfWork) init() {
+func (unitOfWork *UnitOfWork) Init() {
 }
 
 type UnitOfWorkFactory interface {
-	init()
+	Init()
 }
 
 func InitUnitOfWork(factory UnitOfWorkFactory) {
-	factory.init()
+	factory.Init()
 }

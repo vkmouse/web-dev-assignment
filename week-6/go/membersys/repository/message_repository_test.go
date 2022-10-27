@@ -9,12 +9,12 @@ import (
 )
 
 func messageRepositoryTest(t *testing.T, u *UnitOfWork) {
-	u.MemberRepository.AddMember("name1", "1", "1")
-	u.MemberRepository.AddMember("name2", "2", "2")
-	u.MessageRepository.AddMessage(1, "123")
-	u.MessageRepository.AddMessage(2, "456")
-	u.MessageRepository.AddMessage(1, "789")
-	messages := u.MessageRepository.GetMessages()
+	AddMember(u.MemberRepository, "name1", "1", "1")
+	AddMember(u.MemberRepository, "name2", "2", "2")
+	AddMessage(u.MessageRepository, 1, "123")
+	AddMessage(u.MessageRepository, 2, "456")
+	AddMessage(u.MessageRepository, 1, "789")
+	messages := GetMessages(u.MessageRepository)
 	assert.Equal(t, messages[0], Message{Name: "name1", Content: "123"})
 	assert.Equal(t, messages[1], Message{Name: "name2", Content: "456"})
 	assert.Equal(t, messages[2], Message{Name: "name1", Content: "789"})

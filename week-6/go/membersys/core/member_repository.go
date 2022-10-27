@@ -1,12 +1,8 @@
-package repository
+package core
 
-import (
-	. "Project/membersys/core"
-)
-
-type MessageRepository interface {
-	AddMessage(memberId int, content string)
-	GetMessages() []Message
+type MemberRepository interface {
+	AddMember(name string, username string, password string) bool
+	GetMember(username string, password string) Member
 }
 
 func AddMessage(r MessageRepository, memberId int, content string) {
