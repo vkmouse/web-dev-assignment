@@ -1,6 +1,8 @@
 package repository
 
 import (
+	. "Project/membersys/core"
+
 	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -30,4 +32,35 @@ func (r *MySQLMemberRepository) TableName() string {
 	} else {
 		return "member"
 	}
+}
+
+func (r *MySQLMemberRepository) AddMember(name string, username string, password string) bool {
+	if r.memberExists(username) {
+		return false
+	}
+	query := fmt.Sprintf(
+		"INSERT INTO %s (name, username, password) VALUES (?, ?, ?);",
+		r.TableName())
+	r.db.Exec(query, name, username, password)
+	return true
+}
+
+func (r *MySQLMemberRepository) GetMember(username string, password string) Member {
+	member := Member{Id: -1}
+	query := fmt.Sprintf(
+		"SELECT id, name, username, password FROM %s WHERE username=? AND password=?",
+		r.TableName())
+	row := r.db.QueryRow(query, username, password)
+	row.Scan(&member.Id, &member.Name, &member.Username, &member.Password)
+	return member
+}
+
+func (r *MySQLMemberRepository) memberExists(username string) bool {
+	query := fmt.Sprintf(
+		"SELECT COUNT(*) FROM %s WHERE username=?",
+		r.TableName())
+	row := r.db.QueryRow(query, username)
+	var count int
+	row.Scan(&count)
+	return count > 0
 }
