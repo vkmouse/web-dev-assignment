@@ -24,3 +24,8 @@ func TestMemoryMessageRepository(t *testing.T) {
 	u := NewMemoryUnitOfWork()
 	messageRepositoryTest(t, &u.UnitOfWork)
 }
+
+func TestMySQLMessageRepository(t *testing.T) {
+	u := NewMySQLUnitOfWork("../../config.json", true)
+	messageRepositoryTest(t, &u.UnitOfWork)
+}

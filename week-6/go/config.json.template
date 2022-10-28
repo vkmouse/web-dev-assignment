@@ -1,0 +1,8 @@
+{
+    "user": "USERNAME",
+    "password": "PASSWORD",
+    "host": "127.0.0.1",
+    "database": "DATABASE",
+    "raise_on_warnings": true,
+    "connection_timeout": 1
+}

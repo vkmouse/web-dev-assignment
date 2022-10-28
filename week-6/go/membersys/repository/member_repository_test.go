@@ -17,5 +17,10 @@ func memberRepositoryTest(t *testing.T, u *UnitOfWork) {
 
 func TestMemoryMemberRepository(t *testing.T) {
 	u := NewMemoryUnitOfWork()
-	messageRepositoryTest(t, &u.UnitOfWork)
+	memberRepositoryTest(t, &u.UnitOfWork)
+}
+
+func TestMySQLMemberRepository(t *testing.T) {
+	u := NewMySQLUnitOfWork("../../config.json", true)
+	memberRepositoryTest(t, &u.UnitOfWork)
 }
