@@ -4,7 +4,7 @@ from member_system.repository import UnitOfWork
 
 def configureAPIRoutes(app: Flask, unitOfWork: UnitOfWork):
     @app.route('/api/member', methods=['GET', 'PATCH'])
-    def member():
+    def apiMember():
         if request.method == 'GET':
             return memberGet(unitOfWork)
         elif request.method == 'PATCH':
