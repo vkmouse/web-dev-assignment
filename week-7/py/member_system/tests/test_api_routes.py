@@ -41,39 +41,29 @@ def testMemberQuerySuccess(client: FlaskClient):
         path='/api/member',
         query_string={ 'username': 'test' }
     )
-    obj = json.loads(response.get_data().decode('utf-8'))
-    assert obj['data']['id'] == 1
-    assert obj['data']['name'] == 'test'
-    assert obj['data']['username'] == 'test'
+    assert response.get_json()['data'] == {
+        'id': 1,
+        'name': 'test',
+        'username': 'test'
+    }
 
 def testMemberQueryWithoutLogin(client: FlaskClient):
     response = client.get(
         path='/api/member',
-        query_string={ 'username': 'test' }
-    )
-    obj = json.loads(response.get_data().decode('utf-8'))
-    assert obj['data'] == None
+        query_string={'username': 'test'})
+    assert response.get_json()['data'] == None
 
 def testMemberQueryFailed(client: FlaskClient):
     setSession(client)
     response = client.get(
         path='/api/member',
-        query_string={ 'username': '123' }
-    )
-    obj = json.loads(response.get_data().decode('utf-8'))
-    assert obj['data'] == None
+        query_string={'username': '123'})
+    assert response.get_json()['data'] == None
 
 def testModifyMemberNameSuccess(client: FlaskClient):
     setSession(client)
     response = client.patch(
         path='/api/member',
-        data={ 'name': 'test123' },
-    )
-    obj = json.loads(response.get_data().decode('utf-8'))
-    assert obj['ok'] == True
-    response = client.patch(
-        path='/api/member',
-        data={ 'name': 'test' },
-    )
-    obj = json.loads(response.get_data().decode('utf-8'))
-    assert obj['ok'] == True
+        data=json.dumps({ 'name': 'test123' }),
+        content_type='application/json')
+    assert response.get_json()['ok'] == True
