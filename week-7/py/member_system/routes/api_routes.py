@@ -4,7 +4,7 @@ from member_system.repository import UnitOfWork
 
 def configureAPIRoutes(app: Flask, unitOfWork: UnitOfWork):
     @app.route('/api/member', methods=['GET'])
-    def memberapi():
+    def member():
         if request.method == 'GET':
             data = None
             username = request.args.get('username')
