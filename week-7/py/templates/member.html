@@ -22,10 +22,10 @@
     <div class="center-container">
       <div class="m-1">查詢會員姓名</div>
         <div class="input-group">
-          <input name="content">
-          <button class="ml-1">查詢</button>
+          <input id="query_member_name_input" name="content">
+          <button onclick="handleQueryMemberName()" class="ml-1">查詢</button>
         </div>
-        <span></span>
+        <span id="query_member_name_output"></span>
       </div>
     </div>
     <hr />
@@ -58,3 +58,4 @@
   </main>
 </body>
 </html>
+<script src="/public/js/member.js"></script>
