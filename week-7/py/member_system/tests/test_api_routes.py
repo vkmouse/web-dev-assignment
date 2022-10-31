@@ -62,3 +62,18 @@ def testMemberQueryFailed(client: FlaskClient):
     )
     obj = json.loads(response.get_data().decode('utf-8'))
     assert obj['data'] == None
+
+def testModifyMemberNameSuccess(client: FlaskClient):
+    setSession(client)
+    response = client.patch(
+        path='/api/member',
+        data={ 'name': 'test123' },
+    )
+    obj = json.loads(response.get_data().decode('utf-8'))
+    assert obj['ok'] == True
+    response = client.patch(
+        path='/api/member',
+        data={ 'name': 'test' },
+    )
+    obj = json.loads(response.get_data().decode('utf-8'))
+    assert obj['ok'] == True
