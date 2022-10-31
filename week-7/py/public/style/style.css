@@ -53,3 +53,7 @@ button {
 .ml-1 {
   margin-left: 0.25em;
 }
+
+.d-flex {
+  display: flex;
+}

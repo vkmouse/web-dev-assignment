@@ -40,6 +40,7 @@ def memberPatch(unitOfWork: UnitOfWork):
 def memberPatchIfValid(unitOfWork: UnitOfWork, id: int, newName: str):
     success = unitOfWork.memberRepository.updateNameById(id, newName)
     if success:
+        session['name'] = newName
         return {'ok': True}
     else:
         return {'error': True}

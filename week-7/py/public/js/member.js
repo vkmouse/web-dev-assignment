@@ -14,6 +14,7 @@ function handleQueryMemberName() {
 }
 
 function handleUpdateName() {
+    const nameElement = document.getElementById('name')
     const inputElement = document.getElementById('update_name_input')
     const outputElement = document.getElementById('update_name_output')
     const newName = inputElement.value
@@ -25,6 +26,7 @@ function handleUpdateName() {
     .then(response => response.json())
     .then(body => {
         if (body.ok) {
+            nameElement.textContent = newName
             outputElement.textContent = '更新成功'
         }
     })
