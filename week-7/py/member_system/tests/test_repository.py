@@ -1,12 +1,15 @@
-import json
 import pytest
 from member_system.repository import UnitOfWork, MemoryUnitOfWork, MySQLUnitOfWork
 
-def repositoryTest(unitOfWork: UnitOfWork):
+def memberRepositoryTest(unitOfWork: UnitOfWork):
     assert unitOfWork.memberRepository.getMember('test', 'test') == None
+    assert unitOfWork.memberRepository.getMemberByUsername('test') == None
     assert unitOfWork.memberRepository.addMember('Tester', 'test', 'test') == True
     assert unitOfWork.memberRepository.getMember('test', 'test') != None
+    assert unitOfWork.memberRepository.getMemberByUsername('test') != None
     assert unitOfWork.memberRepository.addMember('Tester', 'test', 'test') == False
+    assert unitOfWork.memberRepository.updateNameById(1, 'test123') == True
+    assert unitOfWork.memberRepository.updateNameById(2, 'test123') == False
 
 def messageRepositoryTest(unitOfWork: UnitOfWork):
     unitOfWork.memberRepository.addMember('name1', '1', '1')
@@ -24,12 +27,12 @@ def messageRepositoryTest(unitOfWork: UnitOfWork):
 
 def testMemoryMemberRepository():
     unitOfWork = MemoryUnitOfWork()
-    repositoryTest(unitOfWork)
+    memberRepositoryTest(unitOfWork)
 
 @pytest.mark.skipif(not MySQLUnitOfWork.isAvailable('config.json'), reason="database is not avaibable")
 def testMySQLMemberRepository():
     unitOfWork = MySQLUnitOfWork('config.json', debug=True)
-    repositoryTest(unitOfWork)
+    memberRepositoryTest(unitOfWork)
 
 def testMemoryMessageRepository():
     unitOfWork = MemoryUnitOfWork()
