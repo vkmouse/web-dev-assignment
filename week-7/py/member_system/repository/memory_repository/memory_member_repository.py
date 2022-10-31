@@ -22,6 +22,13 @@ class MemoryMemberRepository(MemberRepository):
         else:
             return None
 
+    def getMemberByUsername(self, __username: str) -> Member | None:
+        members = list(filter(lambda i: i.username == __username, self.__db))
+        if len(members) > 0:
+            return members[0]
+        else:
+            return None
+
     def getMemberById(self, __id: int) -> Member | None:
         members = list(filter(lambda i: i.id == __id, self.__db))
         if len(members) > 0:

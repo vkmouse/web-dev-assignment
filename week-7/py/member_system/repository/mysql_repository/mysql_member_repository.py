@@ -36,6 +36,25 @@ class MySQLMemberRepository(MySQLRepository, MemberRepository):
                 (id, name,) = row
                 return Member(id, name, __username, __password)
 
+    def getMemberByUsername(self, __username: str) -> Member | None:
+        query = (
+            'SELECT id, name '
+            'FROM {} '
+            'WHERE username=%s '
+            'LIMIT 1'
+        ).format(self.tableName)
+        data = (__username,)
+        row = None
+        with self.cnxpool.get_connection() as cnx:
+            with cnx.cursor() as cursor:
+                cursor.execute(query, data)
+                row = cursor.fetchone()
+            if row == None:
+                return None
+            else:
+                (id, name,) = row
+                return Member(id, name, __username, None)
+
     def __usernameExists(self, __username: str) -> bool:
         query = (
             'SELECT COUNT(*) '

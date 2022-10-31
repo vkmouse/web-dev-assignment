@@ -6,3 +6,6 @@ class MemberRepository:
 
     def getMember(self, __username: str, __password: str) -> Member | None:
         return NotImplemented
+
+    def getMemberByUsername(self, __username: str) -> Member | None:
+        return NotImplemented
