@@ -1,4 +1,3 @@
-import json
 from flask import Flask, request, session, redirect, render_template
 from member_system.repository import UnitOfWork
 
@@ -63,20 +62,4 @@ def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
         memberId = session['id']
         content = request.form.get('content')
         unitOfWork.messageRepository.addMessage(memberId, content)
-        return redirect('/member')
-
-    @app.route('/api/member', methods=['GET'])
-    def memberapi():
-        if request.method == 'GET':
-            data = None
-            username = request.args.get('username')
-            if username != None and session.get('name'):
-                member = unitOfWork.memberRepository.getMemberByUsername(username)
-                if member != None:
-                    data = {
-                        'id': member.id,
-                        'name': member.name,
-                        'username': member.username
-                    }
-            return json.dumps({'data': data})
         return redirect('/member')
