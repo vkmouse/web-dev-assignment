@@ -55,6 +55,21 @@ class MySQLMemberRepository(MySQLRepository, MemberRepository):
                 (id, name,) = row
                 return Member(id, name, __username, None)
 
+    def updateNameById(self, __id: int, __newName: str) -> bool:
+        if not self.__idExists(__id):
+            return False
+        query = (
+            'UPDATE {} '
+            'SET name=%s '
+            'WHERE id=%s '
+        ).format(self.tableName)
+        data = (__newName, __id)
+        with self.cnxpool.get_connection() as cnx:
+            with cnx.cursor() as cursor:
+                cursor.execute(query, data)
+                cnx.commit()
+                return True
+
     def __usernameExists(self, __username: str) -> bool:
         query = (
             'SELECT COUNT(*) '
@@ -62,6 +77,19 @@ class MySQLMemberRepository(MySQLRepository, MemberRepository):
             'WHERE username=%s'
         ).format(self.tableName)
         data = (__username,)
+        with self.cnxpool.get_connection() as cnx:
+            with cnx.cursor() as cursor:
+                cursor.execute(query, data)
+                (count,) = cursor.fetchone()
+                return count > 0
+
+    def __idExists(self, __id: int) -> bool:
+        query = (
+            'SELECT COUNT(*) '
+            'FROM {} '
+            'WHERE id=%s'
+        ).format(self.tableName)
+        data = (__id,)
         with self.cnxpool.get_connection() as cnx:
             with cnx.cursor() as cursor:
                 cursor.execute(query, data)

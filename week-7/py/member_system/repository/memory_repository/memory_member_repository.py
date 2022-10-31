@@ -36,6 +36,13 @@ class MemoryMemberRepository(MemberRepository):
         else:
             return None
 
+    def updateNameById(self, __id: int, __newName: str) -> bool:
+        for i in range(len(self.__db)):
+            if self.__db[i].id == __id:
+                self.__db[i].name = __newName
+                return True
+        return False
+
     @property
     def __nextId(self):
         self.__id += 1

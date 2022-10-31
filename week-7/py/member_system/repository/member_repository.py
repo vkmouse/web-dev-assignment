@@ -9,3 +9,6 @@ class MemberRepository:
 
     def getMemberByUsername(self, __username: str) -> Member | None:
         return NotImplemented
+
+    def updateNameById(self, __id: int, __newName: str) -> bool:
+        return NotImplemented
