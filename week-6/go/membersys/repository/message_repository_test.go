@@ -2,6 +2,8 @@ package repository
 
 import (
 	. "Project/membersys/core"
+	. "Project/membersys/repository/memory_repository"
+	. "Project/membersys/repository/mysql_repository"
 
 	"testing"
 

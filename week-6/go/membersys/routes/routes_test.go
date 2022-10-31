@@ -1,7 +1,7 @@
 package routes
 
 import (
-	. "Project/membersys/repository"
+	. "Project/membersys/repository/memory_repository"
 
 	"net/http"
 	"net/http/httptest"

@@ -1,4 +1,4 @@
-package repository
+package memory_repository
 
 import (
 	. "Project/membersys/core"

@@ -1,7 +1,8 @@
 package main
 
 import (
-	. "Project/membersys/repository"
+	// . "Project/membersys/repository/memory_repository"
+	. "Project/membersys/repository/mysql_repository"
 	. "Project/membersys/routes"
 )
 

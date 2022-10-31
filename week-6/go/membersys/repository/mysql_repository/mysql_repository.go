@@ -1,4 +1,4 @@
-package repository
+package mysql_repository
 
 import (
 	"database/sql"
