@@ -50,6 +50,8 @@ func (r *Router) memberPatch(ctx *gin.Context) {
 func (r *Router) memberPatchIfValid(ctx *gin.Context, id int, newName string) {
 	success := r.unitOfWork.MemberRepository.UpdateNameById(id, newName)
 	if success {
+		session := sessions.Default(ctx)
+		session.Set("name", newName)
 		ctx.JSON(200, gin.H{"ok": true})
 	} else {
 		ctx.JSON(200, gin.H{"error": true})
