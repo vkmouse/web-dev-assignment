@@ -38,6 +38,26 @@ func (r *MemoryMemberRepository) GetMemberById(id int) Member {
 	return member
 }
 
+func (r *MemoryMemberRepository) GetMemberByUsername(username string) Member {
+	member := Member{Id: -1}
+	for _, data := range r.db {
+		if data.Username == username {
+			member = data
+		}
+	}
+	return member
+}
+
+func (r *MemoryMemberRepository) UpdateNameById(id int, newName string) bool {
+	for i, data := range r.db {
+		if data.Id == id {
+			r.db[i].Name = newName
+			return true
+		}
+	}
+	return false
+}
+
 func (r *MemoryMemberRepository) memberExists(username string) bool {
 	for _, data := range r.db {
 		if data.Username == username {

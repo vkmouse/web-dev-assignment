@@ -55,11 +55,42 @@ func (r *MySQLMemberRepository) GetMember(username string, password string) Memb
 	return member
 }
 
+func (r *MySQLMemberRepository) GetMemberByUsername(username string) Member {
+	member := Member{Id: -1}
+	query := fmt.Sprintf(
+		"SELECT id, name, username, password FROM %s WHERE username=?",
+		r.TableName())
+	row := r.db.QueryRow(query, username)
+	row.Scan(&member.Id, &member.Name, &member.Username, &member.Password)
+	return member
+}
+
+func (r *MySQLMemberRepository) UpdateNameById(id int, newName string) bool {
+	if !r.idExists(id) {
+		return false
+	}
+	query := fmt.Sprintf(
+		"UPDATE %s SET name=? WHERE id=?",
+		r.TableName())
+	r.db.Exec(query, newName, id)
+	return true
+}
+
 func (r *MySQLMemberRepository) memberExists(username string) bool {
 	query := fmt.Sprintf(
 		"SELECT COUNT(*) FROM %s WHERE username=?",
 		r.TableName())
 	row := r.db.QueryRow(query, username)
+	var count int
+	row.Scan(&count)
+	return count > 0
+}
+
+func (r *MySQLMemberRepository) idExists(id int) bool {
+	query := fmt.Sprintf(
+		"SELECT COUNT(*) FROM %s WHERE id=?",
+		r.TableName())
+	row := r.db.QueryRow(query, id)
 	var count int
 	row.Scan(&count)
 	return count > 0

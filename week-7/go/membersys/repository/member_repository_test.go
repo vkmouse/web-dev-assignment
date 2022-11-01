@@ -12,10 +12,16 @@ import (
 
 func memberRepositoryTest(t *testing.T, u *UnitOfWork) {
 	m := u.MemberRepository
-	assert.Equal(t, m.GetMember("test", "test"), Member{Id: -1})
-	assert.Equal(t, m.AddMember("Tester", "test", "test"), true)
-	assert.Equal(t, m.GetMember("test", "test"), Member{Id: 1, Name: "Tester", Username: "test", Password: "test"})
-	assert.Equal(t, m.AddMember("Tester", "test", "test"), false)
+	emptyMember := Member{Id: -1}
+	testMember := Member{Id: 1, Name: "Tester", Username: "test", Password: "test"}
+	assert.Equal(t, emptyMember, m.GetMember("test", "test"))
+	assert.Equal(t, emptyMember, m.GetMemberByUsername("test"))
+	assert.Equal(t, true, m.AddMember("Tester", "test", "test"))
+	assert.Equal(t, testMember, m.GetMember("test", "test"))
+	assert.Equal(t, testMember, m.GetMemberByUsername("test"))
+	assert.Equal(t, false, m.AddMember("Tester", "test", "test"))
+	assert.Equal(t, true, m.UpdateNameById(1, "test123"))
+	assert.Equal(t, false, m.UpdateNameById(2, "test123"))
 }
 
 func TestMemoryMemberRepository(t *testing.T) {
