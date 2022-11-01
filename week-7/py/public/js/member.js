@@ -1,33 +1,32 @@
 function handleQueryMemberName() {
-    const inputElement = document.getElementById('query_member_name_input')
-    const outputElement = document.getElementById('query_member_name_output')
-    const username = inputElement.value
+    const username = document.getElementById('query_member_name_input').value
     fetch(`/api/member?username=${username}`)
     .then(response => response.json())
-    .then(body => {
-        let output = ''
-        if (body.data !== null) {
-            output = `${body.data.name} (${body.data.username})`
-        }
-        outputElement.textContent = output
-    })
+    .then(body => displayMemberName(body))
+}
+
+async function displayMemberName(body) {
+    let output = ''
+    if (body.data !== null) {
+        output = `${body.data.name} (${body.data.username})`
+    }
+    document.getElementById('query_member_name_output').textContent = output
 }
 
 function handleUpdateName() {
-    const nameElement = document.getElementById('name')
-    const inputElement = document.getElementById('update_name_input')
-    const outputElement = document.getElementById('update_name_output')
-    const newName = inputElement.value
+    const newName = document.getElementById('update_name_input').value
     fetch('/api/member', { 
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 'name': newName }),
     })
     .then(response => response.json())
-    .then(body => {
-        if (body.ok) {
-            nameElement.textContent = newName
-            outputElement.textContent = '更新成功'
-        }
-    })
+    .then(body => updateName(body, newName))
+}
+
+async function updateName(body, newName) {
+    if (body.ok) {
+        document.getElementById('name').textContent = newName
+        document.getElementById('update_name_output').textContent = '更新成功'
+    }
 }
