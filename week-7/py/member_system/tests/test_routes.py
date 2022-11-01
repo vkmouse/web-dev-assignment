@@ -65,7 +65,8 @@ def testMemberIfLogin(client: FlaskClient):
     setSession(client)
     response = client.get('/member')
     assertContains(response, '歡迎光臨，這是會員頁')
-    assertContains(response, '很高興見到您，test')
+    assertContains(response, '很高興見到您，')
+    assertContains(response, 'test')
 
 def testRedirectsHomeToMemberIfLogin(client: FlaskClient):
     setSession(client)
