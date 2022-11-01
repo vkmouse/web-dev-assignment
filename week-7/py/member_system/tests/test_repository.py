@@ -1,5 +1,8 @@
 import pytest
-from member_system.repository import UnitOfWork, MemoryUnitOfWork, MySQLUnitOfWork
+
+from member_system.core import UnitOfWork
+from member_system.repository import MemoryUnitOfWork
+from member_system.repository import MySQLUnitOfWork
 
 def memberRepositoryTest(unitOfWork: UnitOfWork):
     assert unitOfWork.memberRepository.getMember('test', 'test') == None

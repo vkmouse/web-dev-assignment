@@ -1,5 +1,7 @@
 from flask import Flask
-from member_system import MemoryUnitOfWork, MySQLUnitOfWork, configureRoutes, configureAPIRoutes
+from member_system import MySQLUnitOfWork
+from member_system import configureRoutes
+from member_system import configureAPIRoutes
 
 app = Flask(
     import_name=__name__,
@@ -8,7 +10,6 @@ app = Flask(
 )
 app.config['SECRET_KEY'] = 'test'
 
-# unitOfWork = MemoryUnitOfWork()
 unitOfWork = MySQLUnitOfWork('config.json')
 
 configureRoutes(app, unitOfWork)

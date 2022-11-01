@@ -1,6 +1,6 @@
 from member_system.core import Member
-from member_system.repository.mysql_repository.mysql_repository import MySQLRepository
-from member_system.repository.unit_of_work import MemberRepository
+from member_system.core import MemberRepository
+from member_system.repository.mysql.repository import MySQLRepository
 
 class MySQLMemberRepository(MySQLRepository, MemberRepository):
     def addMember(self, __name: str, __username: str, __password: str) -> bool:

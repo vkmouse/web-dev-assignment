@@ -1,11 +1,12 @@
-from typing import List
-from mysql.connector.pooling import MySQLConnectionPool
+import mysql.connector
+
+from member_system.core import List
 from member_system.core import Message
-from member_system.repository.mysql_repository.mysql_repository import MySQLRepository
-from member_system.repository.unit_of_work import MessageRepository
+from member_system.core import MessageRepository
+from member_system.repository.mysql.repository import MySQLRepository
 
 class MySQLMessageRepository(MySQLRepository, MessageRepository):
-    def __init__(self, cnxpool: MySQLConnectionPool, memberTableName: str, debug: bool):
+    def __init__(self, cnxpool: mysql.connector.pooling.MySQLConnectionPool, memberTableName: str, debug: bool):
         self.memberTableName = memberTableName
         MySQLRepository.__init__(self, cnxpool, debug)
 

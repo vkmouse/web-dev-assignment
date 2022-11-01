@@ -1,4 +1,4 @@
-from member_system.core import Member
+from member_system.core.types import Member
 
 class MemberRepository:
     def addMember(self, __name: str, __username: str, __password: str) -> bool:

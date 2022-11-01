@@ -1,5 +1,5 @@
-from member_system.repository.member_repository import MemberRepository
-from member_system.repository.message_repository import MessageRepository
+from member_system.core.member_repository import MemberRepository
+from member_system.core.message_repository import MessageRepository
 
 class UnitOfWork:
     def __init__(self):

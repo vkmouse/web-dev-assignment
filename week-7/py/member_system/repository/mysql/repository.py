@@ -1,7 +1,7 @@
-from mysql.connector.pooling import MySQLConnectionPool
+import mysql.connector
 
 class MySQLRepository:
-    def __init__(self, cnxpool: MySQLConnectionPool, debug: bool):
+    def __init__(self, cnxpool: mysql.connector.pooling.MySQLConnectionPool, debug: bool):
         self.debug = debug
         self.cnxpool = cnxpool
         self.createTable()

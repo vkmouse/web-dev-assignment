@@ -1,15 +1,17 @@
 import json
 import mysql.connector
-from mysql.connector.pooling import MySQLConnectionPool
-from member_system.repository.mysql_repository.mysql_member_repository import MySQLMemberRepository
-from member_system.repository.mysql_repository.mysql_message_repository import MySQLMessageRepository
-from member_system.repository.unit_of_work import MemberRepository, MessageRepository, UnitOfWork
+
+from member_system.core import MemberRepository
+from member_system.core import MessageRepository
+from member_system.core import UnitOfWork
+from member_system.repository.mysql.member_repository import MySQLMemberRepository
+from member_system.repository.mysql.message_repository import MySQLMessageRepository
 
 class MySQLUnitOfWork(UnitOfWork):
     def __init__(self, configPath: str, debug=False):
         self.__debug = debug
         config = self.loadConfig(configPath)
-        self.__cnxpool = MySQLConnectionPool(pool_name='mypool', pool_size=4, **config)
+        self.__cnxpool = mysql.connector.pooling.MySQLConnectionPool(pool_name='mypool', pool_size=4, **config)
         UnitOfWork.__init__(self)
 
     def __del__(self):

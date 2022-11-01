@@ -1,7 +1,7 @@
-from typing import List
+from member_system.core import List
 from member_system.core import Message
-from member_system.repository.unit_of_work import MessageRepository
-from member_system.repository.memory_repository.memory_member_repository import MemoryMemberRepository
+from member_system.core import MessageRepository
+from member_system.repository.memory.member_repository import MemoryMemberRepository
 
 class MemoryMessageRepository(MessageRepository):
     def __init__(self, memberRepository: MemoryMemberRepository):

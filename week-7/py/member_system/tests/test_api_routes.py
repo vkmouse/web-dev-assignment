@@ -1,7 +1,8 @@
 import pytest
+import json
+
 from flask import Flask
 from flask.testing import FlaskClient
-import json
 from member_system.repository import MemoryUnitOfWork
 from member_system.routes import configureAPIRoutes
 

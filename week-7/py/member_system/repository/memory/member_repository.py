@@ -1,6 +1,6 @@
-from typing import List
+from member_system.core import List
 from member_system.core import Member
-from member_system.repository.unit_of_work import MemberRepository
+from member_system.core import MemberRepository
 
 class MemoryMemberRepository(MemberRepository):
     def __init__(self):

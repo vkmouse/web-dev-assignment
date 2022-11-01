@@ -1,6 +1,8 @@
-import json
-from flask import Flask, request, session
-from member_system.repository import UnitOfWork
+from flask import Flask
+from flask import request
+from flask import session
+
+from member_system.core import UnitOfWork
 
 def configureAPIRoutes(app: Flask, unitOfWork: UnitOfWork):
     @app.route('/api/member', methods=['GET', 'PATCH'])

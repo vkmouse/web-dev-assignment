@@ -1,5 +1,10 @@
-from flask import Flask, request, session, redirect, render_template
-from member_system.repository import UnitOfWork
+from flask import Flask
+from flask import request
+from flask import session
+from flask import redirect
+from flask import render_template
+
+from member_system.core import UnitOfWork
 
 def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
     @app.route('/')

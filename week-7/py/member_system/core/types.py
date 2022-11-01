@@ -1,3 +1,5 @@
+import typing
+
 class Member:
     def __init__(self, id: int, name: str, username: str, password: str):
         self.id = id
@@ -17,3 +19,5 @@ class Message:
     @property
     def content(self):
         return self.__content
+
+List = typing.List

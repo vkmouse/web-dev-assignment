@@ -1,9 +1,10 @@
 import pytest
+
 from flask import Flask, session
 from flask.testing import FlaskClient
-from werkzeug.test import TestResponse
 from member_system.repository import MemoryUnitOfWork
 from member_system.routes import configureRoutes
+from werkzeug.test import TestResponse
 
 @pytest.fixture()
 def app():
