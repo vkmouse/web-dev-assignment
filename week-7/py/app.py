@@ -1,7 +1,7 @@
 from flask import Flask
-from member_system import MySQLUnitOfWork
-from member_system import configureRoutes
-from member_system import configureAPIRoutes
+from member_system.repository import MySQLUnitOfWork
+from member_system.routes import configureRoutes
+from member_system.routes import configureAPIRoutes
 
 app = Flask(
     import_name=__name__,

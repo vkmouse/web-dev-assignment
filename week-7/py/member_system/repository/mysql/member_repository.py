@@ -3,98 +3,65 @@ from member_system.core import MemberRepository
 from member_system.repository.mysql.repository import MySQLRepository
 
 class MySQLMemberRepository(MySQLRepository, MemberRepository):
-    def addMember(self, __name: str, __username: str, __password: str) -> bool:
+    @MySQLRepository.withConnection
+    def addMember(self, __name: str, __username: str, __password: str, cnx, cursor) -> bool:
         if self.__usernameExists(__username):
             return False
-        query = (
-            'INSERT INTO {} (name, username, password) '
-            'VALUES (%s, %s, %s)'
-        ).format(self.tableName)
+        query = 'INSERT INTO {} (name, username, password) VALUES (%s, %s, %s)'.format(self.tableName)
         data = (__name, __username, __password,)
-        with self.cnxpool.get_connection() as cnx:
-            with cnx.cursor() as cursor:
-                cursor.execute(query, data)
-            cnx.commit()
-            return True
+        cursor.execute(query, data)
+        cnx.commit()
+        return True
 
-    def getMember(self, __username: str, __password: str) -> Member | None:
-        query = (
-            'SELECT id, name '
-            'FROM {} '
-            'WHERE username=%s AND password=%s '
-            'LIMIT 1'
-        ).format(self.tableName)
+    @MySQLRepository.withConnection
+    def getMember(self, __username: str, __password: str, cnx, cursor) -> Member | None:
+        query = 'SELECT id, name FROM {} WHERE username=%s AND password=%s LIMIT 1'.format(self.tableName)
         data = (__username, __password,)
-        row = None
-        with self.cnxpool.get_connection() as cnx:
-            with cnx.cursor() as cursor:
-                cursor.execute(query, data)
-                row = cursor.fetchone()
-            if row == None:
-                return None
-            else:
-                (id, name,) = row
-                return Member(id, name, __username, __password)
+        cursor.execute(query, data)
+        row = cursor.fetchone()
+        if row == None:
+            return None
+        else:
+            (id, name,) = row
+            return Member(id, name, __username, __password)
 
-    def getMemberByUsername(self, __username: str) -> Member | None:
-        query = (
-            'SELECT id, name '
-            'FROM {} '
-            'WHERE username=%s '
-            'LIMIT 1'
-        ).format(self.tableName)
+    @MySQLRepository.withConnection
+    def getMemberByUsername(self, __username: str, cnx, cursor) -> Member | None:
+        query = 'SELECT id, name FROM {} WHERE username=%s LIMIT 1'.format(self.tableName)
         data = (__username,)
-        row = None
-        with self.cnxpool.get_connection() as cnx:
-            with cnx.cursor() as cursor:
-                cursor.execute(query, data)
-                row = cursor.fetchone()
-            if row == None:
-                return None
-            else:
-                (id, name,) = row
-                return Member(id, name, __username, None)
+        cursor.execute(query, data)
+        row = cursor.fetchone()
+        if row == None:
+            return None
+        else:
+            (id, name,) = row
+            return Member(id, name, __username, None)
 
-    def updateNameById(self, __id: int, __newName: str) -> bool:
+    @MySQLRepository.withConnection
+    def updateNameById(self, __id: int, __newName: str, cnx, cursor) -> bool:
         if not self.__idExists(__id):
             return False
-        query = (
-            'UPDATE {} '
-            'SET name=%s '
-            'WHERE id=%s '
-        ).format(self.tableName)
+        query = 'UPDATE {} SET name=%s WHERE id=%s'.format(self.tableName)
         data = (__newName, __id)
-        with self.cnxpool.get_connection() as cnx:
-            with cnx.cursor() as cursor:
-                cursor.execute(query, data)
-                cnx.commit()
-                return True
+        cursor.execute(query, data)
+        cnx.commit()
+        return True
 
-    def __usernameExists(self, __username: str) -> bool:
-        query = (
-            'SELECT COUNT(*) '
-            'FROM {} '
-            'WHERE username=%s'
-        ).format(self.tableName)
+    @MySQLRepository.withConnection
+    def __usernameExists(self, __username: str, cnx, cursor) -> bool:
+        query = 'SELECT COUNT(*) FROM {} WHERE username=%s'.format(self.tableName)
         data = (__username,)
-        with self.cnxpool.get_connection() as cnx:
-            with cnx.cursor() as cursor:
-                cursor.execute(query, data)
-                (count,) = cursor.fetchone()
-                return count > 0
+        cursor.execute(query, data)
+        (count,) = cursor.fetchone()
+        return count > 0
 
-    def __idExists(self, __id: int) -> bool:
-        query = (
-            'SELECT COUNT(*) '
-            'FROM {} '
-            'WHERE id=%s'
-        ).format(self.tableName)
+    @MySQLRepository.withConnection
+    def __idExists(self, __id: int, cnx, cursor) -> bool:
+        query = 'SELECT COUNT(*) FROM {} WHERE id=%s'.format(self.tableName)
         data = (__id,)
-        with self.cnxpool.get_connection() as cnx:
-            with cnx.cursor() as cursor:
-                cursor.execute(query, data)
-                (count,) = cursor.fetchone()
-                return count > 0
+        cursor.execute(query, data)
+        (count,) = cursor.fetchone()
+        return count > 0
 
     @property
     def tableName(self) -> str:

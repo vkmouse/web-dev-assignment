@@ -1,29 +1,42 @@
 import mysql.connector
 
 class MySQLRepository:
+    def withConnection(func):
+        def wrap(self, *args, **kwargs):
+            cnx = self.cnxpool.get_connection()
+            cursor = cnx.cursor()
+            output = None
+            try:
+                output = func(self, *args, **kwargs, cnx=cnx, cursor=cursor)
+            except:
+                print('Error')
+            finally:
+                cursor.close()
+                cnx.close()
+            return output
+        return wrap
+
+
     def __init__(self, cnxpool: mysql.connector.pooling.MySQLConnectionPool, debug: bool):
         self.debug = debug
         self.cnxpool = cnxpool
         self.createTable()
 
-    def createTable(self):
-        with self.cnxpool.get_connection() as cnx:
-            with cnx.cursor() as cursor:
-                if not self.tableExists():
-                    cursor.execute(self.createTableStatement)
+    @withConnection
+    def createTable(self, cnx, cursor):
+        if not self.tableExists():
+            cursor.execute(self.createTableStatement)
 
-    def dropTableIfExists(self):
+    @withConnection
+    def dropTableIfExists(self, cnx, cursor):
         if self.tableExists():
-            with self.cnxpool.get_connection() as cnx:
-                with cnx.cursor() as cursor:
-                    cursor.execute(self.dropTableStatement)
+            cursor.execute(self.dropTableStatement)
 
-    def tableExists(self) -> bool:
-        with self.cnxpool.get_connection() as cnx:
-            with cnx.cursor() as cursor:
-                cursor.execute('SHOW TABLES;')
-                isExists = (self.tableName,) in cursor.fetchall()
-                return isExists
+    @withConnection
+    def tableExists(self, cnx, cursor) -> bool:
+        cursor.execute('SHOW TABLES;')
+        isExists = (self.tableName,) in cursor.fetchall()
+        return isExists
 
     @property
     def tableName(self) -> str:
