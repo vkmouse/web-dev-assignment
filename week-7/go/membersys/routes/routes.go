@@ -32,6 +32,8 @@ func (r *Router) Setup(templateFolder string, publicFolder string, unitOfWork *U
 	r.Engine.POST("/signin", r.signin)
 	r.Engine.POST("/signup", r.signup)
 	r.Engine.POST("/message", r.message)
+	r.Engine.GET("/api/member", r.memberGet)
+	r.Engine.PATCH("/api/member", r.memberPatch)
 }
 
 func (r *Router) errorPage(ctx *gin.Context) {
