@@ -2,6 +2,8 @@ package routes
 
 import (
 	. "Project/membersys/repository/memory_repository"
+	"bytes"
+	"encoding/json"
 
 	"net/http"
 	"net/http/httptest"
@@ -57,6 +59,21 @@ func post(router *gin.Engine, path string, data url.Values, withSession bool) (*
 		setSessionCookies(router, req)
 	}
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	router.ServeHTTP(w, req)
+	req.Method = http.MethodGet
+	return followRedirects(router, w, req)
+}
+
+func patch(router *gin.Engine, path string, data interface{}, withSession bool) (*httptest.ResponseRecorder, *http.Request) {
+	jsonBlob, _ := json.Marshal(data)
+
+	w := httptest.NewRecorder()
+	body := bytes.NewReader(jsonBlob)
+	req, _ := http.NewRequest(http.MethodPatch, path, body)
+	if withSession {
+		setSessionCookies(router, req)
+	}
+	req.Header.Add("Content-Type", "application/json")
 	router.ServeHTTP(w, req)
 	req.Method = http.MethodGet
 	return followRedirects(router, w, req)
