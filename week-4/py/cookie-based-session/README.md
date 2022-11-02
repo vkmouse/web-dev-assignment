@@ -9,8 +9,8 @@ Table of Contents
 
 ## Live Demo
 
-Url: http://rto55210.pythonanywhere.com/  
-Email: rto55210@nezid.com  
+Url: http://vhf84605.pythonanywhere.com/  
+Email: vhf84605@xcoxc.com  
 
 ## Getting Started
 
@@ -36,9 +36,9 @@ Python virtual enviroment is recommended
    ```sh
    git clone https://github.com/vkmouse/web-dev-assignment.git
    ```
-2. Change the directory to `web-dev-assignment\week-4\py\cookie-based-session`
+2. Change the directory to `web-dev-assignment\week-4\py\encrypted-cookie`
    ```sh
-   cd web-dev-assignment\week-4\py\cookie-based-session
+   cd web-dev-assignment\week-4\py\encrypted-cookie
    ```
 3. Install the requirement packages
    ```sh
@@ -49,9 +49,9 @@ Python virtual enviroment is recommended
 
 ### Run the program
 
-1. Change the directory to `web-dev-assignment\week-4\py\cookie-based-session`
+1. Change the directory to `web-dev-assignment\week-4\py\encrypted-cookie`
    ```sh
-   cd web-dev-assignment\week-4\py\cookie-based-session
+   cd web-dev-assignment\week-4\py\encrypted-cookie
    ```
 2. Run the program
    ```sh
@@ -60,11 +60,11 @@ Python virtual enviroment is recommended
 
 ### Run unit tests
 
-1. Change the directory to `web-dev-assignment\week-4\py\cookie-based-session`
+1. Change the directory to `web-dev-assignment\week-4\py\encrypted-cookie`
    ```sh
-   cd web-dev-assignment\week-4\py\cookie-based-session
+   cd web-dev-assignment\week-4\py\encrypted-cookie
    ```
 2. Run unit tests
    ```sh
-   pytest -s
+   pytest
    ```

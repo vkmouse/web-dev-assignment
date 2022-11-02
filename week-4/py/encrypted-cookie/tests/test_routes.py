@@ -1,8 +1,9 @@
 import pytest
-from flask import Flask, session
+from flask import Flask
 from flask.testing import FlaskClient
 from functions import *
 from werkzeug.test import TestResponse
+from functions.routes import generateCiphertext
 
 @pytest.fixture()
 def app():
@@ -24,6 +25,13 @@ def client(app):
 def runner(app):
     return app.test_cli_runner()
 
+def cookieContains(client: FlaskClient, name: str, value: str) -> bool:
+    for i in client.cookie_jar:
+        if i.name == name and i.value == value:
+            return True
+    else:
+        return False
+
 def assertRedirects(response: TestResponse, path: str):
     assert len(response.history) == 1
     assert response.history[0].status_code == 302
@@ -34,9 +42,12 @@ def assertContains(response: TestResponse, text: str):
     assert text in response.get_data().decode('utf-8')
     assert response.status_code == 200
 
-def setSession(client: FlaskClient, property: str, value: any):
-    with client.session_transaction() as session:
-        session[property] = value
+def setLogin(client: FlaskClient):
+    ciphertext = generateCiphertext()
+    client.set_cookie(
+        server_name='/',
+        key='isLogin',
+        value=ciphertext)
 
 def testError(client: FlaskClient):
     messages = [
@@ -55,12 +66,13 @@ def testHome(client: FlaskClient):
     assertContains(response, '歡迎光臨，請輸入帳號密碼')
 
 def testMemberIfLogin(client: FlaskClient):
-    setSession(client, 'isLogin', True)
-    response = client.get('/member')
+    setLogin(client)
+    response = client.get('/member', follow_redirects=True)
+    print(response.get_data().decode('utf-8'))
     assertContains(response, '歡迎光臨，這是會員頁')
 
 def testRedirectsHomeToMemberIfLogin(client: FlaskClient):
-    setSession(client, 'isLogin', True)
+    setLogin(client)
     response = client.get(
         path='/', 
         follow_redirects=True
@@ -110,14 +122,20 @@ def testSigninForPasswordMismatchError(client: FlaskClient):
     assertContains(response, '帳號、或密碼輸入錯誤')
 
 def testSignout(client: FlaskClient):
-    setSession(client, 'isLogin', True)
-    with client:
-        response = client.get(
-            path='/signout',
-            follow_redirects=True
-        )
-        assert session['isLogin'] == False
-    assertRedirects(response, '/')
+    setLogin(client)
+    response = client.get(
+        path='/signout',
+        follow_redirects=False,
+    )
+    assert response.headers['Set-Cookie'].find('isLogin=;') != -1
+    client.delete_cookie(
+        server_name='/',
+        key='isLogin')
+    response = client.get(
+        path=response.headers['Location'],
+        follow_redirects=True
+    )
+    assert response.request.path == '/'
 
 def testSquare(client: FlaskClient):
     response = client.get(
