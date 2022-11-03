@@ -1,11 +1,11 @@
 import functions
-from flask import Flask, request, session, redirect, render_template
+from flask import Flask, request, session, redirect, render_template, url_for
 
 def configureRoutes(app: Flask):
     @app.route('/')
     def index():
         if (session.get('isLogin')):
-            return redirect('/member')
+            return redirect(url_for('member'))
         else:
             return render_template('index.html')
 
@@ -14,7 +14,7 @@ def configureRoutes(app: Flask):
         if (session.get('isLogin')):
             return render_template('member.html')
         else:
-            return redirect('/')
+            return redirect(url_for('index'))
 
     @app.route('/error')
     def error():
@@ -27,15 +27,15 @@ def configureRoutes(app: Flask):
         password = request.form.get('password')
         session['isLogin'] = functions.checkLogin(account, password)
         if session.get('isLogin'):
-            return redirect('/member')
+            return redirect(url_for('member'))
         else:
             message = functions.getErrorMessage(account, password)
-            return redirect(f'/error?message={message}')
+            return redirect(url_for('error', message=message))
 
     @app.route('/signout')
     def signout():
         session['isLogin'] = False
-        return redirect('/')
+        return redirect(url_for('index'))
 
     @app.route('/square/<int:num>')
     def square(num):
