@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM uwsgi-flask-docker
+FROM web-uwsgi-flask-docker
 
 WORKDIR /app
 
