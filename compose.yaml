@@ -1,0 +1,12 @@
+services:
+  nginx:
+    build: 
+      context: nginx
+    ports:
+      - 80:80
+  
+  week4-py-cookie-based-session:
+    build:
+      context: week-4/py/cookie-based-session
+    ports:
+      - 3000:3000
