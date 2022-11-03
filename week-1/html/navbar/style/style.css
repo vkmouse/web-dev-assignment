@@ -1,0 +1,256 @@
+body {
+  margin: 0;
+  font-size: 125%;
+}
+
+/* Common */
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-secondary {
+  background-color: #CCDDEC;
+}
+
+.center-cropped {
+  object-fit: cover;
+  object-position: center;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.font-weight-bold {
+  font-weight: bold;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.p-2 {
+  padding: 0.5em;
+}
+
+.ratio-3x2 {
+  position: relative;
+  padding-top: 66.67%;
+}
+
+.ratio-1x1 {
+  position: relative;
+  padding-top: 100%;
+}
+
+.ratio-element {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* banner */
+.banner {
+  align-items: center;
+  display: flex;
+  font-size: 200%;
+  font-weight: bold;
+  height: 300px;
+  justify-content: center;
+}
+
+/* content and content__element */
+.main {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  width: 1200px;
+}
+
+@media screen and (max-width: 1200px) {
+  .content {
+    width: 90%;
+  }
+}
+
+/* grid and grid--col */
+.grid {
+  column-gap: 1%;
+  display: grid;
+  margin-bottom: 1em;
+  row-gap: 1em;
+  width: 100%;
+}
+
+.grid--col-4-2-1 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid--col-2-2-1 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media screen and (max-width: 1200px) {
+  .grid {
+    column-gap: 3%;
+  }
+
+  .grid--col-4-2-1 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid--col-2-2-1 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .grid--col-4-2-1 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .grid--col-2-2-1 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* star */
+.star {
+  background-image: url("../icon/inactive_star.svg");
+  background-size: contain;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+}
+
+.star--active {
+  background-image: url("../icon/active_star.svg");
+}
+
+/* product */
+.product {
+  display: flex;
+}
+
+.main-product {
+  flex-direction: column;
+}
+
+.main-product__title-container {
+  align-self: flex-end;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1em;
+  padding-top: 1em;
+  position: relative;
+  width: 100%;
+}
+
+.main-product__title {
+  align-items: center;
+  cursor: default;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 80%;
+  white-space: nowrap;
+  z-index: 3;
+}
+
+.main-product__overlay {
+  background-color: #FFFFFF;
+  align-self: center;
+  height: 100%;
+  opacity: 0.75;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+
+.main-product__star-container {
+  display: flex;
+  justify-content: end;
+  margin: 0.5em;
+  z-index: 2;
+}
+
+.main-product__img {
+  animation: zoom-in 1.0s, fade-out 2.0s;
+  animation-iteration-count: 1;
+  border-top-left-radius: 5%;
+  border-top-right-radius: 5%;
+  height: 100%;
+  width: 100%;
+}
+
+
+.main-product__tooltip {
+  align-items: center;
+  align-self: center;
+  background-color: white;
+  color: black;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: absolute;
+  text-align: center;
+  visibility: hidden;
+  width: 100%;
+  z-index: 4;
+}
+
+.main-product__title-container:hover .main-product__tooltip {
+  visibility: visible;
+}
+
+.sub-product {
+  height: 50px;
+}
+
+.sub-product__img {
+  width: 80px;
+  animation: spin 1.5s, fade-out 2.0s;
+  animation-iteration-count: 1;
+}
+
+.sub-product__title {
+  align-items: center;
+  display: flex;
+  margin-left: 0.25em;
+}
+
+.jumper {
+  animation: jump;
+  animation-duration:  0.2s;
+  animation-delay: calc(var(--index) * 0.2s);
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+}
+
+@keyframes jump {
+  from { padding-bottom: 100px; padding-top: 0px; }
+  to { padding-bottom: 0px; padding-top: 0px; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fade-out {
+  0% { opacity: 0.0; }
+  25% { opacity: 0.25; }
+  50% { opacity: 0.5; }
+  75% { opacity: 0.75; }
+  100% { opacity: 1.0; }
+}
+
+@keyframes zoom-in {
+  0% { transform: scale(0.0); }
+  100% { transform: scale(1.0); }
+}
