@@ -7,6 +7,14 @@ services:
     ports:
       - 80:80
   
+  week1:
+    build: 
+      context: week-1
+    image: web-week1-docker
+    container_name: web-week1
+    ports:
+      - 8080:8080
+  
   week4-py-cookie-based-session:
     build:
       context: week-4/py/cookie-based-session
