@@ -6,19 +6,24 @@ services:
     container_name: web-nginx
     ports:
       - 80:80
-  
+    networks:
+      - assignment-network
+
   week1:
     build: 
       context: week-1
     image: web-week1-docker
     container_name: web-week1
-    ports:
-      - 8080:8080
-  
+    networks:
+      - assignment-network
+
   week4-py-cookie-based-session:
     build:
       context: week-4/py/cookie-based-session
     image: web-week4-py-cookie-based-session-docker
     container_name: web-week4-py-cookie-based-session
-    ports:
-      - 3000:3000
+    networks:
+      - assignment-network
+
+networks:
+  assignment-network:
