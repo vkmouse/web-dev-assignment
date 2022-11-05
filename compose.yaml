@@ -17,6 +17,14 @@ services:
     networks:
       - assignment-network
 
+  week3:
+    build:
+      context: week-3
+    image: web-week3-docker
+    container_name: web-week3
+    networks:
+      - assignment-network
+
   week4-py-cookie-based-session:
     build:
       context: week-4/py/cookie-based-session
