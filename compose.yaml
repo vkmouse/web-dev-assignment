@@ -25,6 +25,14 @@ services:
     networks:
       - assignment-network
 
+  week4-py-encrypted-cookie:
+    build:
+      context: week-4/py/encrypted-cookie
+    image: web-week4-py-encrypted-cookie-docker
+    container_name: web-week4-py-encrypted-cookie
+    networks:
+      - assignment-network
+      
   week4-py-cookie-based-session:
     build:
       context: week-4/py/cookie-based-session

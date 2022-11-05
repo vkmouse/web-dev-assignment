@@ -1,6 +1,6 @@
 import functions
 import time
-from flask import Flask, request, redirect, render_template, make_response
+from flask import Flask, request, redirect, render_template, make_response, url_for
 from flask.wrappers import Response
 from cryptography.fernet import Fernet
 
@@ -11,7 +11,7 @@ def configureRoutes(app: Flask):
     @app.route('/')
     def index():
         if checkLogin():
-            return redirect('/member')
+            return redirect(url_for('member'))
         else:
             return render_template('index.html')
 
@@ -20,7 +20,7 @@ def configureRoutes(app: Flask):
         if checkLogin():
             return render_template('member.html')
         else:
-            return redirect('/')
+            return redirect(url_for('index'))
 
     @app.route('/error')
     def error():
@@ -33,14 +33,14 @@ def configureRoutes(app: Flask):
         password = request.form.get('password')
         isLogin = functions.checkLogin(account, password)
         if isLogin:
-            return setLogin(redirect('/member'))
+            return setLogin(redirect(url_for('member')))
         else:
             message = functions.getErrorMessage(account, password)
-            return resetLogin(redirect(f'/error?message={message}'))
+            return resetLogin(redirect(url_for('error', message=message)))
 
     @app.route('/signout')
     def signout():
-        return resetLogin(redirect('/'))
+        return resetLogin(redirect(url_for('index')))
 
     @app.route('/square/<int:num>')
     def square(num):
