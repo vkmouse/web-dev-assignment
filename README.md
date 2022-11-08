@@ -6,3 +6,5 @@
 
 - Week 4 Backend framework
   - python-flask: [cookie-based-session](http://vkmouse.ddns.net:8080/week-4/py/cookie-based-session/), [encrypted-cookie](http://vkmouse.ddns.net:8080/week-4/py/encrypted-cookie/)
+
+- Week 8 [Topic discussion](https://vkmouse.github.io/web-dev-assignment/week-8/html/)
