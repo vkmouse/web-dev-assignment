@@ -52,6 +52,7 @@ func (r *Router) memberPatchIfValid(ctx *gin.Context, id int, newName string) {
 	if success {
 		session := sessions.Default(ctx)
 		session.Set("name", newName)
+		session.Save()
 		ctx.JSON(200, gin.H{"ok": true})
 	} else {
 		ctx.JSON(200, gin.H{"error": true})
