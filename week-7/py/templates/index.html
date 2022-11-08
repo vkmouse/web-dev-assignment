@@ -16,15 +16,24 @@
       <div class="title m-1">註冊帳號</div>
       <div class="input-group">
         <span class="input-group__label">姓名</span>
-        <input name="name">
+        <input name="name" required>
       </div>
       <div class="input-group">
         <span class="input-group__label">帳號</span>
-        <input name="username">
+        <input name="username" 
+               pattern="[A-Za-z\d.]{4,30}"
+               required
+               oninput="handleUsernameValidation(this)"
+        >
       </div>
       <div class="input-group">
         <span class="input-group__label">密碼</span>
-        <input name="password" type="password">
+        <input name="password" 
+               type="password"
+               pattern="(?=.*[A-Za-z])[a-zA-Z\d]{4,100}"
+               required
+               oninput="handlePasswordValidation(this)"
+        >
       </div>
       <button class="m-1">註冊</button>
     </form>
@@ -33,24 +42,24 @@
       <div class="title m-1">登入系統</div>
       <div class="input-group">
         <span class="input-group__label">帳號</span>
-        <input name="username">
+        <input name="username" 
+               pattern="[A-Za-z\d.]{4,30}"
+               required
+               oninput="handleUsernameValidation(this)"
+        >
       </div>
       <div class="input-group">
         <span class="input-group__label">密碼</span>
-        <input name="password" type="password">
+        <input name="password" 
+               type="password"
+               pattern="(?=.*[A-Za-z])[a-zA-Z\d]{4,100}"
+               required
+               oninput="handlePasswordValidation(this)"
+        >
       </div>
       <button class="m-1">登入</button>
     </form>
   </main>
 </body>
 </html>
-<script>
-  function handleSquareRedirect() {
-    const num = document.getElementById('num').value;
-    const regex = new RegExp('^(0|[1-9][0-9]*)$');
-    const isMatch = regex.test(num);
-    if (isMatch) {
-      window.location.href = `/square/${num}`;
-    }
-  }
-</script>
+<script src="/public/js/validate.js"></script>

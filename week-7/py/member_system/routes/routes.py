@@ -1,3 +1,4 @@
+import re
 from flask import Flask
 from flask import request
 from flask import session
@@ -33,14 +34,22 @@ def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
     def signin():
         username = request.form.get('username')
         password = request.form.get('password')
+
+        # input validation 
+        isValid = validate(
+            username = username,
+            password = password,
+        )
+        if not isValid:
+            return redirect('/error?message=帳號、或密碼不合法')
+
+        # access database
         member = unitOfWork.memberRepository.getMember(username, password)
         if member:
             session['id'] = member.id
             session['name'] = member.name
             session['username'] = member.username
             return redirect('/member')
-        elif username == '' or password == '':
-            return redirect('/error?message=請輸入帳號、密碼')
         else:
             return redirect('/error?message=帳號、或密碼輸入錯誤')
 
@@ -56,6 +65,17 @@ def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
         name = request.form.get('name')
         username = request.form.get('username')
         password = request.form.get('password')
+
+        # input validation 
+        isValid = validate(
+            name = name,
+            username = username,
+            password = password,
+        )
+        if not isValid:
+            return redirect('/error?message=帳號資料有誤')
+
+        # access database
         success = unitOfWork.memberRepository.addMember(name, username, password)
         if success:
             return redirect('/')
@@ -68,3 +88,10 @@ def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
         content = request.form.get('content')
         unitOfWork.messageRepository.addMessage(memberId, content)
         return redirect('/member')
+
+def validate(username = None, password = None, name = None):
+    if ((name == None or name != '') and 
+        (username == None or re.match('[A-Za-z\d.]{4,30}', username)) and
+        (password == None or re.match('(?=.*[A-Za-z])[a-zA-Z\d]{4,100}', password))):
+        return True
+    return False
