@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewpoint" content="width=device-width">
+    <link rel="icon" href="icon/favicon-16x16.png">
+    <link rel="stylesheet" href="style/style.css">
+    <title>Topic Discussion</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="navbar__title">主題報告</div>
+      <div class="navbar__toggler" onclick='handleNavbarTogglerClick(this)'>
+        <img src="icon/hamberger.svg">
+      </div>
+      <div class="navbar__nav">
+        <a class="nav__item nav__link" href="#topic-1">主題 1</a>
+        <a class="nav__item nav__link" href="#topic-2">主題 2</a>
+        <a class="nav__item nav__link" href="#topic-3">主題 3</a>   
+      </div>
+    </div>
+    <main>
+      <article>
+        <section id="topic-1"></section>
+        <section id="topic-2"></section>
+        <section id="topic-3"></section>
+        <div style="height: 500px;"></div>
+      </article>
+    </main>
+  </body>
+</html>
+<script src="js/main.js"></script>
+<script>
+  function handleNavbarTogglerClick(element) {
+    const parent = element.parentElement;
+    element = parent.querySelector('.navbar__nav');
+    if (element.style.display !== "flex") {
+      element.style.display = "flex";
+    } else {
+      element.style.display = "";
+    }
+  }
+</script>
