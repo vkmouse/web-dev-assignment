@@ -58,7 +58,7 @@ body {
   text-decoration: none;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1200px) {
   .navbar__toggler {
     display: block;
   }
@@ -83,7 +83,7 @@ main {
   padding-top: 2.25em;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1200px) {
   main {
     padding-top: 32px;
   }
@@ -105,7 +105,7 @@ section {
   padding-bottom: 3em;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1200px) {
   section {
     display: block;
   }
@@ -120,7 +120,7 @@ section {
   padding-left: 1em;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1200px) {
   .section-aside {
     width: 90%;
   }

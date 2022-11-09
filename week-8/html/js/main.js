@@ -14,13 +14,11 @@ function render() {
     url: 'https://docs.google.com/presentation/d/e/2PACX-1vR0WNxJzOsCmMym1mW5PYaxl9KHv0jnjWVA_xW73BcRnc8RjNzcM5EsTUfDOQBeJRYYqgUi7Xj7wpEO/embed',
     title: '主題二、完善資料驗證程序',
     items: [  
-      '前端驗證: 移除不需要的請求',
-      '1. 增加回應速度',
-      '2. 減少後端負荷',
-      '',
-      '後端驗證: 確認資料合法，才操作資料庫',
-      '1. 避免資料庫存取不合法資料',
-      '2. 避免不正常使用者操作',
+      '如果後端不驗證，會造成資料庫存在非法資料 (例如: 空白帳密)',
+      '如果前端不驗證，只是造成使用體驗變差，後端負擔變多',
+      '後端一定要驗證，前端建議做驗證',
+      '前端驗證為了 99.9% 的正常使用者',
+      '後端驗證為了 0.1% 的不正常使用者',
     ],
   }, {
     id: 'topic-3',
@@ -29,7 +27,18 @@ function render() {
     items: [  
       '跨來源請求資源時，會有 CORS 進行阻擋',
       'CORS 會造成瀏覽器阻擋 Response',
-      '要開放 API 時，需要 access-control-allow-origin 標頭 (* 允許所有 domains)',
+      '開放 API 要在 Response Header 加入 access-control-allow-origin ',
+    ],
+  }, {
+    id: 'topic-4',
+    url: 'https://docs.google.com/presentation/d/e/2PACX-1vSa0Aott-wyOc_sdpdh5bFPEulI76REucHVnxfTwXyPOTyWqZdY4j4lnPXQV_6h5b-HhhUl1rSGGo6l/embed',
+    title: '主題四、使⽤主鍵、索引優化資料庫查詢效率',
+    items: [  
+      '主鍵是一種索引',
+      '利用主鍵搜尋也可以加速',
+      '索引是一種標籤分類機制',
+      '利用索引建立分類方式，以利於快速搜尋',
+      '在實驗環境中， 30 萬筆資料，使用索引比沒使用索引快 67 倍',
     ],
   }]
 
