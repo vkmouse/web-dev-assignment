@@ -50,6 +50,16 @@ function render() {
       'Connection Pool 可以減少重複連線負擔',
       'Connection Pool 可以集中管理連線數量',
     ],
+  }, {
+    id: 'topic-6',
+    url: 'https://docs.google.com/presentation/d/e/2PACX-1vQvbpwjdhNycQR7X5QAnXzE9VfutdRAPQBCqNlX-aVn6nRucdrU-dOkL6zjJt5Uxy9mpHT44zxGjleL/embed',
+    title: '主題六、了解並預防 Cross-Site Scripting (XSS) 攻擊',
+    items: [  
+      'XSS 讓被害者執行不該執行的 javascript',
+      '可以竊取身份、重新導向',
+      '簡易避免方式特定文字替換',
+      'XSS 攻擊不只透過 innerHTML 漏洞',
+    ],
   }]
 
   for (const topic of topics) {
