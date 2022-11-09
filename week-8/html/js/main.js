@@ -40,6 +40,16 @@ function render() {
       '利用索引建立分類方式，以利於快速搜尋',
       '在實驗環境中， 30 萬筆資料，使用索引比沒使用索引快 67 倍',
     ],
+  }, {
+    id: 'topic-5',
+    url: 'https://docs.google.com/presentation/d/e/2PACX-1vSyXTPBdvnVph552pHm20WXPXVIKkCGEowgg78pmByGAg-bxoFqLU8PI-dCnz_hUthu8ofKB4wIWKWF/embed',
+    title: '主題五、使⽤ Connection Pool 連結資料庫',
+    items: [  
+      'Connection Pool 是預先建立多個連線',
+      '可能同時有多個請求時，使用 Connection Pool',
+      'Connection Pool 可以減少重複連線負擔',
+      'Connection Pool 可以集中管理連線數量',
+    ],
   }]
 
   for (const topic of topics) {
