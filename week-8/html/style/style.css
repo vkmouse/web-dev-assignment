@@ -5,8 +5,14 @@
 
 body {
   background-color: #eeeeee;
-  font-size: 125%;
+  font-size: 150%;
   margin: 0;
+}
+
+@media screen and (max-width: 1200px) {
+  body {
+    font-size: 200%;
+  }
 }
 
 .navbar {
@@ -30,8 +36,8 @@ body {
 .navbar__toggler {
   cursor: pointer;
   display: none;
-  height: 32px;
-  width: 32px;
+  height: 64px;
+  width: 64px;
 }
 
 .navbar__toggler:hover {
@@ -47,6 +53,7 @@ body {
 .nav__item {
   cursor: pointer;
   padding: 0.5em;
+  text-align: center;
 }
 
 .nav__item:hover {
@@ -80,7 +87,7 @@ body {
 main {
   display: flex;
   justify-content: center;
-  padding-top: 2.25em;
+  padding-top: 3.5em;
 }
 
 @media screen and (max-width: 1200px) {
