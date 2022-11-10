@@ -41,5 +41,23 @@ services:
     networks:
       - assignment-network
 
+  week6-py:
+    build:
+      context: week-6/py
+    image: web-week6-py-docker
+    container_name: web-week6-py
+    networks:
+      - assignment-network
+
+  mysqldb:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=000000
+    container_name: web-mysqldb
+    networks:
+      - assignment-network
+
 networks:
   assignment-network:

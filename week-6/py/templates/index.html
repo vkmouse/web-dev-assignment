@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="/public/icon/favicon-16x16.png">
-  <link rel="stylesheet" href="/public/style/style.css">
+  <link rel="icon" href="{{ url_for('static', filename='icon/favicon-16x16.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
   <title>Flask Practice</title>
 </head>
 <body>
@@ -12,7 +12,7 @@
     歡迎光臨，請輸入帳號密碼
   </header>
   <main>
-    <form class="center-container" action="/signup" method="post">
+    <form class="center-container" action="{{ url_for('signup') }}" method="post">
       <div class="title m-1">註冊帳號</div>
       <div class="input-group">
         <span class="input-group__label">姓名</span>
@@ -29,7 +29,7 @@
       <button class="m-1">註冊</button>
     </form>
     <br />
-    <form class="center-container" action="/signin" method="post">
+    <form class="center-container" action="{{ url_for('signin') }}" method="post">
       <div class="title m-1">登入系統</div>
       <div class="input-group">
         <span class="input-group__label">帳號</span>
@@ -50,7 +50,8 @@
     const regex = new RegExp('^(0|[1-9][0-9]*)$');
     const isMatch = regex.test(num);
     if (isMatch) {
-      window.location.href = `/square/${num}`;
+      index = "{{ url_for('index') }}"
+      window.location.href = `${index}square/${num}`;
     }
   }
 </script>

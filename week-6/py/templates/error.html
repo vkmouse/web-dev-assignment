@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="/public/icon/favicon-16x16.png">
-  <link rel="stylesheet" href="/public/style/style.css">
+  <link rel="icon" href="{{ url_for('static', filename='icon/favicon-16x16.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
   <title>Flask Practice</title>
 </head>
 <body>
@@ -14,7 +14,7 @@
   <main>
     <div class="m-1">{{message}}</div>
     <div class="m-1">
-      <a href="/">重新登入</a>
+      <a href="{{ url_for('index') }}">重新登入</a>
     </div>
   </main>
 </body>
