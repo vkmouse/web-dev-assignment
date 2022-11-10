@@ -1,6 +1,9 @@
 import json
 from flask import Flask
 from member_system import MemoryUnitOfWork, MySQLUnitOfWork, configureRoutes
+import time
+
+time.sleep(10)
 
 app = Flask(
     import_name=__name__,
