@@ -11,6 +11,7 @@ class MySQLUnitOfWork(UnitOfWork):
     def __init__(self, configPath: str, debug=False):
         self.__debug = debug
         config = self.loadConfig(configPath)
+        self.initDb(config)
         self.__cnxpool = mysql.connector.pooling.MySQLConnectionPool(pool_name='mypool', pool_size=4, **config)
         UnitOfWork.__init__(self)
 
@@ -38,3 +39,16 @@ class MySQLUnitOfWork(UnitOfWork):
     def loadConfig(configPath: str):
         with open(configPath) as file:
             return json.load(file)
+
+    @staticmethod
+    def initDb(config):
+        database = config['database']
+        config['database'] = None
+        cnx = mysql.connector.connect(**config)
+        cursor = cnx.cursor()
+        cursor.execute('SHOW DATABASES;')
+        if not (database,) in cursor.fetchall():
+            cursor.execute('CREATE DATABASE ' + database)
+        cursor.close()
+        cnx.close()
+        config['database'] = database

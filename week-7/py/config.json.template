@@ -1,8 +1,8 @@
 {
-    "user": "USERNAME",
-    "password": "PASSWORD",
-    "host": "127.0.0.1",
-    "database": "DATABASE",
+    "user": "root",
+    "password": "000000",
+    "host": "web-mysqldb",
+    "database": "website",
     "raise_on_warnings": true,
     "connection_timeout": 1
 }

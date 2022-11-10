@@ -4,6 +4,7 @@ from flask import request
 from flask import session
 from flask import redirect
 from flask import render_template
+from flask import url_for
 
 from member_system.core import UnitOfWork
 
@@ -11,7 +12,7 @@ def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
     @app.route('/')
     def index():
         if session.get('name'):
-            return redirect('/member')
+            return redirect(url_for('member'))
         else:
             return render_template('index.html')
 
@@ -23,7 +24,7 @@ def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
         if name:
             return render_template('member.html', name=name, messages=messages)
         else:
-            return redirect('/')
+            return redirect(url_for('index'))
 
     @app.route('/error')
     def error():
@@ -41,7 +42,7 @@ def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
             password = password,
         )
         if not isValid:
-            return redirect('/error?message=帳號、或密碼不合法')
+            return redirect(url_for('error', message='帳號、或密碼不合法'))
 
         # access database
         member = unitOfWork.memberRepository.getMember(username, password)
@@ -49,16 +50,16 @@ def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
             session['id'] = member.id
             session['name'] = member.name
             session['username'] = member.username
-            return redirect('/member')
+            return redirect(url_for('member'))
         else:
-            return redirect('/error?message=帳號、或密碼輸入錯誤')
+            return redirect(url_for('error', message='帳號、或密碼輸入錯誤'))
 
     @app.route('/signout')
     def signout():
         session.pop('id', None)
         session.pop('name', None)
         session.pop('username', None)
-        return redirect('/')
+        return redirect(url_for('index'))
 
     @app.route('/signup', methods=['POST'])
     def signup():
@@ -73,21 +74,21 @@ def configureRoutes(app: Flask, unitOfWork: UnitOfWork):
             password = password,
         )
         if not isValid:
-            return redirect('/error?message=帳號資料有誤')
+            return redirect(url_for('error', message='帳號資料有誤'))
 
         # access database
         success = unitOfWork.memberRepository.addMember(name, username, password)
         if success:
-            return redirect('/')
+            return redirect(url_for('index'))
         else:
-            return redirect('/error?message=帳號已經被註冊')
+            return redirect(url_for('error', message='帳號已經被註冊'))
 
     @app.route('/message', methods=['POST'])
     def message():
         memberId = session['id']
         content = request.form.get('content')
         unitOfWork.messageRepository.addMessage(memberId, content)
-        return redirect('/member')
+        return redirect(url_for('member'))
 
 def validate(username = None, password = None, name = None):
     if ((name == None or name != '') and 

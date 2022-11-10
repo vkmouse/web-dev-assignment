@@ -49,6 +49,14 @@ services:
     networks:
       - assignment-network
 
+  week7-py:
+    build:
+      context: week-7/py
+    image: web-week7-py-docker
+    container_name: web-week7-py
+    networks:
+      - assignment-network
+      
   mysqldb:
     image: mysql
     ports:
