@@ -74,6 +74,9 @@ function createSectionMain(url) {
   const iframe = document.createElement('iframe')
   iframe.className = 'slice ratio'
   iframe.src = url
+  iframe.setAttribute('allowfullscreen', true);
+  iframe.setAttribute('mozallowfullscreen', true);
+  iframe.setAttribute('webkitallowfullscreen', true);
 
   const div = document.createElement('div')
   div.className = 'ratio-container'
